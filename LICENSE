@@ -1,15 +1,14 @@
-Copyright (c) 2026 Chanjun Kwon (권찬준). All rights reserved.
+Karan Kapur — personal portfolio
 
-This repository holds the published build of Chanjun Kwon's personal portfolio
-site (https://kwoncj1025-cmd.github.io/). It is public only so that GitHub Pages
-can serve it.
+Copyright (c) 2026 Karan Kapur. All rights reserved for Karan Kapur's
+personal portfolio text, photographs, and generated avatar assets.
 
-No license is granted. You may view the site in a browser. You may not copy,
-modify, redistribute, host, or reuse any part of this repository — the code,
-the design, the 3D scene and models, the photographs, the typefaces' subsets,
-or the text — in whole or in part, without the author's prior written permission.
+This repository contains Karan Kapur's personal portfolio website.
+No general reuse license is granted for the personal content listed above.
 
-Third-party components keep their own licenses: GSAP (Webflow), Three.js (MIT),
-SUIT typeface (SIL OFL, see fonts/LICENSE).
+Third-party code, designs, models, and typefaces retain their respective
+rights and license terms. This notice does not transfer their ownership
+or grant additional permissions. Components include GSAP (Webflow),
+Three.js (MIT), and SUIT (SIL OFL; see fonts/LICENSE).
 
-Contact: kwoncj1025@gmail.com
+Contact: karankapur.kapur@gmail.com

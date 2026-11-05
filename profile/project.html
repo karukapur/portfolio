@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Selected engineering, research, and community work by Karan Kapur.">
+  <title>Selected work — Karan Kapur</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400;500;600&family=Funnel+Sans:wght@400;500;600&display=swap">
+  <style>
+    :root{--accent:#b9b9ed}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.65 "Funnel Sans",system-ui,sans-serif}
+    a{color:inherit;text-underline-offset:5px}a:hover{color:var(--accent-ink)}a:focus-visible{outline:2px solid var(--accent-ink);outline-offset:5px}
+    header,main,footer{max-width:1120px;margin:auto;padding:28px 44px}header{display:flex;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line)}
+    header a{text-decoration:none}header span,.eyebrow,.number,dt{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+    nav{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 28px}nav a{font-size:12px;text-decoration:none;padding:6px 12px;border:1px solid var(--line);border-radius:24px}nav a[aria-current]{border-color:var(--accent-ink);color:var(--accent-ink)}
+    .eyebrow{display:flex;align-items:center;gap:10px;margin:40px 0 18px}.eyebrow:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent-ink)}
+    h1,h2,.statement{font-family:"Funnel Display",system-ui,sans-serif;font-weight:500;letter-spacing:-.04em}h1{font-size:clamp(48px,8vw,100px);line-height:1.02;max-width:900px;margin:0 0 28px}
+    .statement{font-size:clamp(23px,3vw,36px);line-height:1.35;max-width:760px;color:var(--accent-ink);margin:0 0 34px}
+    .overview{display:grid;grid-template-columns:1.6fr 1fr;gap:64px;padding:30px 0 50px}.summary{font-size:18px;margin:0;color:var(--muted)}
+    dl{margin:0}dl div{display:grid;grid-template-columns:90px 1fr;gap:12px;border-top:1px solid var(--line);padding:12px 0}dd{margin:0;font-size:13px}
+    .chapters{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 64px;padding:40px 0 64px}.number{color:var(--accent-ink)}h2{font-size:28px;line-height:1.2;margin:8px 0 14px}.chapters p{color:var(--muted);margin:0;max-width:460px}
+    footer{display:flex;flex-wrap:wrap;gap:16px 28px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}footer span{margin-right:auto}.empty{padding-block:80px}
+    @media(max-width:640px){header,main,footer{padding:22px}.eyebrow{margin-top:28px}.overview{grid-template-columns:1fr;gap:28px}.chapters{grid-template-columns:1fr;gap:32px}h1{overflow-wrap:anywhere}header span{display:none}}
+    .overview{border-radius:20px;background:linear-gradient(145deg,#f8f9fc,#f0f1f8);padding:30px;margin-bottom:40px;gap:40px}
+    nav a{min-height:44px;box-sizing:border-box;display:inline-flex;align-items:center;padding:10px 16px}
+    nav a[aria-current]{background:color-mix(in srgb,var(--accent) 18%,white)}
+    @media(max-width:640px){.overview{padding:24px;gap:28px}}
+  </style>
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body class="project-page">
+  <header><a id="back" href="../index.html">← Karan Kapur</a><span>Engineering · Research · Community</span><a href="CV_Karan_Kapur.pdf" download>Download CV ↗</a></header>
+  <main id="content">
+    <nav id="project-nav" aria-label="Select a project"></nav>
+    <section class="project-hero" aria-labelledby="name">
+      <div class="project-heading">
+        <p class="eyebrow" id="organization"></p>
+        <h1 id="name"></h1>
+        <p class="statement" id="statement"></p>
+        <a class="story-link" href="#story">Explore the story <span aria-hidden="true">↓</span></a>
+      </div>
+      <section class="experience" id="experience" aria-label="Explore this project" hidden></section>
+    </section>
+    <div class="story-heading" id="story"><span>The work behind it</span><span id="story-type"></span></div>
+    <div class="overview"><p class="summary" id="summary"></p><dl id="details"></dl></div>
+    <div class="chapters" id="chapters"></div>
+    <noscript><p>Please enable JavaScript to view this project, or <a href="CV_Karan_Kapur.pdf">read my CV</a>.</p></noscript>
+  </main>
+  <footer><span>Karan Kapur · Edge AI Engineer</span><a href="mailto:karankapur.kapur@gmail.com">Get in touch ↗</a><a href="https://www.linkedin.com/in/karukapur/" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://github.com/karukapur" target="_blank" rel="noopener">GitHub ↗</a><a href="https://www.threads.com/@karukapur" target="_blank" rel="noopener noreferrer">Threads ↗</a></footer>
+  <script src="portfolio.js"></script>
+  <script src="project-experiences.js"></script>
+  <script>
+    const id = new URLSearchParams(location.search).get('id') || 'edge-ai';
+    const project = PORTFOLIO.projects.find(p => p.id === id);
+    for (const item of PORTFOLIO.projects) {
+      const link = document.createElement('a'); link.href = `?id=${item.id}`; link.textContent = item.name;
+      if (item.id === id) link.setAttribute('aria-current', 'page');
+      document.getElementById('project-nav').append(link);
+    }
+    if (!project) {
+      document.title = 'Project not found — Karan Kapur';
+      document.getElementById('content').innerHTML = '<div class="empty"><h1>Project not found.</h1><p><a href="../index.html">Explore the portfolio ↗</a></p></div>';
+    } else {
+      document.title = `${project.name} — Karan Kapur`;
+      document.body.dataset.project = project.id;
+      document.documentElement.style.setProperty('--accent', project.color);
+      document.getElementById('story-type').textContent = project.type;
+      for (const [element, value] of Object.entries({organization: project.organization, name: project.name, statement: project.big, summary: project.tabs[0]})) document.getElementById(element).textContent = value;
+      document.getElementById('back').href = `../index.html#${project.id}`;
+      const details = document.getElementById('details');
+      for (const [label, value] of [['Role', project.role], ['Timeline', project.timeline], ['Focus', project.scope]]) {
+        const row = document.createElement('div'), term = document.createElement('dt'), description = document.createElement('dd');
+        term.textContent = label; description.textContent = value; row.append(term, description); details.append(row);
+      }
+      project.tabs.slice(1).forEach((text, i) => {
+        const article = document.createElement('article'), number = document.createElement('span'), heading = document.createElement('h2'), paragraph = document.createElement('p');
+        number.className = 'number'; number.textContent = `0${i + 1}`;
+        heading.textContent = ['The context', 'The approach', 'The perspective'][i]; paragraph.textContent = text;
+        article.append(number, heading, paragraph); document.getElementById('chapters').append(article);
+      });
+      mountProjectExperience(document.getElementById('experience'), project);
+    }
+  </script>
+</body>
+</html>

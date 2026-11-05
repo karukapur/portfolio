@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 960">
+<rect width="640" height="960" fill="#b9b9ed"/>
+<g fill="#110f21" font-family="Arial,Helvetica,sans-serif"><text x="48" y="60" font-size="15" letter-spacing="2">KARAN KAPUR / SELECTED WORK</text>
+<g font-weight="500"><text x="48" y="172" font-size="70" letter-spacing="-3">AI, AT</text><text x="48" y="252" font-size="70" letter-spacing="-3">THE EDGE.</text></g><g fill="none" stroke="#110f21" stroke-width="2" opacity=".75"><rect x="200" y="425" width="240" height="240" rx="28"/><rect x="230" y="455" width="180" height="180" rx="12"/><path d="M230 395v30m0 240v30M170 430h30m240 0h30"/><path d="M270 395v30m0 240v30M170 470h30m240 0h30"/><path d="M310 395v30m0 240v30M170 510h30m240 0h30"/><path d="M350 395v30m0 240v30M170 550h30m240 0h30"/><path d="M390 395v30m0 240v30M170 590h30m240 0h30"/><path d="m270 545 35-35 35 70 30-35" stroke-width="4"/></g>
+<path d="M48 813h544" stroke="#110f21" opacity=".3"/>
+<text x="48" y="855" font-size="21">On-device AI</text><text x="48" y="891" font-size="16">2026</text>
+<text x="592" y="903" text-anchor="end" font-size="15">01 / 07</text></g></svg>
