@@ -153,6 +153,78 @@ test('Work switches to MacBook hardware only for STTC', () => {
   assert.equal(mb.querySelector('.mb-chin').textContent, '');
 });
 
+test('Contact frames the right-tilted ID card within the space above its links', () => {
+  const html = read('index.html');
+  const tilt = Number(html.match(/const END_TILT = Math.PI - ([\d.]+);/)[1]);
+  const END_TILT = Math.PI - tilt;
+  const targetCode = html.match(/const target = g => \{[\s\S]*?\n  \};/)[0];
+  const pose = vm.runInNewContext(targetCode + '\ntarget({});', {
+    END_TILT, desk: { moved: true, ek: 1, ck: 1, b: 0 }, ss: () => 1,
+    sideCorner: () => ({ x: 0, z: 0 }), endSpot: () => ({ x: 100, z: 200 })
+  });
+  // The top of the face-up card must project to the right of its center.
+  assert(Math.sin(pose.b) > 0);
+  assert(Math.cos(pose.b) < 0);
+  const boundsGetter = html.match(/get endBounds\(\)\{[\s\S]*?\n      \},/)[0];
+  const bounds = vm.runInNewContext('({' + boundsGetter + '}).endBounds;', {
+    END_TILT, geo: () => ({ hw: 150, hh: 215 }), endScale: () => 1.6
+  });
+  const cameraCode = html.match(/const cam = \{[\s\S]*?\n  \};/)[0];
+  for (const [width, height, contactTop] of [[1440, 900, 620], [1728, 1117, 850], [1024, 700, 420], [375, 812, 420], [375, 667, 290], [844, 390, 180]]) {
+    const focalLength = width <= 820 ? 820 : 1200;
+    const cardCenter = { x: 2000, z: 1500 };
+    const camera = vm.runInNewContext(cameraCode + '\ncam.end();', {
+      W: { Wd: width, H: height, mobile: width <= 820 }, P: () => focalLength,
+      window: { Hero: { desk: { endAt: cardCenter, endBounds: bounds } } },
+      document: { querySelector: () => ({ offsetTop: contactTop }) }, safeTop: () => 0
+    });
+    assert.equal(camera.th, 90);
+    assert.equal(camera.Tx, cardCenter.x);
+    const scale = camera.d / focalLength;
+    const centerY = height / 2 + (cardCenter.z - camera.Tz) / scale;
+    assert(width / 2 - bounds.width / scale / 2 >= .15 * width - 1);
+    assert(centerY - bounds.height / scale / 2 >= 63);
+    assert(centerY + bounds.height / scale / 2 <= contactTop - 31);
+  }
+});
+
+test('the avatar side stays fixed throughout Work to Contact and back', () => {
+  const html = read('index.html');
+  const start = html.indexOf('Stage.ticker.add(() => {', html.indexOf('// 해시로 바로 다른 정거장에 들어오면 progress'));
+  const tickerCode = html.slice(start, html.indexOf('\n  });', start) + '\n  });'.length);
+  let tick, face, visible;
+  const Stage = {
+    state: { p: 0 }, config: { stations: [{ name: 'hero' }, { name: 'work' }, { name: 'web' }, { name: 'end' }] },
+    world: { ease: value => Math.max(0, Math.min(1, value)) }, ticker: { add: callback => { tick = callback; } }
+  };
+  const Hero = { t: 1, desk: { corner() {}, end() {}, face: value => { face = value; }, show: value => { visible = value; } } };
+  vm.runInNewContext(tickerCode, { Stage, Hero, innerWidth: 1440 });
+  for (const p of [1.79, 1.8, 2, 2.1, 2.5, 2.75, 2.9, 3, 2.75, 2.1, 2, 1.8, 1.79]) {
+    Stage.state.p = p;
+    tick();
+    if (p >= 1.8) assert.equal(face, 1);
+    else { assert.equal(face, 0); assert.equal(visible, 0); }
+    if (p === 1.8) assert.equal(visible, 0);
+  }
+});
+
+test('Contact hides the entire project display and restores it on returning to Work', () => {
+  const html = read('index.html');
+  const sceneCode = html.match(/Stage.add\('web', \{[\s\S]*?\n  \}\);/)[0];
+  let hooks;
+  const mb = new Element();
+  const Stage = { config: { stations: [0, 1, 2, 3] }, add: (_, scene) => { hooks = scene; }, camera: { set() {} }, tone() {} };
+  vm.runInNewContext(sceneCode, {
+    Stage, mb, END: () => 3, path: () => ({}), W: { mobile: false },
+    Wd: { toneOf: () => 1 }, lightOf: () => 0, pool: null, info: null
+  });
+  for (const [p, hidden] of [[2, false], [2.5, true], [3, true], [2, false]]) {
+    hooks.progress(0, { p });
+    assert.equal(mb.hidden, hidden);
+  }
+  assert.match(html, /html.stage-on \.mb\[hidden\]\{display:none\}/);
+});
+
 test('topic map uses synthetic coordinates, labels them, and links the selected method', () => {
   const { host } = page('camh');
   assert.match(host.querySelector('figcaption').textContent, /Illustrative.*no participant data.*not model output/);
@@ -259,8 +331,6 @@ test('image and video previews ride the 3D scene and pause video when leaving Wo
   const Stage = { enabled: true, web: { hash: 'flipwords' }, state: { p: 2 }, config: { stations: [{ name: 'hero' }, { name: 'table' }, { name: 'web' }, { name: 'end' }] }, ticker: { add: callback => callbacks.push(callback) } };
   context.document = document;
   context.Stage = Stage;
-  const mediaPreference = { matches: false };
-  context.matchMedia = () => mediaPreference;
   context.addEventListener = (name, callback) => { events[name] = callback; };
   vm.runInContext(read('profile/flipwords.js'), context);
   assert(document.documentElement.classList.contains('flipwords-work'));
@@ -309,15 +379,13 @@ test('image and video previews ride the 3D scene and pause video when leaving Wo
   assert.equal(stage.classList.contains('es-stage'), false);
   assert.equal(video.getAttribute('src'), 'http://localhost/profile/media/noshi-boshi-unboxing.mp4');
   assert.equal(video.playCount, 1);
-  assert.equal(video.tabIndex, 0);
+  assert.equal(video.getAttribute('tabindex'), '-1');
+  assert.equal(video.getAttribute('controls'), undefined);
+  assert.equal(video.getAttribute('autoplay'), undefined);
   assert.equal(body.children.find(node => node.className === 'fw-notes').hidden, true);
-  let keyStopped = false;
-  video.events.keydown({ stopPropagation() { keyStopped = true; } });
-  assert(keyStopped);
   document.hidden = true;
   document.events.visibilitychange();
   assert.equal(video.pauseCount, 1);
-  assert.equal(video.tabIndex, -1);
   document.hidden = false;
   document.events.visibilitychange();
   assert.equal(video.playCount, 2);
@@ -331,10 +399,9 @@ test('image and video previews ride the 3D scene and pause video when leaving Wo
   events['web:select']();
   assert.equal(video.pauseCount, 3);
   assert.equal(stage.hidden, true);
-  mediaPreference.matches = true;
   Stage.web.hash = 'noshi-boshi';
   events['web:select']();
-  assert.equal(stage.querySelector('.nb-video').playCount, undefined);
+  assert.equal(stage.querySelector('.nb-video').playCount, 1);
 });
 
 test('Noshi Boshi presents the supplied video and retains its founder story', () => {
@@ -344,10 +411,11 @@ test('Noshi Boshi presents the supplied video and retains its founder story', ()
   const video = host.querySelector('.nb-video');
   assert.equal(video.getAttribute('src'), 'http://localhost/profile/media/noshi-boshi-unboxing.mp4');
   assert.equal(video.getAttribute('poster'), 'http://localhost/profile/media/noshi-boshi-unboxing-poster.jpg');
-  for (const attr of ['controls', 'muted', 'loop', 'playsinline']) assert.equal(video.getAttribute(attr), '');
+  for (const attr of ['autoplay', 'muted', 'loop', 'playsinline', 'disablepictureinpicture', 'disableremoteplayback']) assert.equal(video.getAttribute(attr), '');
   assert.equal(video.getAttribute('preload'), 'metadata');
   assert.match(video.getAttribute('aria-label'), /meal-kit product unboxing/);
-  assert.equal(video.getAttribute('autoplay'), undefined);
+  assert.equal(video.getAttribute('controls'), undefined);
+  assert.equal(video.getAttribute('tabindex'), '-1');
   assert.match(document.getElementById('summary').textContent, /I co-founded Noshi Boshi/);
   assert.equal(document.getElementById('chapters').children.length, 3);
   assert.equal(document.getElementById('details').children.length, 3);

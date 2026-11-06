@@ -476,6 +476,7 @@ html.stage-on [data-scene="table"].ui-off :is(.tbar,.tmeta){visibility:hidden}  
    책상 면 위에 몸체(키보드면)가 눕고, 힌지(몸체 뒤 모서리)에서 덮개가 112° 열려 있다 */
 .mb,.web-info{display:none}
 html.stage-on .mb{display:block;position:absolute;height:0;transform-style:preserve-3d}
+html.stage-on .mb[hidden]{display:none}
 html.stage-on .mb-base{position:absolute;left:0;top:0;transform:translateZ(2px);border-radius:0 0 14px 14px;
   background:linear-gradient(#2a2c31,#1d1f23);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
 html.stage-on .mb-lid{position:absolute;left:0;transform-origin:50% 100%;transform-style:preserve-3d}
@@ -2064,6 +2065,7 @@ window.ticker = (() => {
   // 데스크톱(10-30 대표님 「오른쪽으로 보내는 걸 그대로 반대로」): 오른쪽 귀퉁이는 정거장 점(오른쪽 10px + 28px)과 겹쳐 누르기 어려웠다.
   // 좌우를 뒤집어 왼쪽 귀퉁이로 보내되, 세운 「Selected Work」 인쇄(.tmark, 세운 글이라 offsetHeight가 화면 폭) 오른쪽 24px 밖에 기울어진 반폭만큼 들여 둔다. 깊이는 그대로
   const SPIN = () => innerWidth > 820 ? -0.14 - 2 * (186 * Math.PI / 180 - Math.PI) : 0.14;   // 귀퉁이로 밀리며 도는 각도. 데스크톱은 오른쪽(186° + 0.14)의 거울각(180° 기준)에 닿게 반대로 돈다
+  const END_TILT = Math.PI - .18;
   const sideCorner = g => {
     const a = desk.b + SPIN(), bh = g.hw * Math.abs(Math.cos(a)) + g.hh * Math.abs(Math.sin(a));
     if (innerWidth > 820) { const mk = document.querySelector('#work .tmark'), r = mk ? mk.offsetLeft + mk.offsetHeight : 0; return { x: g.tl + r + 24 + bh, z: g.zMeta }; }
@@ -2075,7 +2077,7 @@ window.ticker = (() => {
     const k = ss(0, 1, desk.ck), lc = sideCorner(g), cx = lc.x, cz = lc.z;
     // 맺음 자리(10-21 대표님 결정): 맥북과 떼어 맥북 왼쪽 책상 여백에 둔다. 맥북 구간에서 어둠에 잠긴 동안 옮겨 두므로 움직임은 보이지 않는다
     const e = desk.ek && endSpot(g);
-    if (e) return { x: e.x, z: e.z, b: desk.b + 0.14 };
+    if (e) return { x: e.x, z: e.z, b: END_TILT };
     return { x: desk.x + (cx - desk.x) * k, z: desk.z + (cz - desk.z) * k, b: desk.b + SPIN() * k };
   };
   // 데스크톱: 맥북 왼쪽 옆(몸체 왼쪽 끝에서 덮개 폭의 0.16만큼, 10-21 끝 화면에서 둘을 한 덩어리로 모으며 0.3에서 좁힘 떨어지고, 깊이는 키보드면 가운데 줄).
@@ -2571,7 +2573,10 @@ window.ticker = (() => {
       // 귀퉁이에 밀려난 명함 가운데의 세계 좌표(08 1절 축: 원점 = 모서리 가운데, x 오른쪽, z 시청자 쪽). 맺음 카메라가 이 점을 겨눈다
       get cornerAt(){ const g = geo(), k = desk.ck, e = desk.ek; desk.ck = 1; desk.ek = 0; const t = target(g); desk.ck = k; desk.ek = e; return { x: t.x - (heroLayer.offsetWidth || innerWidth) / 2, z: t.z }; },
       // 맺음 자리(맥북 왼쪽 여백)의 세계 좌표. 맺음 카메라와 맺음 줄이 이 점을 겨눈다
-      get hw(){ return geo().hw * endScale(); },   // 끝 화면 명함 반폭(cam.end가 묶음 폭을 잰다)
+      get endBounds(){
+        const g = geo(), s = endScale(), c = Math.abs(Math.cos(END_TILT)), sn = Math.abs(Math.sin(END_TILT));
+        return { width: 2 * s * (g.hw * c + g.hh * sn), height: 2 * s * (g.hh * c + g.hw * sn) };
+      },
       get endAt(){ const g = geo(), e = endSpot(g); return e ? { x: e.x - (heroLayer.offsetWidth || innerWidth) / 2, z: e.z } : this.cornerAt; },
       // 맺음 자리로 옮김(0 귀퉁이, 1 맥북 왼쪽). 명함이 보이지 않는 동안에만 바뀐다(scene-hero)
       end(k){ k = k ? 1 : 0; if (k !== desk.ek) { desk.ek = k; wakeBadge(); } },
@@ -3156,6 +3161,7 @@ window.ticker = (() => {
     const cs = getComputedStyle(endInfo), wAvail = endInfo.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
     eMark.style.fontSize = '100px'; const w100 = eMark.offsetWidth; if (!w100 || !wAvail) return;
     eMark.style.fontSize = (wAvail / (w100 / 100)).toFixed(2) + 'px';
+    if (Stage.webEnd) Stage.refresh();
     // 끝 화면에서는 떠 있는 Back to top 원을 숨기고 아래층 「Back to start ↑」가 맡는다(3-night.css html.end-on .totop)
   };
   fitMark(); addEventListener('resize', fitMark); if (window.visualViewport) visualViewport.addEventListener('resize', fitMark); document.fonts.load('500 1em "Funnel Display"').then(fitMark, () => {});
@@ -3471,7 +3477,8 @@ window.ticker = (() => {
     const ease = Stage.world ? Stage.world.ease : (u => Math.max(0, Math.min(1, u)));
     const end = Stage.config.stations.length - 1, web = Stage.config.stations.findIndex(x => x.name === 'web');
     Hero.desk.corner(ease((s.p - 1.04) / 0.11));
-    Hero.desk.face(ease((s.p - (end - 0.25)) / 0.2));
+    // Set the avatar side while the card is hidden, before it reappears for Contact.
+    Hero.desk.face(s.p >= web - 0.2 ? 1 : 0);
     // 잠기는 구간은 work를 떠나자마자(1.05~1.30). 명함 자리(책상 앞 오른쪽)는 맥북 뒤라, 카메라가 맥북 쪽으로 돌면 화면에 겹친다.
     // 맥북은 WebGL이라 DOM 명함을 가리지 못해 명함이 화면을 뚫고 지나가 보였다(10-21 대표님 화면, 겹침은 p≈1.36부터) → 겹치기 전에 다 잠긴다
     // 세로 화면은 카메라가 긴 책상을 따라 내려가 맨 아래 명함을 만나는 구간(p 1~1.18)이 있어, 그 뒤(1.22~1.47)에 잠긴다
@@ -3580,22 +3587,18 @@ window.ticker = (() => {
       const d = G.Wi * P() / (0.52 * W.Wd), k = d / P(), xc = W.Wd * (1 - 0.08) - G.lidW / (2 * k);
       return { th: TH, Tx: s.Tx - (xc - W.Wd / 2) * k, Ty: s.Ty + 0.12 * W.H * k, Tz: s.Tz + 0.03 * W.H * k, d };
     },
-    // 맺음: θ 80 내려다보기로 명함(앞면, 왼쪽 위)과 화면이 잠든 맥북(가운데 아래)을 책상 위 평면 배치로 한 화면에 잡는다(card-drop 시험식).
-    // θ 55에서는 명함이 맥북 뒤(벽 쪽)에 가려 어둠에 뜬 조각으로 읽혔다
+    // Frame the ID card alone, above the contact links, with room for its rightward tilt.
     end: () => {
-      // 맺음 A(10-21 대표님 확정, card-drop 실측): 명함은 맥북과 떼어 놓은 주인공(Hero.desk.endAt: 데스크톱은 맥북 왼쪽 여백, 820 이하는 맥북 앞 책상),
-      // 꺼진 덮개는 위에서 검은 유리뿐이라 은색 몸체까지 맥북 전체가 보이게 물린다(2.5P, 모바일 1.9P). 명함과 맥북 사이를 바라본다
-      const e = (window.Hero && Hero.desk && Hero.desk.endAt) || { x: G.cx - W.Wd / 2 - G.lidW, z: G.zh }, mx = G.cx - W.Wd / 2;
-      if (W.mobile) { const d = 1.9 * P(), k = d / P(); return { th: 80, Tx: (e.x + mx) / 2, Ty: 0, Tz: (e.z + G.zh) / 2 + 0.1 * W.H * k, d }; }   // 아래 끝 화면 글 층 위로 올린다(10-21, 예전 −0.02)
-      // 데스크톱 끝 화면(10-21 대표님 결정 6, card-drop이 bizcopilot에 알리고 고침): 아래는 큰 줄 「Let's get in touch!」과 연락처 층(macbook.js .end-info)이다.
-      // 명함 왼쪽 끝~맥북 오른쪽 끝을 한 덩어리로 보고, 그 가로 가운데를 화면 가운데에, 세로는 위쪽 빈자리에 둔다. 거리는 덩어리 폭이 화면 폭의 EW가 되게 한다
-      const hw = (window.Hero && Hero.desk && Hero.desk.hw) || 0.13 * G.lidW, gl = e.x - hw, gr = mx + G.lidW / 2;
-      const k = Math.max((gr - gl) / (EW * W.Wd), EH * G.lidW / W.H), d = k * P();   // 폭 기준과 높이 기준(꺼진 맥북 전체 높이 ≈ 덮개 폭 1.35배가 화면 높이의 55%) 중 먼 쪽
-      return { th: 80, Tx: (gl + gr) / 2, Ty: 0, Tz: (e.z + G.zh) / 2 + EZ * W.H * k, d };
+      const e = window.Hero?.desk.endAt || { x: G.cx - W.Wd / 2 - G.lidW, z: G.zh };
+      const bounds = window.Hero?.desk.endBounds || { width: .3 * G.lidW, height: .45 * G.lidW };
+      const contactTop = document.querySelector('.end-info .ei-body')?.offsetTop || .75 * W.H;
+      const top = Math.max(64, safeTop() + 40), bottom = Math.min(.7 * W.H, contactTop - 32);
+      const height = Math.max(80, bottom - top), centerY = top + height / 2;
+      const k = Math.max(bounds.width / (.7 * W.Wd), bounds.height / height);
+      return { th: 90, Tx: e.x, Ty: 0, Tz: e.z + (W.H / 2 - centerY) * k, d: k * P() };
     },
   };
   // 모바일 베젤 카메라에서 화면 가운데가 뷰포트 가운데보다 내려가는 거리 mobDl(배율 1이라 px 그대로). measure가 mobPick으로 정한다
-  const EW = 0.5, EH = 1.35 / 0.55, EZ = 0.08;   // 끝 화면 덩어리 폭 비율 · 세로 자리
   let mobDlv = 0;
   // 화면 아래를 가리는 높이(10-21 대표님 실기기 판정 「아래로 많이 처짐」): iOS 26 Safari는 주소 막대가 페이지 위에 떠 있어 innerHeight가 막대 뒤까지 잰다.
   // 100svh와의 차이 · safe-area 아래 · iOS 26 Safari(홈 화면 앱 제외)의 떠 있는 막대 몫(88px) 중 큰 값. ?obs=90 으로 흉내 낼 수 있다
@@ -3662,6 +3665,7 @@ window.ticker = (() => {
     enter(dir){},
     progress(t, s){
       const p = s.p; let c = path(p);
+      mb.hidden = p >= END() - .65;
       const uk = Stage.web ? Stage.web.useK : 0;
       if (uk > 0 && !W.mobile) c = mix(c, cam.inside(), uk);     // 사용 중: 그 자리에서 화면 속(배율 1)까지. 모바일은 카메라를 두고 화면 사각형이 전체 화면으로 커진다(web-live.js)
       Stage.camera.set(c);

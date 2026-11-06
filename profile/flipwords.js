@@ -1,14 +1,12 @@
 (() => {
   const assetBase = document.currentScript.src;
-  window.mountProjectVideo = (host, project) => {
+  window.mountProjectVideo = (host, project, autoplay = true) => {
     host.classList.add('fw-stage');
     host.classList.add('nb-stage');
     host.classList.toggle('es-stage', false);
     const videoUrl = new URL(project.video.src, assetBase).href;
     const posterUrl = new URL(project.video.poster, assetBase).href;
-    host.innerHTML = `<video class="nb-video" src="${videoUrl}" poster="${posterUrl}" width="1280" height="720" controls muted loop playsinline preload="metadata" aria-label="${project.video.label}">Your browser does not support this video. <a href="${videoUrl}">Download the unboxing video</a>.</video>`;
-    host.querySelector('.nb-video').setAttribute('data-stage-ignore', '');
-    host.querySelector('.nb-video').addEventListener('keydown', event => event.stopPropagation());
+    host.innerHTML = `<video class="nb-video" src="${videoUrl}" poster="${posterUrl}" width="1280" height="720" ${autoplay ? 'autoplay' : ''} muted loop playsinline disablepictureinpicture disableremoteplayback tabindex="-1" preload="metadata" aria-label="${project.video.label}">Your browser does not support this video. <a href="${videoUrl}">Download the unboxing video</a>.</video>`;
   };
   window.mountProjectMockup = (host, project) => {
     host.classList.add('fw-stage');
@@ -36,7 +34,6 @@
     if (info.classList.contains('fw-selected') && body.scrollHeight > body.clientHeight && !event.ctrlKey && !event.metaKey) event.stopPropagation();
   }, { passive: true });
   let previousSelection, video, videoActive = false;
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const webStation = Stage.config.stations.findIndex(station => station.name === 'web');
   const update = () => {
     const project = PORTFOLIO.projects.find(p => p.id === Stage.web.hash);
@@ -51,7 +48,7 @@
       if (selected) {
         stage.setAttribute('aria-label', `${project.name} preview`);
         if (project.video) {
-          mountProjectVideo(stage, project);
+          mountProjectVideo(stage, project, false);
           video = stage.querySelector('.nb-video');
         } else {
           mountProjectMockup(stage, project);
@@ -67,10 +64,9 @@
       const active = Stage.state.p >= webStation - .4 && Stage.state.p <= webStation + .25 && !document.hidden;
       if (active !== videoActive) {
         videoActive = active;
-        if (active && !reducedMotion.matches) video.play().catch(() => {});
+        if (active) video.play().catch(() => {});
         else if (!active) video.pause();
       }
-      video.tabIndex = active ? 0 : -1;
     }
   };
   addEventListener('web:select', update);

@@ -34,8 +34,7 @@ html.stage-on body .web-info.fw-selected .wi-dock .wd-c[data-id="flipwords"] .wd
 .es-reticle::before { width: 1px; height: 32px; left: 10px; top: -5px; }
 .es-reticle::after { height: 1px; width: 32px; top: 10px; left: -5px; }
 html.stage-on body .web-info.fw-selected .wi-dock .wd-c[data-id="edgesentry"] .wd-k { outline: 1px solid #78978a; box-shadow: 0 2px 9px #78978a33; }
-.nb-video { display: block; width: 100%; height: auto; max-height: 100%; object-fit: contain; border-radius: 16px; background: #fff; }
-.mb-face > .nb-stage { pointer-events: auto; }
+.nb-video { display: block; width: 100%; height: auto; max-height: 100%; object-fit: contain; border-radius: 16px; background: #fff; pointer-events: none; }
 [data-project="noshi-boshi"] .experience.nb-stage { padding: 0; border-radius: 16px; background: transparent; height: auto; min-height: 0; align-self: center; }
 @media (max-width: 820px) {
   html.stage-on body .web-info.fw-selected .wi-body { position: absolute; left: 7vw; top: 9vh; width: 84vw; gap: 0; max-width: none; max-height: 20vh; }
