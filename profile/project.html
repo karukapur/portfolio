@@ -30,6 +30,7 @@
     @media(max-width:640px){.overview{padding:24px;gap:28px}}
   </style>
   <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="flipwords.css">
 </head>
 <body class="project-page">
   <header><a id="back" href="../index.html">← Karan Kapur</a><span>Engineering · Research · Community</span><a href="CV_Karan_Kapur.pdf" download>Download CV ↗</a></header>
@@ -52,6 +53,7 @@
   <footer><span>Karan Kapur · Edge AI Engineer</span><a href="mailto:karankapur.kapur@gmail.com">Get in touch ↗</a><a href="https://www.linkedin.com/in/karukapur/" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://github.com/karukapur" target="_blank" rel="noopener">GitHub ↗</a><a href="https://www.threads.com/@karukapur" target="_blank" rel="noopener noreferrer">Threads ↗</a></footer>
   <script src="portfolio.js"></script>
   <script src="project-experiences.js"></script>
+  <script src="flipwords.js"></script>
   <script>
     const id = new URLSearchParams(location.search).get('id') || 'edge-ai';
     const project = PORTFOLIO.projects.find(p => p.id === id);
@@ -70,6 +72,12 @@
       document.getElementById('story-type').textContent = project.type;
       for (const [element, value] of Object.entries({organization: project.organization, name: project.name, statement: project.big, summary: project.tabs[0]})) document.getElementById(element).textContent = value;
       document.getElementById('back').href = `../index.html#${project.id}`;
+      if (project.sourceUrl) {
+        const source = document.createElement('a');
+        source.href = project.sourceUrl; source.textContent = 'View on GitHub ↗';
+        source.target = '_blank'; source.rel = 'noopener';
+        document.querySelector('.project-heading').append(source);
+      }
       const details = document.getElementById('details');
       for (const [label, value] of [['Role', project.role], ['Timeline', project.timeline], ['Focus', project.scope]]) {
         const row = document.createElement('div'), term = document.createElement('dt'), description = document.createElement('dd');

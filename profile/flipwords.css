@@ -1,0 +1,50 @@
+/* Image and video projects share a presentation within the Work scene.
+   Work typography inherits the shared STTC sizes from index.html. */
+html.flipwords-work .mb .mb-base,
+html.flipwords-work .mb .mb-back,
+html.flipwords-work .mb .mb-screen,
+html.flipwords-work .mb .mb-bar,
+html.flipwords-work .mb .mb-chin { visibility: hidden !important; pointer-events: none; }
+html.flipwords-work.stage-on .mb .mb-face { background: none; box-shadow: none; }
+html.stage-on body .web-info.fw-selected .wi-body { left: 8.6vw; top: max(64px, 9vh); width: 30vw; max-width: 460px; max-height: calc(100dvh - max(64px, 9vh) - 155px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; pointer-events: auto; padding-right: 8px; }
+html.stage-on body .web-info.fw-selected .wi-body > * { flex-shrink: 0; }
+html.stage-on body .web-info.fw-selected .wi-more { gap: 0; }
+html.stage-on body .web-info.fw-selected .wi-tabs { gap: calc(20px * var(--k,1)); }
+html.stage-on body .web-info.fw-selected .wi-tab[aria-selected="true"] { color: #24212e; }
+html.stage-on body .web-info.fw-selected .wi-tab[aria-selected="true"]::after { height: 2px; }
+html.stage-on body .web-info.fw-selected .wi-meta { margin-top: 28px; grid-template-columns: 86px 1fr; row-gap: 8px; }
+html.stage-on body .web-info.fw-selected .wi-dock { top: auto; bottom: max(20px, 4vh); }
+.fw-notes { pointer-events: auto; align-self: flex-start; color: inherit; font-size: clamp(13px, 1vw, 17px); text-underline-offset: 5px; margin-top: 24px; }
+.fw-notes[hidden], .fw-stage[hidden] { display: none; }
+.fw-stage { display: flex; align-items: center; justify-content: center; position: relative; min-width: 0; height: 640px; color: #292735; font-family: 'Funnel Sans', system-ui, sans-serif; }
+.mb-face > .fw-stage { position: absolute; box-sizing: border-box; left: 0; top: 50%; transform: translateY(-50%); width: 100%; height: 100%; max-height: calc(64dvh * var(--preview-scale, 1)); }
+.fw-mockup { display: block; width: 100%; height: 100%; object-fit: contain; }
+.fw-notes:focus-visible { outline: 3px solid #8b5dc9; outline-offset: 6px; }
+html.stage-on body .web-info.fw-selected .wi-dock .wd-c[data-id="flipwords"] .wd-k { outline: 1px solid #ad83ed; box-shadow: 0 2px 9px #9b73d54d; }
+[data-project="flipwords"] .experience { padding: 0; background: var(--bg); border: 0; }
+[data-project="flipwords"] .experience.fw-stage { min-height: 570px; }
+[data-project="edgesentry"] .experience { padding: 0; background: var(--bg); border: 0; }
+[data-project="edgesentry"] .experience.fw-stage { min-height: 570px; }
+.es-stage .fw-mockup { min-height: 0; mix-blend-mode: multiply; transform: translateY(3%) scale(1.15); transform-origin: center; }
+.es-insignia { position: absolute; top: 10%; left: 4%; display: flex; align-items: center; gap: 12px; color: #34564a; }
+.es-bond-logo { display: block; height: 24px; width: auto; flex: none; }
+.es-insignia > span:last-child { border-left: 1px solid #a7bbb1; padding-left: 12px; font-size: 12px; }
+.es-reticle { width: 24px; height: 24px; border: 1px solid currentColor; border-radius: 50%; position: relative; }
+.es-reticle::before, .es-reticle::after { content: ''; position: absolute; background: currentColor; }
+.es-reticle::before { width: 1px; height: 32px; left: 10px; top: -5px; }
+.es-reticle::after { height: 1px; width: 32px; top: 10px; left: -5px; }
+html.stage-on body .web-info.fw-selected .wi-dock .wd-c[data-id="edgesentry"] .wd-k { outline: 1px solid #78978a; box-shadow: 0 2px 9px #78978a33; }
+.nb-video { display: block; width: 100%; height: auto; max-height: 100%; object-fit: contain; border-radius: 16px; background: #fff; }
+.mb-face > .nb-stage { pointer-events: auto; }
+[data-project="noshi-boshi"] .experience.nb-stage { padding: 0; border-radius: 16px; background: transparent; height: auto; min-height: 0; align-self: center; }
+@media (max-width: 820px) {
+  html.stage-on body .web-info.fw-selected .wi-body { position: absolute; left: 7vw; top: 9vh; width: 84vw; gap: 0; max-width: none; max-height: 20vh; }
+  .mb-face > .fw-stage { top: 0; transform: none; }
+  html.stage-on body .web-info.fw-selected .wi-dock { display: flex; bottom: max(20px, 4vh); gap: 10px; padding: 12px 12px 18px; max-width: 90vw; overflow-x: auto; }
+  html.stage-on body .web-info.fw-selected .wd-c, html.stage-on body .web-info.fw-selected .wd-k { width: 56px; }
+  html.stage-on body .web-info.fw-selected .wd-k { height: 44px; }
+  .web-info .fw-notes { display: none; }
+  [data-project="flipwords"] .experience.fw-stage { min-height: 400px; }
+  [data-project="edgesentry"] .experience.fw-stage { min-height: 400px; }
+}
+@media (prefers-reduced-motion: reduce) { .fw-stage * { transition: none !important; } }

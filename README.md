@@ -2,13 +2,17 @@
 
 Personal portfolio for Karan Kapur: Edge AI engineer, software engineer, and co-founder of the Southern Taiwan Technology Council.
 
-The original 3D badge and card deck lead into a custom Edge AI lab: an embedded development board with a model-to-silicon compute core and an interactive project display. Personal content lives in `profile/portfolio.js`; the lab and project cards share the same seven project overviews. The introduction, cards, lab, and project pages share a light silver/lavender palette in `profile/theme.css`. The board illustration lives in `profile/edge-board.svg`. The CV (October 2026) takes precedence over LinkedIn for current employment, location, and dates.
+FlipWords opens the Work selection with the supplied Galaxy Z Flip6 mockup in `profile/flipwords-mockup.png`, showing cover-screen vocabulary and the Learn page. EdgeSentry follows with `profile/edgesentry-mockup.png`, an exploded hardware concept with a small 007-inspired field-tech insignia. Both use the shared preview in `profile/flipwords.js` and `profile/flipwords.css`, and have standalone pages at `profile/project.html?id=flipwords` and `profile/project.html?id=edgesentry`. Project content and source links live in `profile/portfolio.js`. Noshi Boshi uses the supplied product unboxing video in `profile/media/noshi-boshi-unboxing.mp4`, with a local poster frame and playback controls. Its Work preview loops muted while visible and pauses when leaving the project. Work typography uses the same shared sizes as STTC across all five projects.
+
+These two previews ride the original 3D display's camera path into and out of Work. Its hardware surfaces and shadows stay hidden throughout those transitions.
+
+The original 3D badge and card deck lead into Work's interactive project displays. Work shows FlipWords, EdgeSentry, AI for sustainability, Building STTC, and Noshi Boshi. STTC displays its live website inside a CSS MacBook, styled in `profile/sttc-work.css`; the other website previews use a neutral display without the former Edge AI board. Personal content lives in `profile/portfolio.js`. The introduction, cards, Work, and project pages share a light silver/lavender palette in `profile/theme.css`. The CV (October 2026) takes precedence over LinkedIn for current employment, location, and dates.
 
 Second-screen cards show organization logos on the front and external website/resource links on the reverse. Logo files are local in `profile/logos/`; sources are documented in `profile/logos/SOURCES.md`.
 
 The badge uses `profile/karan-avatar-v2.webp`, generated from Karan’s supplied headshot with a corrected forward gaze. Only the avatar used by the website is retained.
 
-`lanyard/` contains the badge hardware textures. `macbook/studio.hdr` supplies the animated name’s reflection environment; the Edge AI lab itself is drawn in CSS and does not use a 3D model. `fonts/` contains the local SUIT fallback fonts and their license.
+`lanyard/` contains the badge hardware textures. `macbook/studio.hdr` supplies the animated name’s reflection environment; the Work displays are drawn in CSS and do not use a 3D model. `fonts/` contains the local SUIT fallback fonts and their license.
 
 Run locally with `python3 -m http.server 4173`, then open `http://localhost:4173/`.
 

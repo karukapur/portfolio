@@ -12,5 +12,6 @@ Logos identify the organizations associated with Karan Kapur’s work and educat
 | `toronto.jpg` | University of Toronto’s company logo returned with Karan’s LinkedIn education entry: https://www.linkedin.com/company/3660/ |
 | `thapar.jpg` | TIET’s company logo returned with Karan’s LinkedIn education entry: https://www.linkedin.com/company/485592/ |
 | `noshi-boshi.jpg` | Noshi Boshi’s company logo returned with Karan’s LinkedIn experience entry: https://www.linkedin.com/company/noshiboshiofficial/ |
+| `james-bond-007.svg` | Official inline header logo from https://www.007.com/, retrieved November 6, 2026 |
 
 Retrieved November 5, 2026. Logos remain the property of their respective organizations.

@@ -90,22 +90,22 @@
         <div class="journey-track"><div data-focus="0" class="journey-stop"><span>01</span><strong>Physical<br>systems</strong><small>BE · Chemical engineering</small></div><div data-focus="1" class="journey-stop"><span>02</span><strong>Data &<br>learning</strong><small>MEng · Analytics & ML</small></div><div data-focus="2" class="journey-stop"><span>03</span><strong>Useful<br>technology</strong><small>Embedded · Edge AI · Community</small></div></div>
         <span class="notebook-footer">Different disciplines. Connected questions.</span></div>`
     },
-    'noshi-boshi': {
-      label: '07 / A recipe for curiosity', prompt: 'Unpack the experience', caption: 'An illustrated meal kit; not a product menu',
-      options: [
-        option('Ingredients', 'A new cuisine starts with what’s inside.', 'Noshi Boshi introduced customers to cuisines from around the world through authentic ingredients. I co-founded the meal-kit delivery service in Delhi for curious cooks and food enthusiasts.', 'In the box / Authentic ingredients'),
-        option('Curated recipes', 'Make room for something new.', 'Curated recipes helped customers explore cuisines and cooking techniques from around the world. The service was created for food enthusiasts, budding chefs, and culinary professionals.', 'On the page / Curated recipes'),
-        option('Cooking experience', 'Think all the way to the kitchen.', 'Building Noshi Boshi meant considering the customer’s first encounter through to cooking a meal. That experience still informs how I approach engineering and community building: start with a real need.', 'At the table / Customer experience')
-      ],
-      graphic: () => `<div class="recipe-scene" aria-hidden="true">
-        <div class="recipe-card" data-focus="1"><span class="sheet-label">Noshi Boshi / Kitchen notes</span><strong>A little<br>curiosity,<br>from scratch.</strong><div class="paper-lines"></div><span class="recipe-sign">Make it your own.</span></div>
-        <div class="ingredient-bundle" data-focus="0">${svg('<path d="M230 290q-28-100 8-210m-5 95q-115 5-100-80 95-15 100 80m5 30q90 4 88-70-82-15-88 70m-9 36q-97 14-95-57 81-22 95 57" class="herb"/><ellipse cx="338" cy="265" rx="54" ry="43" class="ingredient"/><path d="M334 222q15-27 32-22" class="herb"/><circle cx="174" cy="292" r="25" class="ingredient-small"/>')}</div>
-        <div class="table-plate" data-focus="2"><span>Explore.<br>Cook.<br>Enjoy.</span></div>
-      </div>`
-    }
+
   };
 
   window.mountProjectExperience = (host, project) => {
+    if (project.video) {
+      host.hidden = false;
+      host.setAttribute('aria-label', project.video.label);
+      mountProjectVideo(host, project);
+      return;
+    }
+    if (project.mockup) {
+      host.hidden = false;
+      host.setAttribute('aria-label', `${project.name} preview`);
+      mountProjectMockup(host, project);
+      return;
+    }
     if (project.liveUrl) {
       host.hidden = false;
       host.setAttribute('aria-label', `${project.name} live website`);

@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="690" viewBox="0 0 1000 690">
+<defs>
+  <linearGradient id="aluminum" x2=".15" y2="1"><stop stop-color="#c1c3c7"/><stop offset=".5" stop-color="#e2e3e5"/><stop offset="1" stop-color="#c8cace"/></linearGradient>
+  <linearGradient id="key" x2="0" y2="1"><stop stop-color="#2b2c30"/><stop offset="1" stop-color="#131417"/></linearGradient>
+  <pattern id="speaker" width="5" height="5" patternUnits="userSpaceOnUse"><circle cx="2.5" cy="2.5" r=".8" fill="#6e7077"/></pattern>
+</defs>
+<rect width="1000" height="690" rx="22" fill="url(#aluminum)"/>
+<rect x="30" y="10" width="940" height="13" rx="6" fill="#5d5f65"/>
+<path d="M40 27H960" stroke="#f5f5f6" stroke-opacity=".7"/>
+<rect x="34" y="62" width="43" height="333" rx="5" fill="url(#speaker)"/>
+<rect x="923" y="62" width="43" height="333" rx="5" fill="url(#speaker)"/>
+<rect x="90" y="50" width="820" height="357" rx="12" fill="#8d8f94" stroke="#f0f1f2"/>
+<g font-family="Helvetica, Arial, sans-serif" fill="#d0d1d5" text-anchor="middle">
+<rect x="102.00" y="60" width="68.31" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="136.15" y="89" font-size="10">esc</text>
+<rect x="175.05" y="60" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="200.67" y="89" font-size="15">F1</text>
+<rect x="231.03" y="60" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="256.65" y="89" font-size="15">F2</text>
+<rect x="287.01" y="60" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="312.62" y="89" font-size="15">F3</text>
+<rect x="342.98" y="60" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="368.60" y="89" font-size="15">F4</text>
+<rect x="398.96" y="60" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="424.57" y="89" font-size="15">F5</text>
+<rect x="454.93" y="60" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="480.55" y="89" font-size="15">F6</text>
+<rect x="510.91" y="60" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="536.53" y="89" font-size="15">F7</text>
+<rect x="566.89" y="60" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="592.50" y="89" font-size="15">F8</text>
+<rect x="622.86" y="60" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="648.48" y="89" font-size="15">F9</text>
+<rect x="678.84" y="60" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="704.46" y="89" font-size="10">F10</text>
+<rect x="734.82" y="60" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="760.43" y="89" font-size="10">F11</text>
+<rect x="790.79" y="60" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="816.41" y="89" font-size="10">F12</text>
+<rect x="846.77" y="60" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="872.38" y="89" font-size="15">◉</text>
+<rect x="102.00" y="117" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="127.62" y="146" font-size="15">`</text>
+<rect x="157.98" y="117" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="183.59" y="146" font-size="15">1</text>
+<rect x="213.95" y="117" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="239.57" y="146" font-size="15">2</text>
+<rect x="269.93" y="117" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="295.54" y="146" font-size="15">3</text>
+<rect x="325.90" y="117" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="351.52" y="146" font-size="15">4</text>
+<rect x="381.88" y="117" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="407.50" y="146" font-size="15">5</text>
+<rect x="437.86" y="117" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="463.47" y="146" font-size="15">6</text>
+<rect x="493.83" y="117" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="519.45" y="146" font-size="15">7</text>
+<rect x="549.81" y="117" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="575.43" y="146" font-size="15">8</text>
+<rect x="605.79" y="117" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="631.40" y="146" font-size="15">9</text>
+<rect x="661.76" y="117" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="687.38" y="146" font-size="15">0</text>
+<rect x="717.74" y="117" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="743.35" y="146" font-size="15">−</text>
+<rect x="773.71" y="117" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="799.33" y="146" font-size="15">=</text>
+<rect x="829.69" y="117" width="68.31" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="863.85" y="146" font-size="10">delete</text>
+<rect x="102.00" y="174" width="74.00" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="139.00" y="203" font-size="10">tab</text>
+<rect x="180.75" y="174" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="206.36" y="203" font-size="15">Q</text>
+<rect x="236.72" y="174" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="262.34" y="203" font-size="15">W</text>
+<rect x="292.70" y="174" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="318.31" y="203" font-size="15">E</text>
+<rect x="348.67" y="174" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="374.29" y="203" font-size="15">R</text>
+<rect x="404.65" y="174" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="430.27" y="203" font-size="15">T</text>
+<rect x="460.63" y="174" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="486.24" y="203" font-size="15">Y</text>
+<rect x="516.60" y="174" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="542.22" y="203" font-size="15">U</text>
+<rect x="572.58" y="174" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="598.20" y="203" font-size="15">I</text>
+<rect x="628.56" y="174" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="654.17" y="203" font-size="15">O</text>
+<rect x="684.53" y="174" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="710.15" y="203" font-size="15">P</text>
+<rect x="740.51" y="174" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="766.12" y="203" font-size="15">[</text>
+<rect x="796.48" y="174" width="51.23" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="822.10" y="203" font-size="15">]</text>
+<rect x="852.46" y="174" width="45.54" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="875.23" y="203" font-size="15">\</text>
+<rect x="102.00" y="231" width="88.86" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="146.43" y="260" font-size="10">caps lock</text>
+<rect x="195.59" y="231" width="51.05" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="221.12" y="260" font-size="15">A</text>
+<rect x="251.37" y="231" width="51.05" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="276.89" y="260" font-size="15">S</text>
+<rect x="307.14" y="231" width="51.05" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="332.67" y="260" font-size="15">D</text>
+<rect x="362.92" y="231" width="51.05" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="388.45" y="260" font-size="15">F</text>
+<rect x="418.70" y="231" width="51.05" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="444.22" y="260" font-size="15">G</text>
+<rect x="474.48" y="231" width="51.05" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="500.00" y="260" font-size="15">H</text>
+<rect x="530.25" y="231" width="51.05" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="555.78" y="260" font-size="15">J</text>
+<rect x="586.03" y="231" width="51.05" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="611.55" y="260" font-size="15">K</text>
+<rect x="641.81" y="231" width="51.05" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="667.33" y="260" font-size="15">L</text>
+<rect x="697.58" y="231" width="51.05" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="723.11" y="260" font-size="15">;</text>
+<rect x="753.36" y="231" width="51.05" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="778.88" y="260" font-size="15">'</text>
+<rect x="809.14" y="231" width="88.86" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="853.57" y="260" font-size="10">return</text>
+<rect x="102.00" y="288" width="118.41" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="161.21" y="317" font-size="10">shift</text>
+<rect x="225.11" y="288" width="50.75" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="250.49" y="317" font-size="15">Z</text>
+<rect x="280.56" y="288" width="50.75" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="305.93" y="317" font-size="15">X</text>
+<rect x="336.01" y="288" width="50.75" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="361.38" y="317" font-size="15">C</text>
+<rect x="391.45" y="288" width="50.75" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="416.83" y="317" font-size="15">V</text>
+<rect x="446.90" y="288" width="50.75" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="472.28" y="317" font-size="15">B</text>
+<rect x="502.35" y="288" width="50.75" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="527.72" y="317" font-size="15">N</text>
+<rect x="557.80" y="288" width="50.75" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="583.17" y="317" font-size="15">M</text>
+<rect x="613.24" y="288" width="50.75" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="638.62" y="317" font-size="15">,</text>
+<rect x="668.69" y="288" width="50.75" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="694.07" y="317" font-size="15">.</text>
+<rect x="724.14" y="288" width="50.75" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="749.51" y="317" font-size="15">/</text>
+<rect x="779.59" y="288" width="118.41" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="838.79" y="317" font-size="10">shift</text>
+<rect x="102.00" y="345" width="49.12" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="126.56" y="374" font-size="15">fn</text>
+<rect x="155.67" y="345" width="56.40" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="183.87" y="374" font-size="10">control</text>
+<rect x="216.62" y="345" width="56.40" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="244.83" y="374" font-size="10">option</text>
+<rect x="277.57" y="345" width="69.14" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="312.14" y="374" font-size="10">command</text>
+<rect x="351.26" y="345" width="272.91" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="487.72" y="374" font-size="15"></text>
+<rect x="628.72" y="345" width="69.14" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="663.29" y="374" font-size="10">command</text>
+<rect x="702.41" y="345" width="56.40" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="730.61" y="374" font-size="10">option</text>
+<rect x="763.36" y="345" width="41.85" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="784.29" y="374" font-size="15">←</text>
+<rect x="809.76" y="345" width="41.85" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="830.68" y="374" font-size="10">↑ ↓</text>
+<rect x="856.15" y="345" width="41.85" height="49" rx="5" fill="url(#key)" stroke="#4b4c52"/>
+<text x="877.08" y="374" font-size="15">→</text>
+</g>
+<rect x="310" y="433" width="380" height="221" rx="12" fill="#c9cbcf" stroke="#9da0a5" stroke-width="1.5"/>
+<path d="M323 654H677" stroke="#eef0f2" stroke-opacity=".8"/>
+<path d="M22 687H978" stroke="#a3a6ac" stroke-width="3"/>
+</svg>

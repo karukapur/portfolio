@@ -8,6 +8,43 @@ window.PORTFOLIO = {
   threads: 'https://www.threads.com/@karukapur',
   projects: [
     {
+      id: 'flipwords', name: 'FlipWords', coverTitle: ['A WORD.', 'AT A GLANCE.'], color: '#c4b0ed',
+      organization: 'FlipWords · Open source', role: 'Design & development',
+      logos: [{ src: 'profile/flipwords.svg', alt: 'FlipWords' }],
+      resources: [{ label: 'View on GitHub', url: 'https://github.com/karukapur/flipwords' }],
+      sourceUrl: 'https://github.com/karukapur/flipwords',
+      mockup: { alt: 'FlipWords on a Galaxy Z Flip6: vocabulary on the folded cover screen and the Learn page on the open phone.' },
+      notesUrl: 'https://github.com/karukapur/flipwords/blob/main/docs/SCHEDULER.md',
+      timeline: '', year: '',
+      type: 'Personal Android project', scope: 'Kotlin · Cover-screen overlay',
+      big: 'Traditional Chinese, without opening your phone.',
+      tabLabels: ['What', 'Why', 'The build', 'Source'],
+      tabs: [
+        'I built FlipWords for passive vocabulary learning on the Galaxy Z Flip6. Chinese words, pinyin and English appear on the cover screen, with an adaptive scheduler deciding when to revisit them.',
+        'Learning a language can fit into the moments when you glance at your phone. The cover screen gives Traditional Chinese vocabulary a place in those everyday moments, without needing to open the app.',
+        'Built in Kotlin, FlipWords combines an experimental cover-screen overlay with context-aware spaced repetition. Screen activity and exposure across days guide scheduling. Familiarity is estimated from exposure; recall is not directly measured.',
+        'FlipWords is open source. The repository includes the Android app, scheduler documentation and setup instructions. Vocabulary and learning-state signals stay on the device, with an optional local AI Lab for generating vocabulary packs.'
+      ]
+    },
+    {
+      id: 'edgesentry', name: 'EdgeSentry', coverTitle: ['EYES ON.', 'AT THE EDGE.'], color: '#b4c7c0',
+      organization: 'EdgeSentry · Open source', role: 'Design & development',
+      logos: [{ src: 'profile/edgesentry.svg', alt: 'EdgeSentry camera reticle' }],
+      resources: [{ label: 'View on GitHub', url: 'https://github.com/karukapur/edgesentry' }],
+      sourceUrl: 'https://github.com/karukapur/edgesentry',
+      mockup: { alt: 'EdgeSentry exploded hardware concept: OV5647 camera, Grove Vision AI V2, XIAO ESP32-C3, battery, charging board and magnetic enclosure.' },
+      timeline: '', year: '', type: 'Personal edge-AI prototype',
+      scope: 'YOLOv8 · Himax WE2 · ESP32-C3 · Wi-Fi / BLE',
+      big: 'A little field tech. A lot of local intelligence.',
+      tabLabels: ['What', 'Why', 'The build', 'Source'],
+      tabs: [
+        'I built EdgeSentry as a compact object-detection prototype. A Grove Vision AI V2 runs YOLOv8 locally, while a XIAO ESP32-C3 sends detection results to a phone over a self-hosted Wi-Fi dashboard or BLE.',
+        'A small camera can do useful work without streaming its view to the cloud. EdgeSentry keeps inference on the device and sends only detection metadata: timing, classes and bounding boxes. Think pocket-sized field tech, with a little 007 energy.',
+        'The Himax WE2 pairs a Cortex-M55 with an Ethos-U55 NPU for INT8 inference. I connected its UART1 output to the ESP32-C3 at 921600 baud and built a parser to recover complete JSON results from fragmented serial data.',
+        'The open-source repository contains the integration sketches, deployment notes and engineering learnings. Wi-Fi, BLE and USB power-bank operation are validated; the exploded view shows a hardware concept. A dedicated mobile app and production enclosure are future work.'
+      ]
+    },
+    {
       id: 'edge-ai', name: 'On-device AI', coverTitle: ['AI, AT', 'THE EDGE.'], color: '#b9b9ed',
       organization: 'NXP Semiconductors', role: 'Lead Software Engineer',
       logos: [{ src: 'profile/logos/nxp.svg', alt: 'NXP Semiconductors logo' }],
@@ -112,6 +149,7 @@ window.PORTFOLIO = {
     },
     {
       id: 'noshi-boshi', name: 'Noshi Boshi', coverTitle: ['MAKE IT.', 'FROM SCRATCH.'], color: '#d1b7bd',
+      video: { src: 'media/noshi-boshi-unboxing.mp4', poster: 'media/noshi-boshi-unboxing-poster.jpg', label: 'Noshi Boshi meal-kit product unboxing animation' },
       organization: 'Noshi Boshi · Delhi, India', role: 'Co-Founder',
       logos: [{ src: 'profile/logos/noshi-boshi.jpg', alt: 'Noshi Boshi logo' }],
       resources: [{ label: 'Noshi Boshi on LinkedIn', url: 'https://www.linkedin.com/company/noshiboshiofficial/' }],

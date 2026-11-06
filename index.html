@@ -625,8 +625,8 @@ html.stage-on body .web-info .wi-meta{margin:calc(32px * var(--k,1)) 0 0;padding
 html.stage-on body .web-info .wi-meta>div{display:contents}
 html.stage-on body .web-info .wi-meta>[hidden]{display:none}
 html.stage-on body .web-info .wi-meta dt{font:500 calc(10px * var(--k,1))/1 var(--f-en);letter-spacing:.08em;text-transform:uppercase;color:var(--nt-3)}
-html.stage-on body .web-info .wi-meta dd{margin:0;font:500 calc(12px * var(--k,1))/1.5 var(--f-en);letter-spacing:0;color:rgba(234,235,245,.5)}
-html.stage-on body .web-info .wi-go{color:inherit;text-transform:none;letter-spacing:0;pointer-events:auto;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:calc(3px * var(--k,1));text-decoration-color:rgba(234,235,245,.24);transition:color .2s,text-decoration-color .2s}
+html.stage-on body .web-info .wi-meta dd{margin:0;font:500 calc(12px * var(--k,1))/1.5 var(--f-en);letter-spacing:0;color:var(--nt-ink)}
+html.stage-on body .web-info .wi-go{color:inherit;text-transform:none;letter-spacing:0;pointer-events:auto;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:calc(3px * var(--k,1));text-decoration-color:currentColor;transition:color .2s,text-decoration-color .2s}
 html.stage-on body .web-info .wi-go:hover{color:var(--nt-ink);text-decoration-color:currentColor}
 html.stage-on body .web-info .wi-go:focus{outline:none}
 html.stage-on body .web-info .wi-go:focus-visible{outline:2px solid var(--nt-2);outline-offset:3px;border-radius:2px}
@@ -733,8 +733,10 @@ html:not(.stage-on) .end-info{display:none}
 @media (prefers-reduced-motion:reduce){.end-info .ei-a{transition:none}}
 </style>
 <link rel="stylesheet" href="profile/theme.css">
+<link rel="stylesheet" href="profile/flipwords.css">
+<link rel="stylesheet" href="profile/sttc-work.css">
 
-<!-- Custom Edge AI lab: CSS 3D development board and interactive project display. -->
+<!-- Interactive project displays share the existing 3D scene. -->
 <!-- 무대: 문서 스크롤 대신 진행값으로 장면을 넘긴다(회의/스크롤장면_2026-10-20/06_장면인터페이스.md). 움직임 줄이기면 보통 문서로 보인다 -->
 <div id="stage-root"><div class="stage-camera">
 <div class="wall">
@@ -780,8 +782,15 @@ html:not(.stage-on) .end-info{display:none}
   </div>
 <main class="page">
   <section class="copy">
-    <h1>Making AI work<span>in the real world.</span></h1>
-    <p class="intro"><span class="en">I build AI that works under real constraints: memory, compute, power, and latency.</span><span class="ko" lang="en">Lead Software Engineer at NXP Semiconductors. Co-founder of STTC. Engineer, community builder, and curious generalist.</span></p>
+    <div class="hero-offer">
+      <h1>Making AI work<span>in the real world.</span></h1>
+      <p class="hero-services">AI document workflows.<br>Efficient on-device inference.</p>
+      <nav class="hero-actions" aria-label="Get started" data-stage-ignore>
+        <a class="hero-action hero-action-primary" href="#contact" data-scene-link="end">Discuss a project <span aria-hidden="true">↗</span></a>
+        <a class="hero-action" href="#web" data-scene-link="web">View case studies</a>
+      </nav>
+    </div>
+    <p class="intro"><span class="en">I help research teams and businesses turn complex documents into reliable data, and deploy AI on constrained hardware.</span><span class="ko" lang="en">Lead Software Engineer at NXP Semiconductors.<br>Co-founder of STTC.</span></p>
     <p class="meta"><i></i>Hyderabad, India</p>
     <div class="gate-note"><p class="gn-en">Take a closer look.</p><p class="gn-ko">Edge AI engineer at NXP. Explore my work below, or enjoy the full 3D experience on desktop.</p><div class="gn-links"><a href="profile/project.html">Projects ↗</a><a href="mailto:karankapur.kapur@gmail.com">Email ↗</a><button class="gn-copy" type="button"><span>Copy link</span><i aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4.2M9 3V7.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></i></button></div></div>
     <p class="mark" aria-hidden="true">Karan Kapur</p>
@@ -796,33 +805,31 @@ html:not(.stage-on) .end-info{display:none}
 <div class="desk">
 <div class="pool" aria-hidden="true"></div>
 <div class="stage-layer" data-scene="table">
-<section class="work" id="work" aria-label="Selected projects">
+<section class="work" id="work" aria-label="Life’s Story">
   <div class="table">
     <div class="tbar">
       <span class="r"><span class="cg" role="group" aria-label="Card controls"><button class="cg-b cg-pri" id="flipAll" type="button" aria-pressed="false" aria-label="Flip all"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="8" width="10" height="13" rx="2"/><path d="M10.5 8V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-5"/><path d="M5 5.5A4.5 4.5 0 0 1 9.5 3M9.5 3 8 1.6M9.5 3 8 4.4"/></svg><span class="cg-t">Show details</span></button><span class="cg-div" aria-hidden="true"></span><button class="cg-b" id="shuffle" type="button" aria-label="Shuffle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3.5c4.5 0 4.5 10 9 10H20M17 14l3 3-3 3M4 17h3.5c1.6 0 2.6-1.3 3.4-3M13.1 10c.8-1.7 1.8-3 3.4-3H20M17 4l3 3-3 3"/></svg><span class="cg-t">Shuffle</span></button><button class="cg-b" id="sort" type="button" aria-pressed="false" aria-label="Sort"><svg class="i-grid" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1.2"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.2"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.2"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.2"/></svg><svg class="i-scatter" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="7" height="7" rx="1.2" transform="rotate(-14 7 8.5)"/><rect x="13" y="3.5" width="7" height="7" rx="1.2" transform="rotate(10 16.5 7)"/><rect x="8" y="13" width="7" height="7" rx="1.2" transform="rotate(6 11.5 16.5)"/></svg><span class="cg-t">Sort</span></button></span></span>
     </div>
     <div class="tfoot">
       <p class="tmeta"><span>7 chapters · Engineering & beyond</span><a href="https://www.linkedin.com/in/karukapur/" target="_blank" rel="noopener"><svg class="ig" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9v10M5 5v.1M10 19V9m0 4c0-5 8-5 8 0v6" stroke-linecap="round"/></svg>in/karukapur ↗</a></p>
-      <p class="tmark" aria-hidden="true">Selected Work</p>
+      <p class="tmark" aria-hidden="true">Life’s Story</p>
     </div>
     <div class="pile" id="pile"></div>
   </div>
 </section>
 </div>
-<section class="web-list" aria-label="Projects and experience">
-  <p class="wl-ey"><span><i></i>Work & experience</span></p>
+<section class="web-list" id="web" aria-label="Projects and experience">
+  <p class="wl-ey"><span><i></i>Selected Work</span></p>
   <ul>
-    <li><a href="profile/project.html?id=edge-ai" target="_blank" rel="noopener">On-device AI ↗</a><span>Advanced models. Real hardware. Every byte counts.</span></li>
-    <li><a href="profile/project.html?id=embedded" target="_blank" rel="noopener">Embedded systems ↗</a><span>Useful systems, built within less than 2 MB of SRAM.</span></li>
+    <li><a href="profile/project.html?id=flipwords" target="_blank" rel="noopener">FlipWords ↗</a><span>Traditional Chinese, without opening your phone.</span></li>
+    <li><a href="profile/project.html?id=edgesentry" target="_blank" rel="noopener">EdgeSentry ↗</a><span>A little field tech. A lot of local intelligence.</span></li>
     <li><a href="profile/project.html?id=sustainability" target="_blank" rel="noopener">AI for sustainability ↗</a><span>Turning climate disclosures into useful, validated data.</span></li>
     <li><a href="profile/project.html?id=sttc" target="_blank" rel="noopener">Building STTC ↗</a><span>Good technology starts with people finding each other.</span></li>
-    <li><a href="profile/project.html?id=camh" target="_blank" rel="noopener">NLP for learning ↗</a><span>Finding actionable patterns in training responses.</span></li>
-    <li><a href="profile/project.html?id=education" target="_blank" rel="noopener">Across disciplines ↗</a><span>An engineering foundation that crosses disciplines.</span></li>
     <li><a href="profile/project.html?id=noshi-boshi" target="_blank" rel="noopener">Noshi Boshi ↗</a><span>Making new cuisines easier to explore at home.</span></li>
   </ul>
 <footer class="foot-note"><span>Karan Kapur · Edge AI Engineer</span><span class="footer-socials"><a href="https://www.linkedin.com/in/karukapur/" target="_blank" rel="noopener"><svg class="ig" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9v10M5 5v.1M10 19V9m0 4c0-5 8-5 8 0v6" stroke-linecap="round"/></svg>linkedin.com/in/karukapur ↗</a><a href="https://www.threads.com/@karukapur" target="_blank" rel="noopener noreferrer">Threads @karukapur ↗</a></span></footer>
 </section>
-<div class="mb" aria-label="Interactive Edge AI development kit and project showcase" style="visibility:hidden">
+<div class="mb" aria-label="Interactive project showcase" style="visibility:hidden">
   <div class="mb-base" aria-hidden="true"></div>
   <div class="mb-lid">
     <div class="mb-back" aria-hidden="true"></div>
@@ -848,6 +855,7 @@ html:not(.stage-on) .end-info{display:none}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/Observer.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/Flip.min.js"></script>
 <script>
+const WORK_PROJECTS = PORTFOLIO.projects.filter(p => !['edge-ai', 'education', 'camh', 'embedded'].includes(p.id));
 // 무대 골격: 문서 스크롤 대신 휠·트랙패드·터치 입력을 진행값 p에 스크럽으로 적분한다. 입력이 p를 직접 쥐고, 자동 재생은 없다.
 // 장면은 Stage.add(name, { range, enter, leave, progress, wake, sleep })로 붙는다. 규칙은 회의/스크롤장면_2026-10-20/06_장면인터페이스.md
 (() => {
@@ -1232,7 +1240,7 @@ window.ticker = (() => {
 </script>
 <script>
 (() => {
-  const ITEMS = PORTFOLIO.projects.map(p => ({ c: p.id, t: p.name, s: p.role, d: p.timeline, year: p.year, k: p.type, organization: p.organization, logos: p.logos, resources: p.resources, image: `profile/${p.id}.svg`, url: `profile/project.html?id=${p.id}` }));
+  const ITEMS = PORTFOLIO.projects.filter(p => !p.mockup).map(p => ({ c: p.id, t: p.name, s: p.role, d: p.timeline, year: p.year, k: p.type, organization: p.organization, logos: p.logos, resources: p.resources, image: `profile/${p.id}.svg`, url: `profile/project.html?id=${p.id}` }));
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (document.documentElement.classList.contains('still')) return;
   const work = document.getElementById('work'), table = work.querySelector('.table'), pile = document.getElementById('pile'), sortBtn = document.getElementById('sort');
@@ -2789,6 +2797,23 @@ window.ticker = (() => {
 </script>
 <script>
 (() => {
+  document.querySelectorAll('[data-scene-link]').forEach(link => {
+    link.addEventListener('click', event => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (window.Stage && Stage.enabled && !document.documentElement.classList.contains('gate')) {
+        event.preventDefault();
+        Stage.go(link.dataset.sceneLink, { follow: true, maxSec: 3, speed: 1.15 });
+      } else if (link.dataset.sceneLink === 'end') {
+        event.preventDefault();
+        document.getElementById('toBack').click();
+        document.getElementById('hero').scrollIntoView();
+      }
+    });
+  });
+})();
+</script>
+<script>
+(() => {
   // 정거장 점(10-30 대표님 「오른쪽 점 네 개」): 어느 장면에서든 홈·카드·맥북·맺음으로 바로 간다. 화면 오른쪽 가장자리 세로 가운데에 점 넷,
   // 지금 장면 점만 조금 길고 밝다. 올리거나 초점이 오면 점 왼쪽에 이름이 옅게 뜨고, 누르면 Stage.go(스크롤과 같은 길, 아래 go)
   if (!(window.Stage && Stage.enabled)) return;
@@ -2973,7 +2998,7 @@ window.ticker = (() => {
 <script>
 (() => {
   // 맥북 실물 부품과 글 격자의 DOM(card-drop W2·W6, 13 합의안). 크기·자리·카메라·덮개 각도는 scene-web.js, 화면 속 서비스는 web-live.js(deploy-prep)가 맡는다.
-  // The lab hardware is drawn in CSS; the scene owns its geometry and camera.
+  // Display hardware is drawn in CSS; the scene owns its geometry and camera.
   // 맺음에서 덮개는 닫히지 않고 화면만 잠든다(--on)
   // 그래서 world.js 뒤, scene-web.js·web-live.js 앞에 둔다
   if (!window.Stage || !Stage.enabled) return;
@@ -2988,13 +3013,6 @@ window.ticker = (() => {
     desk.appendChild(mb);
   }
   const lid = mb.querySelector('.mb-lid');
-  // The lab display replaces the operating-system chrome with a hardware label.
-  const face = mb.querySelector('.mb-face');
-  const bar = el('div', 'mb-bar', '<span class="mb-bl"><b>KK / EDGE LAB</b><span>ENGINEERING · RESEARCH · COMMUNITY</span></span><span class="lab-status"><i></i>ON DEVICE</span>');
-  bar.setAttribute('aria-hidden', 'true');
-  face.appendChild(bar);
-  mb.querySelector('.mb-chin').textContent = 'Ideas into systems · Models into silicon';
-
   // 덮개: 몸체 윗면 높이의 힌지에 112° 열린 채 서 있다. scene-web이 덮개에 쓰는 top·rotateX는 힌지 기준으로 그대로 맞는다
   if (!lid.parentElement.classList.contains('mb-hinge')) { const hg = el('div', 'mb-hinge'); lid.before(hg); hg.appendChild(lid); }
 
@@ -3005,7 +3023,7 @@ window.ticker = (() => {
   if (!info) { info = el('aside', 'web-info'); info.setAttribute('aria-live', 'polite'); info.style.visibility = 'hidden'; document.body.appendChild(info); }
   if (!info.querySelector('.wi-body')) {
     const row = (k, label, v = '') => `<div data-k="${k}"><dt>${label}</dt><dd>${v}</dd></div>`;
-    info.innerHTML = `<div class="wi-body"><h2 class="wi-name"></h2><p class="wi-big" lang="en"></p>` +
+    info.innerHTML = `<p class="tmark wi-mark" aria-hidden="true">Selected Work</p><div class="wi-body"><h2 class="wi-name"></h2><p class="wi-big" lang="en"></p>` +
       `<div class="wi-more"><div class="wi-tabs" role="tablist" aria-label="About this work"></div><div class="wi-panel" id="wi-panel" role="tabpanel" lang="en"></div></div>` +
       `<dl class="wi-meta">` + row('role', 'Role') + row('type', 'Type') + row('scope', 'Scope') + row('timeline', 'Timeline') +
       row('site', 'Project', '<a class="wi-go" href="#" target="_blank" rel="noopener">Read project ↗</a>') + `</dl></div>`;
@@ -3029,7 +3047,7 @@ window.ticker = (() => {
     panel.setAttribute('aria-labelledby', tabs[i].id); fill(panel, tabText[i]);
     if (focus) tabs[i].focus();
   };
-  info.wiTabs = list => { tabText = list; fitPanel(); showTab(0); };
+  info.wiTabs = (list, labels = TABS) => { tabText = list; tabs.forEach((b, i) => { b.textContent = labels[i]; }); fitPanel(); showTab(0); };
   document.fonts.ready.then(fitPanel, () => {});
   tabList.addEventListener('click', e => { const b = e.target.closest('.wi-tab'); if (b) showTab(tabs.indexOf(b)); });
   tabList.addEventListener('keydown', e => {
@@ -3043,7 +3061,7 @@ window.ticker = (() => {
   // 독(19판 → 10-29 19판 로컬 피드백): 맥북 화면 열 개(BizCopilot 셋·Monthlens 둘 포함)를 같은 크기 칸으로 펼친다. 누르면 그 화면이 켜진다(Stage.web.select).
   // 자리는 브라우저 화면 가로 가운데, 키보드와 구분되게 밝은 글래스 띠(6-macbook.css). 칸에 올리면 위에 이름 알약.
   // ←/→: 독에 초점이 있을 때, 그리고 맥북 정거장에 와 있기만 해도(아래 keydown) 앞뒤 화면으로, 끝에서 처음으로 돈다. 세로 휠은 가로채지 않는다(정거장 이동 그대로)
-  const DOCK = PORTFOLIO.projects.map(p => [p.id, p.name, p.id]);
+  const DOCK = WORK_PROJECTS.map(p => [p.id, p.name, p.id]);
   const th = f => `profile/${f}.svg`;
   const dock = el('div', 'wi-dock'); dock.setAttribute('role', 'tablist'); dock.setAttribute('aria-label', 'Works');
   dock.innerHTML = DOCK.map(([id, name, f]) => `<div class="wd-c" data-id="${id}"><span class="wd-tip" aria-hidden="true">${name}</span>` +
@@ -3171,7 +3189,7 @@ window.ticker = (() => {
   const ARTIFACT = document.documentElement.hasAttribute('data-artifact');
   const narrow = () => innerWidth <= 820;
   // The lab and project cards share the portfolio's project IDs and content.
-  const services = PORTFOLIO.projects.map(p => ({ id: p.id, name: p.name, url: p.liveUrl || `profile/project.html?id=${p.id}`, external: !!p.liveUrl }));
+  const services = WORK_PROJECTS.map(p => ({ id: p.id, name: p.name, url: p.liveUrl || `profile/project.html?id=${p.id}`, external: !!p.liveUrl }));
   const WORKS = Object.fromEntries(PORTFOLIO.projects.map(p => [p.id, p]));
   const WEB = Stage.config.stations.findIndex(x => x.name === 'web'), END = Stage.config.stations.length - 1;
   // 띠에 서비스 칸을 깐다
@@ -3184,6 +3202,7 @@ window.ticker = (() => {
     strip.appendChild(pane); return { sv, pane, frame: null };
   });
   function mount(x){
+    if (WORKS[x.sv.id].mockup || WORKS[x.sv.id].video) return;
     if (x.frame || (ARTIFACT && x.sv.external)) return;
     const f = document.createElement('iframe');
     f.title = `${x.sv.name} ${x.sv.external ? 'live website' : 'project overview'}`; f.loading = 'eager'; f.tabIndex = -1;
@@ -3255,6 +3274,10 @@ window.ticker = (() => {
   // 주소를 직접 바꾸면(서비스 해시) 그 서비스를 고른다. 정거장 이동은 stage.js가 한다
   addEventListener('hashchange', () => { const i = idxOf(location.hash); if (i >= 0) select(i, { noHash: true }); });
   function setInfo(sv){
+    const isSTTC = sv.id === 'sttc';
+    mb.classList.toggle('sttc-macbook', isSTTC);
+    mb.setAttribute('aria-label', isSTTC ? 'Interactive MacBook displaying the STTC website' : 'Interactive project showcase');
+    mb.querySelector('.mb-chin').textContent = isSTTC ? 'MacBook Pro' : '';
     // 덮개 턱에는 서비스 이름을 쓰지 않는다(실물에 없는 표시, 10-21 조율 결정)
     // 왼쪽 패널(macbook.js가 짠 골격)에 작업 글을 채운다. 탭은 macbook.js가 그린다(작업이 바뀌면 What으로)
     if (!info) return;
@@ -3263,9 +3286,9 @@ window.ticker = (() => {
     info.querySelector('.wi-name').textContent = sv.name;
     ['role', 'timeline', 'type', 'scope'].forEach(k => { const d = info.querySelector(`[data-k="${k}"]`); if (!d) return; d.hidden = !w[k]; d.querySelector('dd').textContent = w[k] || ''; });
     info.querySelector('.wi-big').textContent = w.big;
-    const a = info.querySelector('.wi-go'); a.href = new URL(sv.url, location.href).href;
-    a.textContent = sv.external ? 'Visit website ↗' : 'Read project ↗';
-    if (info.wiTabs) info.wiTabs(w.tabs);
+    const a = info.querySelector('.wi-go'); a.href = new URL(w.sourceUrl || sv.url, location.href).href;
+    a.textContent = w.sourceUrl ? 'View on GitHub ↗' : sv.external ? 'Visit website ↗' : 'Read project ↗';
+    if (info.wiTabs) info.wiTabs(w.tabs, w.tabLabels);
   }
 
   // 사용 안내(10-21 대표님 판정: 오른쪽 위 구석 글은 위치도 설명도 애매하다): 안내는 손이 가는 자리에 둔다.
@@ -3340,6 +3363,7 @@ window.ticker = (() => {
   });
   function enterUse(){
     const x = panes[sel]; if (!x || using || !usable(Stage.state.p)) return;
+    if (WORKS[x.sv.id].mockup || WORKS[x.sv.id].video) return;
     pillGone();
     if (ARTIFACT && x.sv.external) { window.open(x.sv.url, '_blank', 'noopener'); return; }
     if (!x.frame) mount(x);
@@ -3517,6 +3541,8 @@ window.ticker = (() => {
     G.cx = Math.round(W.Wd / 2 + (W.mobile ? 0.85 : 0.53) * W.Wd + G.lidW / 2); G.zh = Math.round(0.9 * G.lidW);
     Object.assign(mb.style, { left: (G.cx - G.lidW / 2) + 'px', top: G.zh + 'px', width: G.lidW + 'px' });
     mb.style.setProperty('--wi', G.Wi + 'px'); mb.style.setProperty('--hi', G.Hi + 'px'); mb.style.setProperty('--bz', G.bz + 'px'); mb.style.setProperty('--chin', G.chin + 'px');
+    // Convert the preview's viewport height limit to the 3D display's local scale.
+    mb.style.setProperty('--preview-scale', W.mobile ? '1' : (G.Wi / (0.52 * W.Wd)).toFixed(5));
     mb.style.setProperty('--gap', Math.round(G.Wi * 0.06) + 'px');
     mb.style.setProperty('--ls', (G.Wi / (W.mobile ? 1280 : 1728)).toFixed(5));   // 화면 속 서비스의 논리 해상도 배율(stage.css .mb-pane iframe)
     Object.assign(base.style, { width: G.lidW + 'px', height: G.baseD + 'px' });
@@ -4113,3 +4139,5 @@ if (fine && !reduce && window.WebGL2RenderingContext) {
 }
 </script>
 
+
+<script src="profile/flipwords.js"></script>
