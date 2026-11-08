@@ -1,5 +1,6 @@
 /* Work-only framing. The existing STTC hardware is shared without changing STTC. */
 html.sustainability-work { --bg: #c4ef78; --nt: #c4ef78; --ink: #172015; --nt-ink: #172015; --nt-hi: #25331e; --nt-2: #3d4b32; --nt-3: #3d4b32; --nt-body: #3d4b32; --nt-line: #17201530; }
+@media (prefers-reduced-motion: no-preference) { html.stage-on body { transition: background-color .65s ease; } }
 html.sustainability-work .web-info .wi-mark { color: #172015; }
 html.stage-on body .web-info.sustainability-selected .wi-body { left: 8.6vw; top: max(64px, 9vh); width: 30vw; max-width: 460px; max-height: calc(100dvh - max(64px, 9vh) - 155px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; pointer-events: auto; padding-right: 8px; }
 html.stage-on body .web-info.sustainability-selected .wi-body > * { flex-shrink: 0; }

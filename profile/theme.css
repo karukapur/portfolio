@@ -18,7 +18,7 @@
 /* Home introduction and actions, sharing the existing scene navigation. */
 .copy .hero-offer { grid-column: 1; grid-row: 1 / 3; align-self: start; }
 .copy .hero-offer h1 { margin-bottom: 40px; }
-.hero-services { margin: 0 0 40px; padding-inline-start: 16px; font-size: calc(clamp(22px, 1.9vw, 32px) - 2px); line-height: 1.4; letter-spacing: -.02em; }
+.hero-services { margin: 0 0 40px; padding-inline-start: 0; font-size: calc(clamp(22px, 1.9vw, 32px) - 2px); line-height: 1.4; letter-spacing: -.02em; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 20px; pointer-events: auto; }
 .hero-action { display: inline-flex; justify-content: center; align-items: center; gap: 12px; box-sizing: border-box; min-height: 54px; padding: 12px 26px; border: 1px solid #cbcbd7; border-radius: 11px; color: var(--ink); background: transparent; font-size: 20px; font-weight: 500; line-height: 1.4; letter-spacing: -.035em; text-decoration: none; }
 .hero-action-primary { color: #fff; background: var(--ink); border-color: var(--ink); }
@@ -28,6 +28,9 @@
 .copy .intro { max-width: 320px; }
 .copy .intro .en { font-size: 20px; line-height: 1.35; }
 .copy .intro .ko { font-size: 14px; line-height: 1.5; margin-top: 16px; }
+.copy .intro em { color: #64619a; font-style: normal; }
+.copy .intro .intro-logo { display: inline-block; width: auto; height: 1cap; vertical-align: baseline; }
+.copy .intro .intro-sttc { font-family: "Times New Roman", Times, serif; font-size: calc(1em + 1px); font-weight: 700; color: #B60100; }
 @media (min-width: 821px) and (max-width: 1400px) {
   .copy .hero-offer { max-width: calc(50vw - 192px); }
   .hero-services { font-size: 20px; }
@@ -44,7 +47,7 @@
 }
 @media (min-width: 1921px) {
   .copy .hero-offer h1 { margin-bottom: calc(40px * var(--hs)); }
-  .hero-services { font-size: calc(32px * var(--hs) - 2px); margin-bottom: calc(40px * var(--hs)); padding-inline-start: calc(16px * var(--hs)); }
+  .hero-services { font-size: calc(32px * var(--hs) - 2px); margin-bottom: calc(40px * var(--hs)); }
   .hero-actions { gap: calc(20px * var(--hs)); }
   .hero-action { min-height: calc(54px * var(--hs)); padding: calc(12px * var(--hs)) calc(26px * var(--hs)); gap: calc(12px * var(--hs)); border-radius: calc(11px * var(--hs)); font-size: calc(20px * var(--hs)); }
   .copy .intro { max-width: calc(320px * var(--hs)); }
@@ -100,6 +103,13 @@ html.stage-on .web-note.is-cue { animation: none; }
 .end-info .ei-item:hover .ei-v { color: #64619a; }
 
 /* Project experiences: shared controls, individual compositions. */
+.project-status { margin: 0 0 20px; color: #61606f; font-size: 14px; }
+.project-result { margin: 0 0 40px; max-width: 850px; }
+.project-result h2 { margin-top: 0; }
+.project-result p { color: #363445; font-size: 19px; line-height: 1.6; }
+.project-resources { border-top: 1px solid var(--line); padding: 24px 0 48px; }
+.project-resources ul { display: flex; flex-wrap: wrap; gap: 8px 32px; list-style: none; padding: 0; }
+.project-resources a { display: inline-flex; align-items: center; min-height: 44px; }
 .project-page { --tint: color-mix(in srgb, var(--accent) 19%, white); }
 .project-page header, .project-page main, .project-page footer { max-width: 1320px; }
 .project-page main { padding-top: 22px; }

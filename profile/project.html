@@ -33,12 +33,13 @@
   <link rel="stylesheet" href="flipwords.css">
 </head>
 <body class="project-page">
-  <header><a id="back" href="../index.html">← Karan Kapur</a><span>Engineering · Research · Community</span><a href="CV_Karan_Kapur.pdf" download>Download CV ↗</a></header>
+  <header><a id="back" href="../index.html">← Karan Kapur</a></header>
   <main id="content">
     <nav id="project-nav" aria-label="Select a project"></nav>
     <section class="project-hero" aria-labelledby="name">
       <div class="project-heading">
         <p class="eyebrow" id="organization"></p>
+        <p class="project-status" id="status"></p>
         <h1 id="name"></h1>
         <p class="statement" id="statement"></p>
         <a class="story-link" href="#story">Explore the story <span aria-hidden="true">↓</span></a>
@@ -47,7 +48,9 @@
     </section>
     <div class="story-heading" id="story"><span>The work behind it</span><span id="story-type"></span></div>
     <div class="overview"><p class="summary" id="summary"></p><dl id="details"></dl></div>
+    <section class="project-result" aria-labelledby="result-heading"><h2 id="result-heading">The result</h2><p id="result"></p></section>
     <div class="chapters" id="chapters"></div>
+    <section class="project-resources" aria-labelledby="resources-heading"><h2 id="resources-heading">Links & artifacts</h2><ul id="resources"></ul></section>
     <noscript><p>Please enable JavaScript to view this project, or <a href="CV_Karan_Kapur.pdf">read my CV</a>.</p></noscript>
   </main>
   <footer><span>Karan Kapur · Edge AI Engineer</span><a href="mailto:karankapur.kapur@gmail.com">Get in touch ↗</a><a href="https://www.linkedin.com/in/karukapur/" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://github.com/karukapur" target="_blank" rel="noopener">GitHub ↗</a><a href="https://www.threads.com/@karukapur" target="_blank" rel="noopener noreferrer">Threads ↗</a></footer>
@@ -70,7 +73,7 @@
       document.body.dataset.project = project.id;
       document.documentElement.style.setProperty('--accent', project.color);
       document.getElementById('story-type').textContent = project.type;
-      for (const [element, value] of Object.entries({organization: project.organization, name: project.name, statement: project.big, summary: project.tabs[0]})) document.getElementById(element).textContent = value;
+      for (const [element, value] of Object.entries({organization: project.organization, name: project.name, statement: project.big, summary: project.tabs[0], status: project.caseStudy.status, result: project.caseStudy.result})) document.getElementById(element).textContent = value;
       document.getElementById('back').href = `../index.html#${project.id}`;
       if (project.sourceUrl) {
         const source = document.createElement('a');
@@ -80,15 +83,24 @@
       }
       const details = document.getElementById('details');
       for (const [label, value] of [['Role', project.role], ['Timeline', project.timeline], ['Focus', project.scope]]) {
+        if (!value) continue;
         const row = document.createElement('div'), term = document.createElement('dt'), description = document.createElement('dd');
         term.textContent = label; description.textContent = value; row.append(term, description); details.append(row);
       }
-      project.tabs.slice(1).forEach((text, i) => {
+      const study = project.caseStudy;
+      [['The problem', project.tabs[1]], ['My contribution', study.contribution], ['Engineering decisions', study.decision], ['Validation & limits', study.limitation]].forEach(([title, text], i) => {
         const article = document.createElement('article'), number = document.createElement('span'), heading = document.createElement('h2'), paragraph = document.createElement('p');
         number.className = 'number'; number.textContent = `0${i + 1}`;
-        heading.textContent = ['The context', 'The approach', 'The perspective'][i]; paragraph.textContent = text;
+        heading.textContent = title; paragraph.textContent = text;
         article.append(number, heading, paragraph); document.getElementById('chapters').append(article);
       });
+      const resources = [...project.resources];
+      if (project.notesUrl) resources.push({ label: 'Engineering notes', url: project.notesUrl });
+      for (const resource of resources) {
+        const item = document.createElement('li'), link = document.createElement('a');
+        link.href = resource.url; link.textContent = resource.label + ' ↗'; link.target = '_blank'; link.rel = 'noopener noreferrer';
+        item.append(link); document.getElementById('resources').append(item);
+      }
       mountProjectExperience(document.getElementById('experience'), project);
     }
   </script>

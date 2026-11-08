@@ -6,9 +6,17 @@ window.PORTFOLIO = {
   linkedin: 'https://www.linkedin.com/in/karukapur/',
   github: 'https://github.com/karukapur',
   threads: 'https://www.threads.com/@karukapur',
+  selectedIds: ['sustainability', 'flipwords', 'whispener', 'edgesentry', 'sttc', 'noshi-boshi'],
   projects: [
     {
       id: 'flipwords', name: 'FlipWords', color: '#c4b0ed',
+      caseStudy: {
+        status: 'Experimental · Open source',
+        contribution: 'I designed and built the Kotlin app, cover-screen overlay and adaptive vocabulary scheduler for the Galaxy Z Flip6.',
+        decision: 'The scheduler uses screen activity and exposure across days to estimate familiarity. Learning-state signals stay on the device; the optional local AI Lab generates vocabulary packs.',
+        result: 'A working vocabulary app with an open-source implementation and documented scheduling decisions.',
+        limitation: 'Exposure is a proxy for familiarity, not a direct measure of recall. The cover-screen overlay is experimental and targets the Galaxy Z Flip6.'
+      },
       organization: 'FlipWords · Open source', role: 'Design & development',
       logos: [{ src: 'profile/flipwords.svg', alt: 'FlipWords' }],
       resources: [{ label: 'View on GitHub', url: 'https://github.com/karukapur/flipwords' }],
@@ -27,7 +35,39 @@ window.PORTFOLIO = {
       ]
     },
     {
+      id: 'whispener', name: 'Whispener', color: '#a9c9e5', workOnly: true,
+      caseStudy: {
+        status: 'Android beta · Installed as Narad',
+        contribution: 'I built the Kotlin and Jetpack Compose app, integrated Whisper and Sherpa inference, and implemented timestamped transcripts, local storage and session-preserving Pause and Resume.',
+        decision: 'Keep the original Chinese transcript alongside optional English context. Audio stays in device memory; remote summaries are off by default and send finalized text only when enabled.',
+        result: 'An Android beta with a recorded Listen-screen demo and open-source native inference integration.',
+        limitation: 'The recording demonstrates the app flow, not a transcription benchmark. Optional remote summaries depend on the user-selected provider.'
+      },
+      organization: 'Narad · Android beta', role: 'Design & development',
+      logos: [{ src: 'profile/whispener.svg', alt: 'Whispener microphone' }],
+      resources: [{ label: 'View on GitHub', url: 'https://github.com/karukapur/whispener' }],
+      sourceUrl: 'https://github.com/karukapur/whispener',
+      video: { src: 'media/whispener-narad-demo.mp4', poster: 'media/whispener-narad-demo-poster.jpg', width: 1080, height: 2640, label: 'Whispener screen recording: the Narad Android app with English context and Traditional Chinese transcript panels' },
+      timeline: '', year: '', type: 'Personal Android project · Beta',
+      scope: 'Kotlin · Whisper / Sherpa · On-device speech',
+      big: 'Follow the conversation. Keep the original words.',
+      tabLabels: ['What', 'Why', 'The build', 'Source'],
+      tabs: [
+        'I built Whispener, installed as Narad, to help follow Chinese speech. The Android app preserves a timestamped Chinese transcript and can maintain a concise English context summary alongside it. The recording shows its Listen screen.',
+        'Following a conversation in another language takes more than catching individual words. Narad keeps the original Chinese visible while offering English context, so the main idea and the words behind it stay together.',
+        'Built with Kotlin and Jetpack Compose, the app runs Whisper through whisper.cpp or Sherpa on the phone. Voice activity detection segments incoming speech, Room stores finalized transcripts, and Pause and Resume preserve the same listening session.',
+        'The repository includes the Android app, native inference integration and beta build instructions. Audio stays in memory on the device. Optional English summaries send finalized transcript text to a user-selected OpenRouter or Groq model; remote summaries are off by default.'
+      ]
+    },
+    {
       id: 'edgesentry', name: 'EdgeSentry', color: '#b4c7c0',
+      caseStudy: {
+        status: 'Hardware prototype · Open source',
+        contribution: 'I connected Grove Vision AI V2 inference to a XIAO ESP32-C3, built the serial-result parser, and exposed detection metadata through Wi-Fi and BLE.',
+        decision: 'Run INT8 YOLOv8 on the Himax WE2 and transmit timing, classes and bounding boxes instead of camera footage. Recover complete JSON messages from fragmented UART data at 921600 baud.',
+        result: 'Wi-Fi, BLE and USB power-bank operation are validated. Integration sketches and deployment notes are available in the source repository.',
+        limitation: 'The exploded image is an enclosure concept. A production enclosure and dedicated mobile app are future work; no FPS or power benchmark is claimed here.'
+      },
       organization: 'EdgeSentry · Open source', role: 'Design & development',
       logos: [{ src: 'profile/edgesentry.svg', alt: 'EdgeSentry camera reticle' }],
       resources: [{ label: 'View on GitHub', url: 'https://github.com/karukapur/edgesentry' }],
@@ -46,6 +86,13 @@ window.PORTFOLIO = {
     },
     {
       id: 'edge-ai', name: 'On-device AI', color: '#b9b9ed',
+      caseStudy: {
+        status: 'Current role · NXP Semiconductors',
+        contribution: 'As Lead Software Engineer, I develop research prototypes and Python/C++ implementations with hardware, compiler and runtime teams.',
+        decision: 'Treat quantization and model optimization as hardware-aware trade-offs across accuracy, latency and memory for CNNs, LLMs and VLMs on Ara2 NPUs.',
+        result: 'Current engineering work connecting model research with practical on-device inference constraints.',
+        limitation: 'This is a role overview. Project-specific implementation details and performance results are not published on this page.'
+      },
       organization: 'NXP Semiconductors', role: 'Lead Software Engineer',
       logos: [{ src: 'profile/logos/nxp.svg', alt: 'NXP Semiconductors logo' }],
       resources: [{ label: 'NXP website', url: 'https://www.nxp.com/' }],
@@ -61,6 +108,13 @@ window.PORTFOLIO = {
     },
     {
       id: 'embedded', name: 'Embedded systems', color: '#a8c8c4',
+      caseStudy: {
+        status: 'Completed role · Himax Technologies',
+        contribution: 'I ported algorithm stacks, optimized DSP and deployed vision, audio and ML pipelines on ARM-based edge ASIC platforms. Implementations included a JPEG encoder and a data-over-sound modem.',
+        decision: 'Design around buffers, memory and I/O rather than treating inference in isolation. JPEG work included adaptive quantization and rate control; profiling considered CPU/NPU throughput.',
+        result: 'Work included sub-2 MB SRAM deployments, a modem transferring 1 MB payloads, and technical training for 30+ engineers.',
+        limitation: 'These figures describe deployment constraints, payload size and training reach. They are not comparative speed or accuracy benchmarks.'
+      },
       organization: 'Himax Technologies', role: 'Senior Engineer · AI & Deployment',
       logos: [{ src: 'profile/logos/himax.png', alt: 'Himax Technologies logo' }],
       resources: [{ label: 'Himax website', url: 'https://www.himax.com.tw/' }],
@@ -76,6 +130,13 @@ window.PORTFOLIO = {
     },
     {
       id: 'sustainability', name: 'AI for sustainability', color: '#b9cbaa',
+      caseStudy: {
+        status: 'Completed contract · Corporate Knights',
+        contribution: 'I designed and implemented GPT-4, LangChain and RAG pipelines for taxonomy-aligned extraction, combining prompt engineering, fine-tuning and multi-source, multi-step processing.',
+        decision: 'Keep source context connected to extracted metrics and retain human review before delivering structured insights to the database.',
+        result: 'The project reported a 92% data validation success rate and delivered human-validated insights to a real-time database used by client organizations.',
+        limitation: 'The public portfolio does not include the evaluation sample, denominator or baseline, so 92% should not be read as general model accuracy. Dashboard data and trends are illustrative.'
+      },
       organization: 'Corporate Knights', role: 'AI Consultant · Contract',
       logos: [{ src: 'profile/logos/corporate-knights-wordmark.png', alt: 'Corporate Knights logo' }],
       resources: [
@@ -104,6 +165,13 @@ window.PORTFOLIO = {
     },
     {
       id: 'sttc', name: 'Building STTC', color: '#e1bba8',
+      caseStudy: {
+        status: 'Ongoing community · Co-founder',
+        contribution: 'I co-founded a community-led platform connecting engineers, researchers, founders, students and technology leaders in Southern Taiwan.',
+        decision: 'Build connections across organizations and disciplines through panels, webinars, workshops and networking, spanning AI, semiconductors, sustainability and entrepreneurship.',
+        result: 'The community brings together participants representing 11 countries and 15+ technical and professional fields.',
+        limitation: 'These counts describe the community represented in this portfolio, not attendance at a single event. Current programming is listed on the STTC website.'
+      },
       liveUrl: 'https://sttc.tw/',
       organization: 'Southern Taiwan Technology Council', role: 'Co-Founder',
       logos: [{ src: 'profile/logos/sttc.png', alt: 'Southern Taiwan Technology Council logo' }],
@@ -123,6 +191,13 @@ window.PORTFOLIO = {
     },
     {
       id: 'camh', name: 'NLP for learning', color: '#afc5e3',
+      caseStudy: {
+        status: 'Completed collaborative project',
+        contribution: 'I developed an NLP tool in collaboration with CAMH to organize training responses and identify themes relevant to improving training methods.',
+        decision: 'Explore BERTopic, Top2Vec and LDA as different ways of organizing open-ended feedback. The interactive map explains the approaches using synthetic coordinates rather than participant responses.',
+        result: 'A topic-modelling tool and exploration of three approaches for identifying themes in training feedback.',
+        limitation: 'The map is illustrative, not model output. Participant data, comparative evaluation scores and downstream training outcomes are not published here.'
+      },
       organization: 'CAMH · Collaborative project', role: 'NLP project contributor',
       logos: [{ src: 'profile/logos/camh.svg', alt: 'Centre for Addiction and Mental Health logo' }],
       resources: [{ label: 'CAMH website', url: 'https://www.camh.ca/' }],
@@ -138,6 +213,13 @@ window.PORTFOLIO = {
     },
     {
       id: 'education', name: 'Across disciplines', color: '#d8c99e',
+      caseStudy: {
+        status: 'BE 2021 · MEng 2023',
+        contribution: 'I completed a chemical engineering BE at TIET and an MEng at the University of Toronto with an emphasis in analytics and machine learning. Research and study also included DRDO and NCKU.',
+        decision: 'Connect physical systems with data and software, alongside leadership as a Massey College Junior Fellow, Sustainable Engineers Association Program Director and founding secretary of the TIET ACM chapter.',
+        result: 'An interdisciplinary foundation supported by a MITACS Globalink Research Award Abroad, Massey College bursaries and scholarships, and TIET merit scholarships.',
+        limitation: 'This page summarizes education and selected activities. The CV provides the consolidated chronology.'
+      },
       organization: 'University of Toronto · TIET', role: 'MEng · BE',
       logos: [
         { src: 'profile/logos/toronto.jpg', alt: 'University of Toronto logo' },
@@ -159,6 +241,13 @@ window.PORTFOLIO = {
     },
     {
       id: 'noshi-boshi', name: 'Noshi Boshi', color: '#d1b7bd',
+      caseStudy: {
+        status: 'Founder experience · 2021–22',
+        contribution: 'I co-founded a meal-kit delivery service in Delhi, working on the customer experience from first encounter through to cooking a meal.',
+        decision: 'Pair curated recipes with authentic ingredients so customers could explore unfamiliar cuisines and cooking techniques at home.',
+        result: 'A meal-kit service and product experience, illustrated here by the supplied unboxing animation.',
+        limitation: 'The animation shows the product concept and presentation. Customer counts, revenue and other traction metrics are not published in this portfolio.'
+      },
       video: { src: 'media/noshi-boshi-unboxing.mp4', poster: 'media/noshi-boshi-unboxing-poster.jpg', label: 'Noshi Boshi meal-kit product unboxing animation' },
       organization: 'Noshi Boshi · Delhi, India', role: 'Co-Founder',
       logos: [{ src: 'profile/logos/noshi-boshi.jpg', alt: 'Noshi Boshi logo' }],

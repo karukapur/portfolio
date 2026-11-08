@@ -4,13 +4,18 @@
     host.classList.add('fw-stage');
     host.classList.add('nb-stage');
     host.classList.toggle('es-stage', false);
+    const portrait = project.video.height > project.video.width;
+    host.classList.toggle('portrait-stage', portrait);
     const videoUrl = new URL(project.video.src, assetBase).href;
     const posterUrl = new URL(project.video.poster, assetBase).href;
-    host.innerHTML = `<video class="nb-video" src="${videoUrl}" poster="${posterUrl}" width="1280" height="720" ${autoplay ? 'autoplay' : ''} muted playsinline disablepictureinpicture disableremoteplayback tabindex="-1" preload="metadata" aria-label="${project.video.label}">Your browser does not support this video. <a href="${videoUrl}">Download the unboxing video</a>.</video>`;
+    const shouldAutoplay = autoplay && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const video = `<video class="nb-video" src="${videoUrl}" poster="${posterUrl}" width="${project.video.width || 1280}" height="${project.video.height || 720}" ${shouldAutoplay ? 'autoplay' : ''} muted playsinline disablepictureinpicture disableremoteplayback tabindex="-1" preload="metadata" aria-label="${project.video.label}">Your browser does not support this video. <a href="${videoUrl}">Download the video</a>.</video>`;
+    host.innerHTML = portrait ? `<div class="project-phone"><span class="phone-volume" aria-hidden="true"></span><span class="phone-power" aria-hidden="true"></span><div class="phone-screen">${video}</div></div>` : video;
   };
   window.mountProjectMockup = (host, project) => {
     host.classList.add('fw-stage');
     host.classList.toggle('nb-stage', false);
+    host.classList.toggle('portrait-stage', false);
     host.classList.toggle('es-stage', project.id === 'edgesentry');
     const bondLogoUrl = new URL('logos/james-bond-007.svg', assetBase).href;
     const mockupUrl = new URL(`${project.id}-mockup.png`, assetBase).href;
@@ -33,14 +38,14 @@
   body.addEventListener('wheel', event => {
     if (info.classList.contains('fw-selected') && body.scrollHeight > body.clientHeight && !event.ctrlKey && !event.metaKey) event.stopPropagation();
   }, { passive: true });
-  let previousSelection, video, videoActive = false;
+  let previousSelection, video, videoActive = false, resumeVideo = true;
   const webStation = Stage.config.stations.findIndex(station => station.name === 'web');
   const update = () => {
     const project = PORTFOLIO.projects.find(p => p.id === Stage.web.hash);
     const selected = !!(project?.mockup || project?.video);
     if (Stage.web.hash !== previousSelection) {
       video?.pause();
-      video = null; videoActive = false;
+      video = null; videoActive = false; resumeVideo = true;
       previousSelection = Stage.web.hash;
       info.classList.toggle('fw-selected', selected);
       stage.hidden = !selected;
@@ -65,8 +70,8 @@
       const active = Stage.state.p >= webStation - .4 && Stage.state.p <= webStation + .25 && !document.hidden;
       if (active !== videoActive) {
         videoActive = active;
-        if (active && !video.ended) video.play().catch(() => {});
-        else if (!active) video.pause();
+        if (active && resumeVideo && !video.ended && !matchMedia('(prefers-reduced-motion: reduce)').matches) video.play().catch(() => {});
+        else if (!active) { resumeVideo = !video.paused && !video.ended; video.pause(); }
       }
     }
   };

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="stage-off">
 <meta charset="utf-8">
 <!-- Karan Kapur — personal portfolio. See LICENSE for content and component terms. -->
 <meta name="copyright" content="© 2026 Karan Kapur. Personal portfolio content.">
@@ -31,9 +31,10 @@
   --bg:#ffffff;
   --ink:#0e0e12;
   --ink-2:#61606f;
-  --ink-3:#9c9baa;
+  --ink-3:#686779;
   --soft:#a8afe5;
-  --dot:#8b8ade;
+  --soft-text:#64619a;
+  --dot:#64619a;
   --live:#4cc38a;
   --line:rgba(14,14,18,.08);
   --f-en:"Funnel Sans",SUIT,system-ui,sans-serif;
@@ -48,7 +49,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-en);-web
 .copy{min-width:0}
 
 h1{margin-top:22px;font-family:var(--f-disp);font-weight:500;font-size:clamp(40px,5.4vw,68px);line-height:1.02;letter-spacing:-.035em;text-wrap:balance}
-h1 span{display:block;color:var(--soft)}
+h1 span{display:block;color:var(--soft-text)}
 .intro{margin-top:26px;max-width:340px;font-family:var(--f-ko);font-size:14px;line-height:1.7;color:var(--ink-2);word-break:keep-all}
 .meta{margin-top:16px;display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.08em;color:var(--ink-3);text-transform:uppercase}
 .meta i{width:5px;height:5px;border-radius:50%;background:var(--live)}
@@ -113,7 +114,9 @@ h1 span{display:block;color:var(--soft)}
 .go:hover{transform:scale(1.08)}
 .go:focus-visible{outline:2px solid var(--dot);outline-offset:2px}
 .go svg{width:12px;height:12px}
-.card.closing #toBack{visibility:hidden}
+.card.closing .front{padding-bottom:24px}
+.card.closing .front .foot{display:none}
+.card.closing .front .photo{flex:1;min-height:0;aspect-ratio:auto}
 
 .back .ko{margin:52px 4px 0;font-family:var(--f-ko);font-size:30px;font-weight:700;letter-spacing:-.02em}
 .back .en{margin:2px 4px 0;font-size:13.5px;color:var(--ink-2)}
@@ -200,7 +203,7 @@ body{background:color-mix(in oklab,var(--bg),var(--nt) calc(var(--dk,0) * 100%))
 .totop.night{background:var(--nt-ink);color:var(--nt)}
 .totop svg{width:14px;height:14px}
 .totop:hover{transform:translateY(-2px)}
-.totop:focus-visible{outline:2px solid var(--soft);outline-offset:3px}
+.totop:focus-visible{outline:2px solid var(--soft-text);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.totop{transition:opacity .2s}}
 /* 끝 화면에서는 아래층 글자 링크 「Back to start ↑」가 맡으므로 떠 있는 원은 숨긴다(10-29 대표님 승인) */
 html.end-on .totop{opacity:0;pointer-events:none}
@@ -216,8 +219,8 @@ html.stage-on .stn.night{--c:var(--nt-3);--c-on:var(--nt-ink);--c-t:var(--nt-2)}
 .stn-t{position:absolute;right:30px;top:50%;transform:translate(4px,-50%);white-space:nowrap;pointer-events:none;
   font:500 12px/1 var(--f-en);letter-spacing:.02em;color:var(--c-t);opacity:0;transition:opacity .2s,transform .2s}
 .stn button:hover .stn-t,.stn button:focus-visible .stn-t{opacity:1;transform:translate(0,-50%)}
-.stn button:focus-visible{outline:2px solid var(--soft);outline-offset:-2px}
-html.web-using .stn,html.stage-on.gate .stn{opacity:0;pointer-events:none}   /* 맥북 화면을 써 보는 동안과 휴대폰 안내 중에는 비킨다 */
+.stn button:focus-visible{outline:2px solid var(--soft-text);outline-offset:-2px}
+html.web-using .stn{opacity:0;pointer-events:none}   /* 맥북 화면을 써 보는 동안과 휴대폰 안내 중에는 비킨다 */
 @media (prefers-reduced-motion:reduce){.stn i,.stn-t{transition:none}}
 
 .tbar .r{position:relative;top:-4px}
@@ -497,31 +500,10 @@ html.stage-on .mb.fs .mb-screen{z-index:6}
     opacity:0;visibility:hidden;transition:opacity .2s ease-out,visibility 0s .2s}
   html.stage-on.web-fs .web-close{opacity:1;visibility:visible;transition:opacity .25s ease-out .3s,visibility 0s}
   html.stage-on .web-close svg{width:14px;height:14px}
-  html.stage-on .web-close:focus-visible{outline:2px solid var(--soft);outline-offset:2px}
+  html.stage-on .web-close:focus-visible{outline:2px solid var(--soft-text);outline-offset:2px}
   html.stage-on.web-fs :is(.peek,.totop){visibility:hidden}
 }
 
-/* Narrow screens remain on the introduction and provide project links and a copy-link action. */
-.gate-note{display:none}
-.gn-links{display:flex;align-items:center;flex-wrap:wrap;gap:16px;pointer-events:auto}
-.gn-links a{color:var(--ink);font-size:12px;text-underline-offset:4px}
-.gn-links button{pointer-events:auto}
-@media (max-width:820px){
-  html.gate,html.gate body{overflow:hidden;height:100%}
-  html.gate .copy .intro,html.gate .copy .meta,html.gate .peek,html.gate .totop{display:none}
-  html.gate .gate-note{display:grid;grid-column:1;grid-row:5 / 7;align-self:start;align-content:start;justify-items:start;gap:8px;max-width:21em}
-  html.gate .gate-note>*{margin:0}
-  html.gate .gate-note .gn-copy{margin-top:8px}
-  html.gate .copy{padding-bottom:calc(32px + env(safe-area-inset-bottom,0px))}   /* 작업 카드 더미(.peek)가 없으니 그 몫을 줄여 이름부터 아래로 내린다. 사원증 크기는 hero.js가 이름 자리까지의 높이로 정하므로 함께 커진다(10-22 대표님 실기기 판정) */
-  html.gate .copy .mark .mk.sp~.mk{translate:.035em 0}   /* 시각 보정: 둘째 줄 「Kapur」의 K가 첫 줄 C보다 왼쪽으로 보여서 오른쪽으로 민다 */
-  .gn-en{font-family:var(--f-disp);font-weight:500;font-size:22px;line-height:1.05;letter-spacing:-.03em;color:var(--ink)}
-  .gn-ko{font-family:var(--f-ko);font-size:12.5px;line-height:1.6;color:var(--ink-2);word-break:keep-all}
-  .gn-copy{margin-top:6px;display:inline-flex;align-items:center;gap:10px;border:0;background:none;padding:0;cursor:pointer;
-    font:500 11px/1 var(--f-en);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
-  .gn-copy i{width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center}
-  .gn-copy i svg{width:12px;height:12px}
-  .gn-copy:focus-visible{outline:2px solid var(--dot);outline-offset:4px;border-radius:14px}
-}
 
 html.stage-on .mb{--t:calc(var(--wi,1000px) * .03)}
 
@@ -607,13 +589,13 @@ html.stage-on .mb .mb-arrive svg{width:calc(16 * var(--u));height:calc(16 * var(
 .end-info a.ei-item{text-decoration:none;cursor:pointer}
 .end-info.on .ei-item{pointer-events:auto}   /* 반쯤 넘게 드러났을 때만 누를 수 있다(층은 늘 그려 둔다) */
 .end-info .ei-k{position:relative;font-size:11px;line-height:1;letter-spacing:.08em;text-transform:uppercase;color:var(--nt-3)}
-.end-info .ei-ok{position:absolute;left:0;top:0;opacity:0;color:var(--soft);transition:opacity .2s}
+.end-info .ei-ok{position:absolute;left:0;top:0;opacity:0;color:var(--soft-text);transition:opacity .2s}
 .end-info .ei-kt{transition:opacity .2s}
 .end-info .ei-item.ok .ei-kt{opacity:0}
 .end-info .ei-item.ok .ei-ok{opacity:1}
 .end-info .ei-v{font-size:16px;line-height:1.2;color:var(--nt-ink);transition:color .2s}
 .end-info .ei-item:hover .ei-v{color:var(--soft)}
-.end-info .ei-item:focus-visible{outline:2px solid var(--soft);outline-offset:4px;border-radius:2px}
+.end-info .ei-item:focus-visible{outline:2px solid var(--soft-text);outline-offset:4px;border-radius:2px}
 .end-info .ei-mark{grid-row:3;margin:0;font-family:var(--f-disp);font-weight:500;line-height:.78;letter-spacing:-.055em;color:var(--soft);white-space:nowrap;width:max-content}
 /* Align the cap height rather than the line box with the contact section spacing. */
 .end-info .ei-mark{margin-top:-.063em}
@@ -634,9 +616,13 @@ html:not(.stage-on) .end-info{display:none}
 <link rel="stylesheet" href="profile/flipwords.css">
 <link rel="stylesheet" href="profile/sttc-work.css">
 <link rel="stylesheet" href="profile/sustainability-work.css">
+<link rel="stylesheet" href="profile/browse.css">
 
 <!-- Interactive project displays share the existing 3D scene. -->
 
+<a class="skip-link" href="profile/projects.html">Skip to projects and experience</a>
+<header class="site-header"><nav aria-label="Main navigation"><a href="#experience" data-scene-link="work">Experience</a><a href="#projects" data-scene-link="web">Work</a><a href="#contact" data-scene-link="end">Contact</a></nav></header>
+<main id="main-content" tabindex="-1">
 <div id="stage-root"><div class="stage-camera">
 <div class="wall">
 <div class="stage-layer" data-scene="hero">
@@ -679,25 +665,24 @@ html:not(.stage-on) .end-info{display:none}
       </div>
     </div>
   </div>
-<main class="page">
+<div class="page">
   <section class="copy">
     <div class="hero-offer">
       <h1>Making AI work<span>in the real world.</span></h1>
       <p class="hero-services">AI document workflows.<br>Efficient on-device inference.</p>
       <nav class="hero-actions" aria-label="Get started" data-stage-ignore>
-        <a class="hero-action hero-action-primary" href="#contact" data-scene-link="end">Discuss a project <span aria-hidden="true">↗</span></a>
-        <a class="hero-action" href="#web" data-scene-link="web">View case studies</a>
+        <a class="hero-action hero-action-primary" href="#contact" data-scene-link="end">Get in touch <span aria-hidden="true">↗</span></a>
+        <a class="hero-action" href="profile/projects.html">View case studies</a>
       </nav>
     </div>
-    <p class="intro"><span class="en">I help research teams and businesses turn complex documents into reliable data, and deploy AI on constrained hardware.</span><span class="ko" lang="en">Lead Software Engineer at NXP Semiconductors.<br>Co-founder of STTC.</span></p>
+    <p class="intro"><span class="en">I help research teams and businesses turn complex documents into <em>reliable data</em>, and deploy <em>AI on constrained hardware</em>.</span><span class="ko" lang="en">Lead Software Engineer at <img class="intro-logo" src="profile/logos/nxp.svg" alt="NXP Semiconductors" width="93" height="32"><br>Co-founder of <em class="intro-sttc">STTC</em></span></p>
     <p class="meta"><i></i>Hyderabad, India</p>
-    <div class="gate-note"><p class="gn-en">Take a closer look.</p><p class="gn-ko">Edge AI engineer at NXP. Explore my work below, or enjoy the full 3D experience on desktop.</p><div class="gn-links"><a href="profile/project.html">Projects ↗</a><a href="mailto:karankapur.kapur@gmail.com">Email ↗</a><button class="gn-copy" type="button"><span>Copy link</span><i aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4.2M9 3V7.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></i></button></div></div>
     <p class="mark" aria-hidden="true">Karan Kapur</p>
   </section>
 
   <section class="stage" id="stage" aria-label="Karan Kapur’s contact card">
   </section>
-</main>
+</div>
 </div>
 </div>
 </div>
@@ -720,9 +705,10 @@ html:not(.stage-on) .end-info{display:none}
 <section class="web-list" id="web" aria-label="Projects and experience">
   <p class="wl-ey"><span><i></i>Selected Work</span></p>
   <ul>
-    <li><a href="profile/project.html?id=flipwords" target="_blank" rel="noopener">FlipWords ↗</a><span>Traditional Chinese, without opening your phone.</span></li>
-    <li><a href="profile/project.html?id=edgesentry" target="_blank" rel="noopener">EdgeSentry ↗</a><span>A little field tech. A lot of local intelligence.</span></li>
     <li><a href="profile/project.html?id=sustainability" target="_blank" rel="noopener">AI for sustainability ↗</a><span>Turning climate disclosures into useful, validated data.</span></li>
+    <li><a href="profile/project.html?id=flipwords" target="_blank" rel="noopener">FlipWords ↗</a><span>Traditional Chinese, without opening your phone.</span></li>
+    <li><a href="profile/project.html?id=whispener" target="_blank" rel="noopener">Whispener ↗</a><span>Follow the conversation. Keep the original words.</span></li>
+    <li><a href="profile/project.html?id=edgesentry" target="_blank" rel="noopener">EdgeSentry ↗</a><span>A little field tech. A lot of local intelligence.</span></li>
     <li><a href="profile/project.html?id=sttc" target="_blank" rel="noopener">Building STTC ↗</a><span>Good technology starts with people finding each other.</span></li>
     <li><a href="profile/project.html?id=noshi-boshi" target="_blank" rel="noopener">Noshi Boshi ↗</a><span>Making new cuisines easier to explore at home.</span></li>
   </ul>
@@ -741,7 +727,11 @@ html:not(.stage-on) .end-info{display:none}
 </div>
 </div></div>
 
+<div class="portfolio-overview" data-portfolio-overview>
+  <div class="browse-fallback"><h2>Projects & experience</h2><p><a href="profile/projects.html">Explore all projects</a> · <a href="profile/project.html?id=sustainability">AI for sustainability</a> · <a href="profile/project.html?id=flipwords">FlipWords</a> · <a href="profile/project.html?id=whispener">Whispener</a> · <a href="profile/project.html?id=edgesentry">EdgeSentry</a> · <a href="profile/project.html?id=sttc">Building STTC</a> · <a href="profile/project.html?id=noshi-boshi">Noshi Boshi</a></p><p><a href="profile/CV_Karan_Kapur.pdf">Read my CV</a> or <a href="mailto:karankapur.kapur@gmail.com">send me an email</a>.</p></div>
+</div>
 <aside class="web-info" aria-live="polite" style="visibility:hidden"></aside>
+</main>
 <button class="peek" id="peek" type="button" aria-label="Go to the next scene"><span class="peek-t" aria-hidden="true"><svg viewBox="0 0 20 10"><path d="M2 1.5l8 7 8-7"/></svg><svg viewBox="0 0 20 10"><path d="M2 1.5l8 7 8-7"/></svg><svg viewBox="0 0 20 10"><path d="M2 1.5l8 7 8-7"/></svg></span></button>
 <button class="totop" id="toTop" type="button" aria-label="Back to top"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 11.5V2.5M7 2.5L3 6.5M7 2.5l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 
@@ -749,7 +739,7 @@ html:not(.stage-on) .end-info{display:none}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/Observer.min.js"></script>
 <script>
-const WORK_PROJECTS = PORTFOLIO.projects.filter(p => !['edge-ai', 'education', 'camh', 'embedded'].includes(p.id));
+const WORK_PROJECTS = PORTFOLIO.selectedIds.map(id => PORTFOLIO.projects.find(p => p.id === id));
 // 무대 골격: 문서 스크롤 대신 휠·트랙패드·터치 입력을 진행값 p에 스크럽으로 적분한다. 입력이 p를 직접 쥐고, 자동 재생은 없다.
 
 (() => {
@@ -761,20 +751,20 @@ const WORK_PROJECTS = PORTFOLIO.projects.filter(p => !['edge-ai', 'education', '
 
     stations: [
       { name: 'hero', hash: '' },
-      { name: 'work', hash: 'work' },
+      { name: 'work', hash: 'work', alias: PORTFOLIO.projects.filter(p => !PORTFOLIO.selectedIds.includes(p.id)).map(p => p.id).concat('experience') },
       { name: 'web', hash: 'web', hashFn: () => (window.Stage && Stage.web && Stage.web.hash) || 'web',
-        alias: PORTFOLIO.projects.map(p => p.id) },
+        alias: PORTFOLIO.selectedIds.concat('projects') },
       { name: 'end', hash: 'contact' },              // 맺음(기존 #contact 유지)
     ],
     split: null,             // 구간 안 일부 범위만 다른 스크롤 거리로: [[시작 p, 끝 p, 화면 수], …]. 모바일 책상 내려가기·모으기 뒤 숨(world.js가 정한다). 나머지는 seg 빠르기
     // Scroll distance in viewport heights per station interval.
     seg: [2.2, 2.5, 2.5],
     notchGain: 1.5,          // 노치 휠 한 칸(약 100px)을 진행값으로 적분할 때의 배율. 빠지면 노치 입력이 NaN이 되어 버려진다(10-21 발견)
-    follow: 11,
-    maxScreensPerSec: 0.9,   // 마우스·트랙패드 입력을 따라갈 때의 최고 속도(스크롤 화면 장/초). 장면 전환(1~1.5장)이 1.1~1.7초 아래로 줄지 않는다              // p가 target을 따라오는 빠르기(1/초, 지수 보간). 120Hz에서 프레임당 약 0.09
+    follow: 14,             // How quickly the scene follows scroll input (1/second).
+    maxScreensPerSec: 1.15,  // Mouse/trackpad speed cap in viewport heights per second.
     snapIdleMs: 450,         // 입력이 이만큼 멈추면 스냅을 따진다
     snapWithin: 0.12, snapMaxScreens: 0.25,   // 마지막 이동 방향 쪽 정거장이 0.12 안(그리고 화면 0.25장 안)이면 마저 붙는다. 되돌리는 쪽으로는 끌지 않는다
-    snapSec: 0.6,
+    snapSec: 0.45,
     goSec: [1.4, 2.0],       // 키보드·Stage.go: 거리에 비례한 이동 시간(정거장 하나 1.4초, 셋 이상 2초)
     rubber: 0.2,             // 양 끝 고무줄 최대 넘침(진행값)
     touchGlide: 0.32,        // 손가락을 뗄 때 속도를 이어 가는 시간(초). iOS는 관성 이벤트를 보내지 않는다
@@ -783,7 +773,11 @@ const WORK_PROJECTS = PORTFOLIO.projects.filter(p => !['edge-ai', 'education', '
   const last = () => config.stations.length - 1;
 
   // 쓸 수 없는 환경(움직임 줄이기, GSAP 로드 실패): 지금의 문서 스크롤 판을 그대로 둔다
-  if (reduce || !gsap || !Observer) {
+  const narrowScreen = matchMedia('(max-width: 820px)');
+  // A breakpoint change needs a fresh scene/document layout, preserving the URL destination.
+  narrowScreen.addEventListener('change', () => location.reload());
+  matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', () => location.reload());
+  if (reduce || narrowScreen.matches || !gsap || !Observer) {
     root.classList.add('stage-off');
     const noop = () => {};
     window.Stage = { enabled: false, config, state: {}, add: noop, hold: () => 0, held: () => false, release: noop, on: noop, camera: { set: noop, P: () => 1200 }, tone: noop,
@@ -792,6 +786,7 @@ const WORK_PROJECTS = PORTFOLIO.projects.filter(p => !['edge-ai', 'education', '
     return;
   }
   gsap.registerPlugin(Observer);
+  root.classList.remove('stage-off');
   root.classList.add('stage-on');
 
   const state = { p: 0, target: 0, v: 0, dir: 1, station: 'hero', settled: true, input: false };
@@ -890,7 +885,7 @@ const WORK_PROJECTS = PORTFOLIO.projects.filter(p => !['edge-ai', 'education', '
   //  상한은 speed(기본: 스크롤 기본값)에서 시작해, 멀어서 maxSec 안에 못 닿을 때만 그만큼 올린다(끝의 지수 보간 꼬리 약 0.6초를 뺀 시간으로 나눈다)
   function go(to, { instant = false, sec = 0, ease = 'io', follow = false, maxSec = 3.5, speed = config.maxScreensPerSec } = {}){   // sec·ease: 부르는 쪽이 이동 시간과 곡선을 정할 때(스크롤 화살표)
     const i = typeof to === 'number' ? to : config.stations.findIndex(s => s.name === to);
-    if (i < 0 || root.classList.contains('gate')) return;   // 휴대폰 안내 중에는 첫 화면에 머문다
+    if (i < 0) return;
     clearTimeout(snapTimer); state.input = false;
     const t = clamp(i, 0, last()); state.dir = Math.sign(t - x) || state.dir;
     if (instant) { tw = null; x = target = t; return; }
@@ -905,7 +900,7 @@ const WORK_PROJECTS = PORTFOLIO.projects.filter(p => !['edge-ai', 'education', '
   // 같은 쓸기의 남은 델타는 버린다. 새 쓸기 = 휠이 swipeGapMs 넘게 끊김 · 방향이 바뀜 · 잦아들던 델타가 다시 커짐(관성 위에 새로 쓸기)
   // 「다시 커짐」은 멈춘 뒤 델타가 한 번이라도 줄어든 다음(관성 구간)부터 센다: 손가락이 아직 가속 중일 때 멈추면 그 가속을 새 쓸기로 읽지 않게
   let lastWheelT = 0, wheelDir = 0, parked = false, prevA = 0, floor = Infinity;
-  const swipeGapMs = 180;
+  const swipeGapMs = 120;
   const newSwipe = (d, gap) => gap > swipeGapMs || Math.sign(d) !== wheelDir || (Math.abs(d) > 10 && Math.abs(d) >= floor * 1.5);
   const ownWheel = e => !holds.size && !e.ctrlKey && !e.metaKey && Math.abs(e.deltaY) >= Math.abs(e.deltaX);
   function onWheel(e){
@@ -940,7 +935,7 @@ const WORK_PROJECTS = PORTFOLIO.projects.filter(p => !['edge-ai', 'education', '
   // Keyboard navigation moves between stations.
   addEventListener('keydown', e => {
     if (holds.size || e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
-    const t = e.target; if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+    const t = e.target; if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT|BUTTON|A|VIDEO|AUDIO)$/.test(t.tagName) || t.closest?.('button, a, input, textarea, select, video, audio, [role="button"], [role="tab"], [contenteditable], [data-stage-ignore]'))) return;
     const k = e.key, base = tw ? tw.to : target;
     let dir = 0;
     if (k === 'ArrowDown') dir = 1; else if (k === 'ArrowUp') dir = -1;
@@ -1050,18 +1045,7 @@ const WORK_PROJECTS = PORTFOLIO.projects.filter(p => !['edge-ai', 'education', '
     refresh(){ dispatch(true); },      // 치수가 바뀌었을 때 현재 p로 장면 progress를 다시 부른다(카메라·조명 다시 쓰기)
     go, on(k, f){ (listeners[k] || (listeners[k] = [])).push(f); },
   };
-  // 휴대폰 안내(10-22 대표님 「모바일에서는 안 되게, 웹에서 보는 용」): 폭 820 이하면 무대를 첫 화면에 붙잡아 둔다. 손잡이 잠금(gate)은 dropGrips가 풀지 않는다.
-  // 화면을 돌려 넓어지면 풀린다. 주소(#work 등)로 들어와도 첫 화면에서 시작한다
-  const GATE = matchMedia('(max-width: 820px)'); let gateTok = 0;
-  const gate = () => {
-    if (GATE.matches) { root.classList.add('gate'); if (!gateTok) gateTok = Stage.hold('gate'); tw = null; x = target = 0; dispatch(true); }
-    else { root.classList.remove('gate'); if (gateTok) { Stage.release(gateTok); gateTok = 0; } }
-  };
-  GATE.addEventListener('change', gate); gate();
-  document.querySelectorAll('.gn-copy').forEach(b => b.addEventListener('click', () => {
-    const l = b.querySelector('span'), done = t => { l.textContent = t; setTimeout(() => { l.textContent = 'Copy link'; }, 1400); };
-    (navigator.clipboard ? navigator.clipboard.writeText(location.href) : Promise.reject()).then(() => done('Copied'), () => done('Copy from address bar'));
-  }));
+
 })();
 </script>
 <script>
@@ -1128,7 +1112,8 @@ window.ticker = (() => {
 </script>
 <script>
 (() => {
-  const ITEMS = PORTFOLIO.projects.filter(p => !p.mockup).map(p => ({ t: p.name, s: p.role, d: p.timeline, year: p.year, k: p.type, organization: p.organization, logos: p.logos, resources: p.resources, url: `profile/project.html?id=${p.id}` }));
+  if (!window.Stage?.enabled) return;
+  const ITEMS = PORTFOLIO.projects.filter(p => !p.mockup && !p.workOnly).map(p => ({ t: p.name, s: p.role, d: p.timeline, year: p.year, k: p.type, organization: p.organization, logos: p.logos, resources: p.resources, url: `profile/project.html?id=${p.id}` }));
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (document.documentElement.classList.contains('still')) return;
   const work = document.getElementById('work'), table = work.querySelector('.table'), pile = document.getElementById('pile'), sortBtn = document.getElementById('sort');
@@ -1727,6 +1712,7 @@ window.ticker = (() => {
 
 <script>
 (() => {
+  if (!window.Stage?.enabled) return;
   const hero = document.getElementById('hero'), stage = document.getElementById('stage'), cv = document.getElementById('strap'), ctx = cv.getContext('2d');
   const badge = document.getElementById('badge'), hang = document.getElementById('hang'), card = document.getElementById('card');
   const faces = card.querySelectorAll('.face');
@@ -2680,13 +2666,9 @@ window.ticker = (() => {
   document.querySelectorAll('[data-scene-link]').forEach(link => {
     link.addEventListener('click', event => {
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      if (window.Stage && Stage.enabled && !document.documentElement.classList.contains('gate')) {
+      if (window.Stage && Stage.enabled) {
         event.preventDefault();
         Stage.go(link.dataset.sceneLink, { follow: true, maxSec: 3, speed: 1.15 });
-      } else if (link.dataset.sceneLink === 'end') {
-        event.preventDefault();
-        document.getElementById('toBack').click();
-        document.getElementById('hero').scrollIntoView();
       }
     });
   });
@@ -2697,7 +2679,7 @@ window.ticker = (() => {
   // 정거장 점(10-30 대표님 「오른쪽 점 네 개」): 어느 장면에서든 홈·카드·맥북·맺음으로 바로 간다. 화면 오른쪽 가장자리 세로 가운데에 점 넷,
   // 지금 장면 점만 조금 길고 밝다. 올리거나 초점이 오면 점 왼쪽에 이름이 옅게 뜨고, 누르면 Stage.go(스크롤과 같은 길, 아래 go)
   if (!(window.Stage && Stage.enabled)) return;
-  const NAMES = { hero: 'Home', work: 'Cards', web: 'Work', end: 'Contact' };
+  const NAMES = { hero: 'Home', work: 'Experience', web: 'Work', end: 'Contact' };
   const nav = document.createElement('nav'); nav.className = 'stn'; nav.setAttribute('aria-label', 'Sections');
   nav.innerHTML = Stage.config.stations.map((s, i) => `<button type="button" data-i="${i}" aria-label="${NAMES[s.name] || s.name}"><span class="stn-t" aria-hidden="true">${NAMES[s.name] || s.name}</span><i aria-hidden="true"></i></button>`).join('');
   document.body.appendChild(nav);
@@ -3000,10 +2982,11 @@ window.ticker = (() => {
     const rows = [['Email', PORTFOLIO.email, PORTFOLIO.email], ['LinkedIn', 'in/karukapur', PORTFOLIO.linkedin], ['GitHub', '@karukapur', PORTFOLIO.github], ['Threads', '@karukapur', PORTFOLIO.threads]];
     // Contact links sit above the return-to-start link.
     const up = '<svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 11.5V2.5M7 2.5L3 6.5M7 2.5l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    endInfo.innerHTML = `<div class="ei-body"><div class="ei-up"><div class="ei-greeting"><canvas class="ei-avatar" width="896" height="640" aria-hidden="true"></canvas><img class="ei-avatar" src="profile/media/karan-minecraft-avatar.png" width="896" height="640" alt=""><p class="ei-lead">Say hello.</p></div><ul class="ei-list">` +
+    endInfo.innerHTML = `<div class="ei-body"><div class="ei-up"><div class="ei-greeting"><canvas class="ei-avatar" width="896" height="640" aria-hidden="true"></canvas><img class="ei-avatar" src="profile/media/karan-minecraft-avatar.png" width="896" height="640" alt=""><p class="ei-lead">Say hello.</p><a class="ei-email" href="mailto:${PORTFOLIO.email}">Send an email ↗</a></div><ul class="ei-list">` +
       rows.map(([k, v, c]) => k === 'Email'
         ? `<li><button type="button" class="ei-item" data-copy="${c}" aria-label="${k} ${v} — copy"><span class="ei-k"><span class="ei-kt">${k}</span><span class="ei-ok" aria-hidden="true">Copied</span></span><span class="ei-v">${v}</span></button></li>`
         : `<li><a class="ei-item" href="${c}" target="_blank" rel="noopener noreferrer" aria-label="Open Karan’s ${k} profile"><span class="ei-k">${k} ↗</span><span class="ei-v">${v}</span></a></li>`).join('') +
+      `<li><a class="ei-item" href="profile/CV_Karan_Kapur.pdf" download aria-label="Download Karan Kapur’s CV"><span class="ei-k">CV ↓</span><span class="ei-v">Download PDF</span></a></li>` +
       `</ul></div><div class="ei-dn">` +
       `<a class="ei-a ei-top" href="#" data-go="top">Back to start ${up}</a></div></div><p class="ei-mark" aria-label="Let's get in touch!">Let's get in touch!</p><span class="ei-live" role="status" aria-live="polite"></span>`;
     document.body.appendChild(endInfo);
@@ -3015,7 +2998,7 @@ window.ticker = (() => {
       const b = e.target.closest('.ei-item[data-copy]'); if (!b) return;
       const done = () => { b.classList.add('ok'); live.textContent = 'Copied'; clearTimeout(b._t); b._t = setTimeout(() => { b.classList.remove('ok'); live.textContent = ''; }, 1600); };
       const t = b.dataset.copy;
-      const legacy = () => { const a = el('textarea'); a.value = t; a.setAttribute('readonly', ''); a.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(a); a.select(); try { if (document.execCommand('copy')) done(); } catch (_) {} a.remove(); };
+      const legacy = () => { const a = el('textarea'); a.value = t; a.setAttribute('readonly', ''); a.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(a); a.select(); try { if (document.execCommand('copy')) done(); else live.textContent = 'Could not copy. Use the Send an email link.'; } catch (_) { live.textContent = 'Could not copy. Use the Send an email link.'; } a.remove(); };
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, legacy); else legacy();
     });
   }
@@ -3170,12 +3153,12 @@ window.ticker = (() => {
     const a = info.querySelector('.wi-go'); a.href = new URL(w.sourceUrl || (isSustainability ? w.resources[0].url : sv.url), location.href).href;
     a.textContent = isSustainability ? w.organization : w.sourceUrl ? 'View on GitHub ↗' : sv.external ? 'Visit website ↗' : 'Read project ↗';
     let caseStudy = info.querySelector('.sus-case-study');
-    if (isSustainability && !caseStudy) {
+    if (!caseStudy) {
       caseStudy = document.createElement('a'); caseStudy.className = 'sus-case-study';
-      caseStudy.href = `profile/project.html?id=${sv.id}`; caseStudy.target = '_blank'; caseStudy.rel = 'noopener';
+      caseStudy.target = '_blank'; caseStudy.rel = 'noopener';
       caseStudy.textContent = 'Read the case study ↗'; info.querySelector('.wi-body').appendChild(caseStudy);
     }
-    if (caseStudy) caseStudy.hidden = !isSustainability;
+    caseStudy.href = `profile/project.html?id=${sv.id}`;
     if (info.wiTabs) info.wiTabs(w.work?.tabs || w.tabs, w.work?.tabLabels || w.tabLabels);
   }
 
@@ -3571,7 +3554,7 @@ window.ticker = (() => {
 
 const T3 = 'https://cdn.jsdelivr.net/npm/three@0.160.0';
 const fine = matchMedia('(pointer: fine)').matches, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-if (fine && !reduce && window.WebGL2RenderingContext) {
+if (fine && !reduce && window.Stage?.enabled && window.WebGL2RenderingContext) {
   let THREE = null, renderer = null, envTex = null, envS = 1, booting = false, floatLinear = false, ptOK = false;
   const states = new Map();
   const MAXL = 24, KN = 512;
@@ -4008,3 +3991,4 @@ if (fine && !reduce && window.WebGL2RenderingContext) {
 
 
 <script src="profile/flipwords.js"></script>
+<script src="profile/browse.js"></script>

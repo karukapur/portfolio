@@ -13,6 +13,7 @@ class Element {
     this.attrs = attrs; this.children = []; this.dataset = {}; this.events = {}; this.hidden = 'hidden' in attrs;
     this.id = attrs.id; this.textContent = ''; this.style = { setProperty() {} };
     const classes = new Set((attrs.class || '').split(' '));
+    Object.defineProperty(this, 'className', { get: () => [...classes].join(' '), set: value => { classes.clear(); String(value).split(/\s+/).filter(Boolean).forEach(name => classes.add(name)); } });
     this.classList = { add: name => classes.add(name), contains: name => classes.has(name), toggle: (name, on) => on ? classes.add(name) : classes.delete(name) };
     Object.entries(attrs).filter(([key]) => key.startsWith('data-')).forEach(([key, value]) => this.dataset[key.slice(5).replace(/-([a-z])/g, (_, letter) => letter.toUpperCase())] = value);
   }
@@ -31,6 +32,7 @@ class Element {
   click() { this.events.click(); }
   play() { this.playCount = (this.playCount || 0) + 1; return Promise.resolve(); }
   pause() { this.pauseCount = (this.pauseCount || 0) + 1; }
+  scrollIntoView() { this.scrollCount = (this.scrollCount || 0) + 1; }
   all() { return this.children.flatMap(child => [child, ...child.all()]); }
   querySelectorAll(selector) {
     return this.all().filter(node => selector.startsWith('.') ? node.classList.contains(selector.slice(1)) : selector.startsWith('[') ? selector.slice(1, -1) in node.attrs : selector === 'figcaption' && node === this.caption);
@@ -41,7 +43,7 @@ class Element {
   }
 }
 
-function page(id = 'edge-ai') {
+function page(id = 'edge-ai', { reduce = false } = {}) {
   const document = new Element();
   document.innerHTML = read('profile/project.html').split('<script')[0];
   document.documentElement = new Element();
@@ -49,7 +51,7 @@ function page(id = 'edge-ai') {
   document.createElement = () => new Element();
   document.getElementById = id => document.all().find(node => node.id === id);
   document.currentScript = { src: 'http://localhost/profile/flipwords.js' };
-  const context = { document, URL, URLSearchParams, ResizeObserver: class { observe() {} }, location: { search: `?id=${id}` } };
+  const context = { document, URL, URLSearchParams, matchMedia: () => ({ matches: reduce }), ResizeObserver: class { observe() {} }, location: { search: `?id=${id}` } };
   context.window = context;
   vm.createContext(context);
   vm.runInContext(read('profile/portfolio.js'), context);
@@ -63,7 +65,7 @@ function page(id = 'edge-ai') {
 const optionCounts = { 'edge-ai': 3, embedded: 3, sustainability: 4, camh: 3, education: 3 };
 
 function homeStage({ hash = '', width = 1440, reduce = false, cdn = true } = {}) {
-  const classes = new Set(), events = {}, ticks = [], timers = new Map();
+  const classes = new Set(['stage-off']), events = {}, ticks = [], timers = new Map();
   const location = new URL(`https://example.test/portfolio/index.html?test=1${hash}`);
   let now = 0, timerId = 0;
   const root = { classList: { add: name => classes.add(name), remove: name => classes.delete(name), contains: name => classes.has(name) } };
@@ -109,7 +111,7 @@ test('scene keyboard navigation preserves stations, boundaries and input guards'
     assert.equal(Stage.state.station, station);
     assert.equal(location.hash, hash);
   }
-  for (const guard of [{ ctrlKey: true }, { metaKey: true }, { altKey: true }, { defaultPrevented: true }, { target: { tagName: 'INPUT' } }, { target: { isContentEditable: true } }]) {
+  for (const guard of [{ ctrlKey: true }, { metaKey: true }, { altKey: true }, { defaultPrevented: true }, { target: { tagName: 'INPUT' } }, { target: { tagName: 'BUTTON' } }, { target: { tagName: 'A' } }, { target: { tagName: 'VIDEO' } }, { target: { tagName: 'SPAN', closest: () => ({}) } }, { target: { isContentEditable: true } }]) {
     assert.equal(emit('keydown', { key: 'ArrowDown', ...guard }), false);
     advance(); assert.equal(Stage.state.p, 0);
   }
@@ -123,19 +125,20 @@ test('scene keyboard navigation preserves stations, boundaries and input guards'
 });
 
 test('scene hashes preserve all project aliases and the selected Work hash', () => {
-  for (const id of ['flipwords', 'edgesentry', 'edge-ai', 'embedded', 'sustainability', 'sttc', 'camh', 'education', 'noshi-boshi']) {
+  for (const id of ['flipwords', 'whispener', 'edgesentry', 'edge-ai', 'embedded', 'sustainability', 'sttc', 'camh', 'education', 'noshi-boshi']) {
+    const selected = ['sustainability', 'flipwords', 'whispener', 'edgesentry', 'sttc', 'noshi-boshi'].includes(id);
     const { Stage, location, advance, emit } = homeStage({ hash: `#${id}` });
     assert.equal(Stage.config.startHash, id);
     Stage.web = { hash: id }; advance();
-    assert.equal(Stage.state.station, 'web');
-    assert.equal(location.hash, `#${id}`);
+    assert.equal(Stage.state.station, selected ? 'web' : 'work');
+    assert.equal(location.hash, selected ? `#${id}` : '#work');
     location.hash = '#contact'; emit('hashchange'); advance();
     assert.equal(Stage.state.p, 3);
     location.hash = `#${id}`; emit('hashchange'); advance();
-    assert.equal(Stage.state.p, 2);
-    assert.equal(location.hash, `#${id}`);
+    assert.equal(Stage.state.p, selected ? 2 : 1);
+    assert.equal(location.hash, selected ? `#${id}` : '#work');
     location.hash = '#unknown'; emit('hashchange'); advance();
-    assert.equal(Stage.state.p, 2);
+    assert.equal(Stage.state.p, selected ? 2 : 1);
   }
 });
 
@@ -156,17 +159,20 @@ test('scene wheel input respects split distances, station stops and browser gest
   advance(); assert.equal(Stage.state.p, before);
 });
 
-test('home retains reduced-motion and CDN fallbacks and gates narrow screens', () => {
-  for (const options of [{ reduce: true }, { cdn: false }]) {
-    const { Stage, classes } = homeStage(options);
+test('mobile, reduced motion and CDN failures retain document scrolling and deep links', () => {
+  for (const options of [{ reduce: true }, { cdn: false }, { width: 320 }, { width: 375 }, { width: 820 }]) {
+    const { Stage, classes, location } = homeStage({ ...options, hash: '#contact' });
     assert.equal(Stage.enabled, false);
     assert(classes.has('stage-off'));
     assert(!classes.has('stage-on'));
+    assert(!classes.has('gate'));
+    assert.equal(location.hash, '#contact');
   }
-  for (const width of [375, 819, 820, 821, 1280, 1440, 1920, 2560]) {
+  for (const width of [821, 1280, 1440, 1920, 2560]) {
     const { Stage, classes, emit, advance } = homeStage({ width, hash: '#contact' });
-    assert.equal(classes.has('gate'), width <= 820);
-    advance(); assert.equal(Stage.state.p, width <= 820 ? 0 : 3);
+    assert.equal(Stage.enabled, true);
+    assert(!classes.has('stage-off'));
+    advance(); assert.equal(Stage.state.p, 3);
     emit('keydown', { key: 'Home' }); advance();
     assert.equal(Stage.state.p, 0);
   }
@@ -177,8 +183,8 @@ for (const [id, count] of Object.entries(optionCounts)) {
     const { context, document, host } = page(id);
     assert.equal(document.body.dataset.project, id);
     assert.equal(host.hidden, false);
-    assert.equal(document.getElementById('project-nav').children.length, 9);
-    assert.equal(document.getElementById('chapters').children.length, 3);
+    assert.equal(document.getElementById('project-nav').children.length, 10);
+    assert.equal(document.getElementById('chapters').children.length, 4);
     assert.equal(document.getElementById('details').children.length, 3);
     const project = context.PORTFOLIO.projects.find(project => project.id === id);
     assert.equal(document.title, `${project.name} — Karan Kapur`);
@@ -221,8 +227,8 @@ test('STTC embeds its website and retains the co-founder story', () => {
   assert.equal(host.querySelector('.live-site-link').href, 'https://sttc.tw/');
   assert.equal(host.querySelector('.experience-buttons'), null);
   assert.match(document.getElementById('summary').textContent, /I co-founded/);
-  assert.equal(document.getElementById('project-nav').children.length, 9);
-  assert.equal(document.getElementById('chapters').children.length, 3);
+  assert.equal(document.getElementById('project-nav').children.length, 10);
+  assert.equal(document.getElementById('chapters').children.length, 4);
   assert.equal(document.getElementById('details').children.length, 3);
 });
 
@@ -238,7 +244,11 @@ test('lab loads STTC directly as an external website and keeps other project rou
     assert.equal(services.some(service => service.id === id), false);
     assert(context.PORTFOLIO.projects.some(project => project.id === id));
   }
-  assert.deepEqual(Array.from(services, service => service.id), ['flipwords', 'edgesentry', 'sustainability', 'sttc', 'noshi-boshi']);
+  assert.deepEqual(Array.from(services, service => service.id), ['sustainability', 'flipwords', 'whispener', 'edgesentry', 'sttc', 'noshi-boshi']);
+  const selectionCode = html.match(/const idxOf = v =>[^\n]+/)[0] + '\n' + html.match(/let sel = Math.max\(0, idxOf[^\n]+/)[0] + '\nservices[sel].id;';
+  for (const [hash, expected] of [['', 'sustainability'], ['#web', 'sustainability'], ['#whispener', 'whispener']]) {
+    assert.equal(vm.runInNewContext(selectionCode, { services, Stage: { config: { startHash: hash.slice(1) } }, location: { hash } }), expected);
+  }
   const fallbackIds = [...html.match(/<section class="web-list"[\s\S]*?<\/section>/)[0].matchAll(/project.html\?id=([^"&]+)/g)].map(([, id]) => id);
   assert.deepEqual(fallbackIds, Array.from(services, service => service.id));
   const dock = vm.runInContext(html.match(/const DOCK = WORK_PROJECTS\.map[^\n]+/)[0] + '\nDOCK;', context);
@@ -475,20 +485,14 @@ test('unknown experience leaves its host hidden', () => {
   assert.equal(host.children.length, 0);
 });
 
-test('home actions navigate to Contact and Work, preserving fallback and modified clicks', () => {
+test('visible home navigation enhances desktop links and preserves ordinary mobile links', () => {
   const html = read('index.html');
   const document = new Element();
   document.innerHTML = html.split('<script')[0];
-  document.documentElement = new Element();
-  document.getElementById = id => document.all().find(node => node.id === id);
   const links = document.querySelectorAll('[data-scene-link]');
-  assert.equal(links.length, 2);
-  links.forEach(link => { link.dataset.sceneLink = link.getAttribute('data-scene-link'); });
+  assert.equal(links.length, 4);
   const destinations = [];
   const Stage = { enabled: true, go: destination => destinations.push(destination) };
-  let flipped = false, scrolled = false;
-  document.getElementById('toBack').addEventListener('click', () => { flipped = true; });
-  document.getElementById('hero').scrollIntoView = () => { scrolled = true; };
   const context = { document, Stage, window: { Stage } };
   const script = [...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)].find(([, code]) => code.includes("document.querySelectorAll('[data-scene-link]')"))[1];
   vm.runInNewContext(script, context);
@@ -498,15 +502,11 @@ test('home actions navigate to Contact and Work, preserving fallback and modifie
     return prevented;
   };
   links.forEach(link => assert.equal(click(link), true));
-  assert.deepEqual(destinations, ['end', 'web']);
-  assert.equal(click(links[0], { metaKey: true }), false);
-  assert.equal(destinations.length, 2);
+  assert.deepEqual(destinations, ['work', 'web', 'end', 'end']);
+  for (const modifier of ['metaKey', 'ctrlKey', 'shiftKey', 'altKey']) assert.equal(click(links[0], { [modifier]: true }), false);
   Stage.enabled = false;
-  assert.equal(click(links[0]), true);
-  assert(flipped && scrolled);
-  assert.equal(click(links[1]), false);
-  assert.equal(links[1].getAttribute('href'), '#web');
-  assert(document.getElementById('web'));
+  links.forEach(link => assert.equal(click(link), false));
+  assert.match(html, /href="profile\/projects.html">View case studies/);
 });
 
 
@@ -522,7 +522,7 @@ test('FlipWords uses the supplied mockup on its project route', () => {
   const project = context.PORTFOLIO.projects.find(p => p.id === 'flipwords');
   assert.equal(project.sourceUrl, 'https://github.com/karukapur/flipwords');
   assert.equal(project.notesUrl, project.sourceUrl + '/blob/main/docs/SCHEDULER.md');
-  assert.equal(document.getElementById('project-nav').children.length, 9);
+  assert.equal(document.getElementById('project-nav').children.length, 10);
 });
 
 
@@ -582,8 +582,26 @@ test('image and video previews ride the 3D scene and pause video when leaving Wo
   callbacks.forEach(callback => callback());
   assert.equal(document.documentElement.classList.contains('flipwords-work'), true);
   Stage.state.p = 2;
+  Stage.web.hash = 'whispener';
+  events['web:select']();
+  const portraitVideo = stage.querySelector('.nb-video');
+  assert(stage.classList.contains('portrait-stage'));
+  assert(stage.querySelector('.project-phone'));
+  assert.equal(portraitVideo.getAttribute('src'), 'http://localhost/profile/media/whispener-narad-demo.mp4');
+  assert.equal(portraitVideo.getAttribute('width'), '1080');
+  assert.equal(portraitVideo.getAttribute('height'), '2640');
+  assert.equal(portraitVideo.playCount, 1);
+  Stage.state.p = 3;
+  callbacks.forEach(callback => callback());
+  assert.equal(portraitVideo.pauseCount, 1);
+  Stage.state.p = 2;
+  callbacks.forEach(callback => callback());
+  assert.equal(portraitVideo.playCount, 2);
   Stage.web.hash = 'noshi-boshi';
   events['web:select']();
+  assert.equal(portraitVideo.pauseCount, 2);
+  assert.equal(stage.classList.contains('portrait-stage'), false);
+  assert.equal(stage.querySelector('.project-phone'), null);
   const video = stage.querySelector('.nb-video');
   assert(video);
   assert(stage.classList.contains('nb-stage'));
@@ -607,9 +625,13 @@ test('image and video previews ride the 3D scene and pause video when leaving Wo
   Stage.state.p = 2;
   callbacks.forEach(callback => callback());
   assert.equal(video.playCount, 3);
+  video.paused = true;
+  document.hidden = true; document.events.visibilitychange();
+  document.hidden = false; document.events.visibilitychange();
+  assert.equal(video.playCount, 3, 'a visitor-paused video stays paused after returning');
   Stage.web.hash = 'sttc';
   events['web:select']();
-  assert.equal(video.pauseCount, 3);
+  assert.equal(video.pauseCount, 4);
   assert.equal(stage.hidden, true);
   Stage.web.hash = 'noshi-boshi';
   events['web:select']();
@@ -699,6 +721,33 @@ test('Minecraft animation pauses away, resumes, completes once and respects redu
   assert.equal(reduced.frames.size, 0); assert.equal(reduced.times.at(-1), 6.4);
 });
 
+test('Whispener shows the portrait recording, source and project story without adding a career card', () => {
+  const { document, host, context } = page('whispener');
+  assert.equal(document.title, 'Whispener — Karan Kapur');
+  assert.equal(host.hidden, false);
+  assert(host.classList.contains('portrait-stage'));
+  assert(host.querySelector('.project-phone'));
+  assert.match(host.markup, /<div class="phone-screen"><video/);
+  const video = host.querySelector('.nb-video');
+  assert.equal(video.getAttribute('src'), 'http://localhost/profile/media/whispener-narad-demo.mp4');
+  assert.equal(video.getAttribute('poster'), 'http://localhost/profile/media/whispener-narad-demo-poster.jpg');
+  assert.equal(video.getAttribute('width'), '1080');
+  assert.equal(video.getAttribute('height'), '2640');
+  assert.equal(video.getAttribute('muted'), '');
+  assert.equal(video.getAttribute('playsinline'), '');
+  assert.equal(video.getAttribute('controls'), undefined);
+  assert.equal(video.getAttribute('loop'), undefined);
+  assert.match(document.getElementById('summary').textContent, /installed as Narad/);
+  assert.equal(document.getElementById('back').href, '../index.html#whispener');
+  const project = context.PORTFOLIO.projects.find(p => p.id === 'whispener');
+  assert.equal(project.sourceUrl, 'https://github.com/karukapur/whispener');
+  assert.match(project.tabs[3], /off by default/);
+  const cards = vm.runInContext(read('index.html').match(/const ITEMS = PORTFOLIO.projects[^\n]+/)[0] + '\nITEMS;', context);
+  assert.equal(cards.length, 7);
+  assert.equal(cards.some(card => card.t === 'Whispener'), false);
+  for (const asset of [project.video.src, project.video.poster, 'whispener.svg']) assert(readFileSync(resolve(root, 'profile', asset)).length > 0);
+});
+
 test('Noshi Boshi presents the supplied video and retains its founder story', () => {
   const { document, host } = page('noshi-boshi');
   assert.equal(document.title, 'Noshi Boshi — Karan Kapur');
@@ -707,13 +756,14 @@ test('Noshi Boshi presents the supplied video and retains its founder story', ()
   assert.equal(video.getAttribute('src'), 'http://localhost/profile/media/noshi-boshi-unboxing.mp4');
   assert.equal(video.getAttribute('poster'), 'http://localhost/profile/media/noshi-boshi-unboxing-poster.jpg');
   for (const attr of ['autoplay', 'muted', 'playsinline', 'disablepictureinpicture', 'disableremoteplayback']) assert.equal(video.getAttribute(attr), '');
+  assert.equal(video.getAttribute('autoplay'), '');
   assert.equal(video.getAttribute('loop'), undefined);
   assert.equal(video.getAttribute('preload'), 'metadata');
   assert.match(video.getAttribute('aria-label'), /meal-kit product unboxing/);
   assert.equal(video.getAttribute('controls'), undefined);
   assert.equal(video.getAttribute('tabindex'), '-1');
   assert.match(document.getElementById('summary').textContent, /I co-founded Noshi Boshi/);
-  assert.equal(document.getElementById('chapters').children.length, 3);
+  assert.equal(document.getElementById('chapters').children.length, 4);
   assert.equal(document.getElementById('details').children.length, 3);
   assert(readFileSync(resolve(root, 'profile/media/noshi-boshi-unboxing.mp4')).length > 0);
   assert(readFileSync(resolve(root, 'profile/media/noshi-boshi-unboxing-poster.jpg')).length > 0);
@@ -741,4 +791,87 @@ test('EdgeSentry uses its hardware concept, source and shared Work presentation'
   assert.match(project.tabs[3], /hardware concept/);
   assert.equal(document.querySelector('.project-heading').children.at(-1).href, project.sourceUrl);
   assert.match(read('index.html'), /project.html\?id=edgesentry/);
+});
+
+test('scene navigation leaves native controls and their nested elements in control of keys', () => {
+  const { Stage, emit, advance } = homeStage();
+  for (const target of [{ tagName: 'BUTTON' }, { tagName: 'A' }, { tagName: 'VIDEO' }, { tagName: 'SPAN', closest: () => ({}) }]) {
+    for (const key of [' ', 'ArrowDown', 'PageDown', 'Home', 'End']) {
+      assert.equal(emit('keydown', { key, target }), false);
+      advance(); assert.equal(Stage.state.p, 0);
+    }
+  }
+});
+
+test('every case-study route exposes contribution, decisions, result, limits and nonempty details', () => {
+  const projects = page().context.PORTFOLIO.projects;
+  for (const project of projects) {
+    const { document } = page(project.id);
+    assert.equal(document.getElementById('chapters').children.length, 4);
+    assert.equal(document.getElementById('result').textContent, project.caseStudy.result);
+    for (const field of ['status', 'contribution', 'decision', 'result', 'limitation']) assert(project.caseStudy[field].length > 10);
+    for (const row of document.getElementById('details').children) assert(row.children[1].textContent.length > 0);
+    assert(document.getElementById('resources').children.length > 0);
+  }
+});
+
+test('shared overview exposes all projects and honors mobile deep links from either base path', () => {
+  const { context } = page();
+  for (const base of ['', '../']) {
+    for (const [hash, target] of [['#contact', 'contact'], ['#web', 'projects'], ['#work', 'experience'], ['#edge-ai', 'edge-ai'], ['#flipwords', 'flipwords'], ['#education', 'education']]) {
+      const document = new Element();
+      const host = new Element({ 'data-portfolio-overview': '', 'data-base': base });
+      document.append(host);
+      document.getElementById = id => document.all().find(node => node.id === id);
+      const events = {};
+      vm.runInNewContext(read('profile/browse.js'), { document, PORTFOLIO: context.PORTFOLIO, window: { Stage: { enabled: false } }, location: { hash }, addEventListener: (name, fn) => { events[name] = fn; } });
+      assert.equal(document.querySelectorAll('.browse-project').length, 6);
+      const ids = document.all().map(node => node.id).filter(Boolean);
+      assert.equal(new Set(ids).size, ids.length);
+      assert.equal(document.getElementById(target).scrollCount, 1);
+      for (const project of context.PORTFOLIO.projects) {
+        assert(document.all().some(node => node.getAttribute('href') === `${base}profile/project.html?id=${project.id}`));
+      }
+      assert(document.all().some(node => node.getAttribute('href') === `mailto:${context.PORTFOLIO.email}`));
+      assert.equal(typeof events.hashchange, 'function');
+    }
+  }
+});
+
+test('videos autoplay silently without controls and reduced motion retains the poster', () => {
+  for (const id of ['whispener', 'noshi-boshi']) {
+    for (const reduce of [false, true]) {
+      const { host, context } = page(id, { reduce });
+      const video = host.querySelector('.nb-video');
+      assert.equal(video.getAttribute('autoplay'), reduce ? undefined : '');
+      assert.equal(video.getAttribute('controls'), undefined);
+      assert.equal(video.getAttribute('tabindex'), '-1');
+      assert.equal(video.getAttribute('muted'), '');
+      assert.equal(video.getAttribute('playsinline'), '');
+      assert.equal(video.getAttribute('loop'), undefined);
+      const project = context.PORTFOLIO.projects.find(project => project.id === id);
+      context.mountProjectVideo(host, project, false);
+      assert.equal(host.querySelector('.nb-video').getAttribute('autoplay'), undefined);
+      assert.equal(host.querySelector('.nb-video').getAttribute('controls'), undefined);
+    }
+  }
+});
+
+test('each Work selection retains one case-study link pointing to the selected project', () => {
+  const { context } = page();
+  const mb = new Element(); mb.innerHTML = '<p class="mb-chin"></p>';
+  const info = new Element(); info.innerHTML = '<div class="wi-body"><h2 class="wi-name"></h2><p class="wi-big"></p><dl class="wi-meta"></dl><a class="wi-go"></a></div>';
+  const document = { createElement: () => new Element() };
+  const WORKS = Object.fromEntries(context.PORTFOLIO.projects.map(project => [project.id, project]));
+  const fixture = vm.createContext({ mb, info, document, WORKS, URL, location: { href: 'https://example.test/portfolio/' } });
+  const setInfo = read('index.html').match(/function setInfo\(sv\)\{[\s\S]*?\n  \}/)[0];
+  vm.runInContext(setInfo, fixture);
+  for (const id of [...context.PORTFOLIO.selectedIds, 'flipwords']) {
+    fixture.selection = { id, name: WORKS[id].name, url: WORKS[id].liveUrl || `profile/project.html?id=${id}`, external: Boolean(WORKS[id].liveUrl) };
+    vm.runInContext('setInfo(selection)', fixture);
+    const links = info.querySelectorAll('.sus-case-study');
+    assert.equal(links.length, 1);
+    assert.equal(links[0].href, `profile/project.html?id=${id}`);
+    assert.equal(links[0].hidden, false);
+  }
 });
