@@ -6,7 +6,7 @@
     host.classList.toggle('es-stage', false);
     const videoUrl = new URL(project.video.src, assetBase).href;
     const posterUrl = new URL(project.video.poster, assetBase).href;
-    host.innerHTML = `<video class="nb-video" src="${videoUrl}" poster="${posterUrl}" width="1280" height="720" ${autoplay ? 'autoplay' : ''} muted loop playsinline disablepictureinpicture disableremoteplayback tabindex="-1" preload="metadata" aria-label="${project.video.label}">Your browser does not support this video. <a href="${videoUrl}">Download the unboxing video</a>.</video>`;
+    host.innerHTML = `<video class="nb-video" src="${videoUrl}" poster="${posterUrl}" width="1280" height="720" ${autoplay ? 'autoplay' : ''} muted playsinline disablepictureinpicture disableremoteplayback tabindex="-1" preload="metadata" aria-label="${project.video.label}">Your browser does not support this video. <a href="${videoUrl}">Download the unboxing video</a>.</video>`;
   };
   window.mountProjectMockup = (host, project) => {
     host.classList.add('fw-stage');
@@ -57,14 +57,15 @@
         }
       }
       // Refit the text after applying the project-specific type sizes.
-      if (project && info.wiTabs) info.wiTabs(project.tabs, project.tabLabels);
+      if (project && info.wiTabs) info.wiTabs(project.work?.tabs || project.tabs, project.work?.tabLabels || project.tabLabels);
     }
     document.documentElement.classList.toggle('flipwords-work', selected);
+    document.documentElement.classList.toggle('sustainability-work', project?.id === 'sustainability' && Stage.state.p >= webStation - .4 && Stage.state.p <= webStation + .25);
     if (video) {
       const active = Stage.state.p >= webStation - .4 && Stage.state.p <= webStation + .25 && !document.hidden;
       if (active !== videoActive) {
         videoActive = active;
-        if (active) video.play().catch(() => {});
+        if (active && !video.ended) video.play().catch(() => {});
         else if (!active) video.pause();
       }
     }

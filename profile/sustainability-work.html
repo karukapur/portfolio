@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ESG document workflow</title>
+  <link rel="stylesheet" href="sustainability-work.css">
+  <script src="sustainability-work.js" defer></script>
+</head>
+<body class="sus-page">
+  <svg class="sus-symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <symbol id="sus-leaf" viewBox="0 0 32 32"><path d="M6 26C4 12 12 5 27 5c0 15-8 22-21 21Zm0 0 12-12"/></symbol>
+      <symbol id="sus-shield" viewBox="0 0 32 32"><path d="m16 3 11 5v8c0 7-7 12-11 14C12 28 5 23 5 16V8Z"/><path d="m10 16 4 4 8-9"/></symbol>
+      <symbol id="sus-chart" viewBox="0 0 32 32"><path d="M5 21h4v8H5Zm9-8h4v16h-4Zm9-9h4v25h-4Z" fill="currentColor" stroke="none"/></symbol>
+      <symbol id="sus-forest" viewBox="0 0 240 160">
+        <path d="M0 60 65 20l53 34 54-33 68 29v110H0Z" fill="#b9cba5"/>
+        <path d="m0 94 80-45 56 30 56-39 48 21v99H0Z" fill="#8fa675"/>
+        <path d="m0 130 73-55 72 31 95-49v103H0Z" fill="#5b7b54"/>
+        <path d="m0 151 100-39 69 5 71-40v83H0Z" fill="#30513e"/>
+        <g fill="#244635"><path d="m126 111 8-27 8 27h-5v19h-6v-19Zm22 8 10-37 11 37h-7v21h-7v-21Zm26-15 12-43 12 43h-8v29h-8v-29Zm27-9 13-44 13 44h-8v33h-10V95Zm-95 36 6-21 7 21h-4v14h-5v-14Z"/></g>
+        <g fill="#173d2f"><path d="m155 153 12-40 12 40Zm24-9 15-51 15 51Zm26 12 18-61 17 61Zm-81 4 10-34 10 34Z"/></g>
+      </symbol>
+    </defs>
+  </svg>
+  <main class="sus-dashboard" data-step="0" aria-label="Illustrative ESG document workflow">
+    <header class="sus-header">
+      <div class="sus-badge"><svg><use href="#sus-leaf"/></svg><span>ESG document workflow</span></div>
+    </header>
+
+    <section class="sus-workflow" aria-label="Reports to structured data">
+      <button class="sus-documents" type="button" data-step-control="0" aria-label="Inspect the source reports">
+        <span class="sus-report sus-report-back" aria-hidden="true"><span>Climate<br>disclosure</span><svg viewBox="0 0 240 160"><use href="#sus-forest"/></svg></span>
+        <span class="sus-report sus-report-annual" aria-hidden="true"><span>Annual<br>Report<br><small>2024</small></span><svg viewBox="0 0 240 160"><path d="M0 100 85 25l70 40 85-36v131H0Z" fill="#e2e8e8"/><path d="m5 160 10-62 98-50 75 42v70" fill="#b8c4c4" stroke="#788d8d" stroke-width="2"/><path d="M113 48v112m-82-54 69-35m-71 51 72-36m-75 54 75-36m25-26 48 26m-48-8 48 26m-48-8 48 26" fill="none" stroke="#f5f6f3" stroke-width="3"/></svg></span>
+        <span class="sus-report sus-report-front" aria-hidden="true"><svg class="sus-cover-leaf"><use href="#sus-leaf"/></svg><span>Sustainability<br>Report<br><small>2024</small></span><svg class="sus-cover-landscape" viewBox="0 0 240 160"><use href="#sus-forest"/></svg><span class="sus-report-scan"></span></span>
+        <span class="sus-document-caption">PDFs · multiple sources</span>
+      </button>
+      <span class="sus-arrow sus-arrow-first" aria-hidden="true">→</span>
+      <button class="sus-extractor" type="button" data-step-control="1" aria-label="Explore AI extraction and structuring">
+        <span class="sus-corners" aria-hidden="true"></span>
+        <svg class="sus-pdf" viewBox="0 0 72 88" aria-hidden="true"><path d="M11 3h34l19 20v59H11Z"/><path d="M44 3v22h20M23 43h29"/><text x="37" y="68" text-anchor="middle">PDF</text></svg>
+        <span>Extract<br>&amp; structure</span>
+        <small>Retrieve · map · normalize</small>
+      </button>
+      <span class="sus-arrow sus-arrow-second" aria-hidden="true">→</span>
+      <div class="sus-table-panel">
+        <table class="sus-table">
+          <caption class="sus-sr-only">Illustrative extracted ESG metrics. Select a metric to inspect its source.</caption>
+          <thead><tr><th scope="col">Metric</th><th scope="col">Value</th><th scope="col">Unit</th></tr></thead>
+          <tbody>
+            <tr data-metric-row="ghg"><th scope="row"><button type="button" data-metric="ghg" aria-pressed="true">Total GHG emissions</button></th><td>1,240,000</td><td>tCO₂e</td></tr>
+            <tr data-metric-row="intensity"><th scope="row"><button type="button" data-metric="intensity" aria-pressed="false">Emissions intensity</button></th><td>0.42</td><td>tCO₂e/US$M</td></tr>
+            <tr data-metric-row="energy"><th scope="row"><button type="button" data-metric="energy" aria-pressed="false">Renewable energy</button></th><td>68%</td><td>%</td></tr>
+            <tr data-metric-row="water"><th scope="row"><button type="button" data-metric="water" aria-pressed="false">Water withdrawal</button></th><td>2,910,000</td><td>m³</td></tr>
+          </tbody>
+        </table>
+        <span class="sus-table-hint">Select a metric to trace its source <span aria-hidden="true">↗</span></span>
+      </div>
+    </section>
+
+    <div class="sus-results">
+      <section class="sus-metrics sus-panel" aria-labelledby="sus-metrics-title">
+        <h1 id="sus-metrics-title"><svg aria-hidden="true"><use href="#sus-chart"/></svg>Extracted ESG metrics</h1>
+        <div class="sus-cards">
+          <button class="sus-metric-card" type="button" data-metric="ghg" aria-pressed="true"><span>GHG emissions</span><strong>1.24M<small> tCO₂e</small></strong><svg viewBox="0 0 160 42" aria-hidden="true"><path class="sus-chart-fill" d="M0 10h28l20 9 21-3 30 13 22-4 22 5h17v12H0Z"/><path class="sus-chart-line" d="M0 10h28l20 9 21-3 30 13 22-4 22 5h17" pathLength="1"/></svg></button>
+          <button class="sus-metric-card" type="button" data-metric="energy" aria-pressed="false"><span>Renewable energy</span><strong>68<small>%</small></strong><svg viewBox="0 0 160 42" aria-hidden="true"><path class="sus-chart-fill" d="m0 33 28-6 22 1 32-13 23 2 25-13 30-4v42H0Z"/><path class="sus-chart-line" d="m0 33 28-6 22 1 32-13 23 2 25-13 30-4" pathLength="1"/></svg></button>
+          <button class="sus-metric-card" type="button" data-metric="intensity" aria-pressed="false"><span>Emissions intensity</span><strong>0.42<small> tCO₂e/US$M</small></strong><svg viewBox="0 0 160 42" aria-hidden="true"><path class="sus-chart-fill" d="M0 10h28l20 8 23-3 30 12 24-3 18 4h17v14H0Z"/><path class="sus-chart-line" d="M0 10h28l20 8 23-3 30 12 24-3 18 4h17" pathLength="1"/></svg></button>
+        </div>
+        <p class="sus-source" id="sus-source" role="status">Source: Sustainability Report, p. 42 · Scope 1 + 2 · unit: tCO₂e</p>
+      </section>
+      <section class="sus-validation sus-panel" aria-labelledby="sus-validation-title">
+        <h2 id="sus-validation-title"><svg aria-hidden="true"><use href="#sus-shield"/></svg>Validation</h2>
+        <ul>
+          <li><span class="sus-check" aria-hidden="true">✓</span><span>Extraction complete</span></li>
+          <li><span class="sus-check" aria-hidden="true">✓</span><span>Units &amp; data quality checked</span></li>
+          <li><span class="sus-check" aria-hidden="true">✓</span><span>Cross-document review</span></li>
+        </ul>
+        <p>Human review before publishing</p>
+      </section>
+    </div>
+
+    <footer class="sus-footer">
+      <div class="sus-explanation"><span class="sus-status-dot" aria-hidden="true"></span><p id="sus-status" role="status">Read source reports and keep the context behind each figure.</p><span class="sus-sample">Illustrative data &amp; trends</span></div>
+      <div class="sus-playback">
+        <nav aria-label="Workflow stages">
+          <button type="button" data-step-control="0" aria-pressed="true"><span>01</span> Documents</button><span class="sus-step-line" aria-hidden="true"></span>
+          <button type="button" data-step-control="1" aria-pressed="false"><span>02</span> Extract</button><span class="sus-step-line" aria-hidden="true"></span>
+          <button type="button" data-step-control="2" aria-pressed="false"><span>03</span> Structure</button><span class="sus-step-line" aria-hidden="true"></span>
+          <button type="button" data-step-control="3" aria-pressed="false"><span>04</span> Validate</button>
+        </nav>
+        <div class="sus-controls"><button type="button" id="sus-pause" aria-label="Pause workflow animation">Pause <span aria-hidden="true">Ⅱ</span></button><button type="button" id="sus-replay">Replay <span aria-hidden="true">↻</span></button></div>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>

@@ -38,7 +38,6 @@ html.stage-on .mb.sttc-macbook .mb-back {
   background: linear-gradient(135deg, #e4e5e7, #b8babe 65%, #d4d5d8);
 }
 html.stage-on .mb.sttc-macbook .mb-screen { border-radius: 5px; background: #111; }
-html.stage-on .mb.sttc-macbook .mb-bar { display: none; }
 html.stage-on .mb.sttc-macbook .mb-chin {
   color: #999b9f;
   font: 400 calc(var(--wi) * .011)/1 var(--f-en);

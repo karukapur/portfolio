@@ -3,7 +3,6 @@
 html.flipwords-work .mb .mb-base,
 html.flipwords-work .mb .mb-back,
 html.flipwords-work .mb .mb-screen,
-html.flipwords-work .mb .mb-bar,
 html.flipwords-work .mb .mb-chin { visibility: hidden !important; pointer-events: none; }
 html.flipwords-work.stage-on .mb .mb-face { background: none; box-shadow: none; }
 html.stage-on body .web-info.fw-selected .wi-body { left: 8.6vw; top: max(64px, 9vh); width: 30vw; max-width: 460px; max-height: calc(100dvh - max(64px, 9vh) - 155px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; pointer-events: auto; padding-right: 8px; }

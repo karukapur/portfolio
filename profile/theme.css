@@ -11,7 +11,6 @@
   --nt-3: #686779;
   --nt-line: rgba(46,44,79,.14);
   --nt-hi: #363445;
-  --nt-mid: #555365;
   --nt-body: #61606f;
   --accent-ink: color-mix(in srgb, var(--accent, #b9b9ed) 40%, #242331);
 }
@@ -84,7 +83,6 @@ html.stage-on body .web-info .wd-c, html.stage-on body .web-info .wd-k { width: 
 html.stage-on body .web-info .wd-k { height: calc(var(--dock-size) * .75); border-radius: 11px; }
 html.stage-on body .web-info .wd-c::after { width: 5px; height: 5px; bottom: -12px; }
 html.stage-on body .web-info .wd-tip { font-size: 14px; padding: 7px 12px; }
-html.stage-on .web-tip { color: var(--ink); text-shadow: 0 1px 8px #fff; }
 html.stage-on .mb .mb-arrive { box-shadow: 0 8px 28px rgba(46,44,79,.18); }
 html.stage-on .web-note.is-cue { animation: none; }
 .end-info .ei-item:hover .ei-v { color: #64619a; }

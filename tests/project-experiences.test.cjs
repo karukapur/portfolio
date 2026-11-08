@@ -61,6 +61,117 @@ function page(id = 'edge-ai') {
 }
 
 const optionCounts = { 'edge-ai': 3, embedded: 3, sustainability: 4, camh: 3, education: 3 };
+
+function homeStage({ hash = '', width = 1440, reduce = false, cdn = true } = {}) {
+  const classes = new Set(), events = {}, ticks = [], timers = new Map();
+  const location = new URL(`https://example.test/portfolio/index.html?test=1${hash}`);
+  let now = 0, timerId = 0;
+  const root = { classList: { add: name => classes.add(name), remove: name => classes.delete(name), contains: name => classes.has(name) } };
+  const context = {
+    document: { documentElement: root, querySelector: () => ({ style: {} }), querySelectorAll: () => [] },
+    innerWidth: width, innerHeight: 900, location,
+    history: { state: null, replaceState: (_, __, url) => { location.href = new URL(url, location).href; } },
+    performance: { now: () => now },
+    matchMedia: query => ({ matches: query.includes('reduced-motion') ? reduce : query.includes('max-width') ? width <= 820 : true, addEventListener() {} }),
+    addEventListener: (name, fn) => { (events[name] ||= []).push(fn); },
+    setTimeout: fn => { timers.set(++timerId, fn); return timerId; }, clearTimeout: id => timers.delete(id),
+    gsap: cdn ? { registerPlugin() {}, ticker: { add: fn => ticks.push(fn), lagSmoothing() {} } } : undefined,
+    Observer: cdn ? { create: () => ({ enable() {}, disable() {} }) } : undefined
+  };
+  context.window = context;
+  vm.createContext(context);
+  vm.runInContext(read('profile/portfolio.js'), context);
+  const script = [...read('index.html').matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)].find(([, code]) => code.includes('const WORK_PROJECTS ='))[1];
+  vm.runInContext(script, context);
+  const advance = () => {
+    for (let i = 0; i < 300; i++) { now += 1000 / 60; ticks.forEach(fn => fn(now / 1000, 1000 / 60)); }
+  };
+  const emit = (name, event = {}) => {
+    let prevented = false;
+    events[name].forEach(fn => fn({ preventDefault() { prevented = true; }, ...event }));
+    return prevented;
+  };
+  return { Stage: context.Stage, classes, location, advance, emit,
+    settle() { const pending = [...timers.values()]; timers.clear(); pending.forEach(fn => fn()); advance(); } };
+}
+
+test('scene keyboard navigation preserves stations, boundaries and input guards', () => {
+  const { Stage, location, advance, emit } = homeStage();
+  for (const [key, shiftKey, station, hash] of [
+    ['ArrowDown', false, 'work', '#work'], ['PageDown', false, 'web', '#web'],
+    [' ', false, 'end', '#contact'], ['ArrowDown', false, 'end', '#contact'],
+    [' ', true, 'web', '#web'], ['PageUp', false, 'work', '#work'],
+    ['ArrowUp', false, 'hero', ''], ['ArrowUp', false, 'hero', ''],
+    ['End', false, 'end', '#contact'], ['Home', false, 'hero', '']
+  ]) {
+    assert.equal(emit('keydown', { key, shiftKey }), true);
+    advance();
+    assert.equal(Stage.state.station, station);
+    assert.equal(location.hash, hash);
+  }
+  for (const guard of [{ ctrlKey: true }, { metaKey: true }, { altKey: true }, { defaultPrevented: true }, { target: { tagName: 'INPUT' } }, { target: { isContentEditable: true } }]) {
+    assert.equal(emit('keydown', { key: 'ArrowDown', ...guard }), false);
+    advance(); assert.equal(Stage.state.p, 0);
+  }
+  const hold = Stage.hold('web');
+  assert.equal(emit('keydown', { key: 'ArrowDown' }), false);
+  Stage.release(hold);
+  emit('keydown', { key: 'ArrowDown' }); advance();
+  assert.equal(Stage.state.p, 1);
+  assert.equal(location.pathname, '/portfolio/index.html');
+  assert.equal(location.search, '?test=1');
+});
+
+test('scene hashes preserve all project aliases and the selected Work hash', () => {
+  for (const id of ['flipwords', 'edgesentry', 'edge-ai', 'embedded', 'sustainability', 'sttc', 'camh', 'education', 'noshi-boshi']) {
+    const { Stage, location, advance, emit } = homeStage({ hash: `#${id}` });
+    assert.equal(Stage.config.startHash, id);
+    Stage.web = { hash: id }; advance();
+    assert.equal(Stage.state.station, 'web');
+    assert.equal(location.hash, `#${id}`);
+    location.hash = '#contact'; emit('hashchange'); advance();
+    assert.equal(Stage.state.p, 3);
+    location.hash = `#${id}`; emit('hashchange'); advance();
+    assert.equal(Stage.state.p, 2);
+    assert.equal(location.hash, `#${id}`);
+    location.hash = '#unknown'; emit('hashchange'); advance();
+    assert.equal(Stage.state.p, 2);
+  }
+});
+
+test('scene wheel input respects split distances, station stops and browser gestures', () => {
+  const { Stage, emit, advance, settle } = homeStage();
+  Stage.config.split = [[0, .18, .15]];
+  const wheel = deltaY => emit('wheel', { deltaY, deltaX: 0, deltaMode: 0 });
+  wheel(90); advance();
+  assert(Math.abs(Stage.state.p - .12) < 1e-6);
+  wheel(3000); advance(); settle();
+  assert.equal(Stage.state.p, 1);
+  wheel(90); advance(); settle();
+  assert(Stage.state.p > 1 && Stage.state.p < 2);
+  const before = Stage.state.p;
+  for (const gesture of [{ ctrlKey: true }, { metaKey: true }, { deltaX: 100 }]) {
+    assert.equal(emit('wheel', { deltaY: 90, deltaX: 0, deltaMode: 0, ...gesture }), false);
+  }
+  advance(); assert.equal(Stage.state.p, before);
+});
+
+test('home retains reduced-motion and CDN fallbacks and gates narrow screens', () => {
+  for (const options of [{ reduce: true }, { cdn: false }]) {
+    const { Stage, classes } = homeStage(options);
+    assert.equal(Stage.enabled, false);
+    assert(classes.has('stage-off'));
+    assert(!classes.has('stage-on'));
+  }
+  for (const width of [375, 819, 820, 821, 1280, 1440, 1920, 2560]) {
+    const { Stage, classes, emit, advance } = homeStage({ width, hash: '#contact' });
+    assert.equal(classes.has('gate'), width <= 820);
+    advance(); assert.equal(Stage.state.p, width <= 820 ? 0 : 3);
+    emit('keydown', { key: 'Home' }); advance();
+    assert.equal(Stage.state.p, 0);
+  }
+});
+
 for (const [id, count] of Object.entries(optionCounts)) {
   test(`${id}: route, content, selection and reset`, () => {
     const { context, document, host } = page(id);
@@ -133,12 +244,12 @@ test('lab loads STTC directly as an external website and keeps other project rou
   const dock = vm.runInContext(html.match(/const DOCK = WORK_PROJECTS\.map[^\n]+/)[0] + '\nDOCK;', context);
   assert.deepEqual(Array.from(dock, entry => entry[0]), Array.from(services, service => service.id));
   services.filter(service => service.id !== 'sttc').forEach(service => {
-    assert.equal(service.url, `profile/project.html?id=${service.id}`);
+    assert.equal(service.url, service.id === 'sustainability' ? 'profile/sustainability-work.html' : `profile/project.html?id=${service.id}`);
     assert.equal(service.external, false);
   });
 });
 
-test('Work switches to MacBook hardware only for STTC', () => {
+test('Work shares the STTC MacBook with sustainability and resets it for other projects', () => {
   const mb = new Element();
   mb.innerHTML = '<p class="mb-chin"></p>';
   const context = vm.createContext({ mb, info: null });
@@ -148,6 +259,10 @@ test('Work switches to MacBook hardware only for STTC', () => {
   assert.match(mb.getAttribute('aria-label'), /MacBook.*STTC/);
   assert.equal(mb.querySelector('.mb-chin').textContent, 'MacBook Pro');
   vm.runInContext('setInfo({ id: "sustainability" });', context);
+  assert(mb.classList.contains('sttc-macbook'));
+  assert.match(mb.getAttribute('aria-label'), /MacBook.*ESG/);
+  assert.equal(mb.querySelector('.mb-chin').textContent, 'MacBook Pro');
+  vm.runInContext('setInfo({ id: "flipwords" });', context);
   assert.equal(mb.classList.contains('sttc-macbook'), false);
   assert.equal(mb.getAttribute('aria-label'), 'Interactive project showcase');
   assert.equal(mb.querySelector('.mb-chin').textContent, '');
@@ -216,7 +331,7 @@ test('Contact hides the entire project display and restores it on returning to W
   const Stage = { config: { stations: [0, 1, 2, 3] }, add: (_, scene) => { hooks = scene; }, camera: { set() {} }, tone() {} };
   vm.runInNewContext(sceneCode, {
     Stage, mb, END: () => 3, path: () => ({}), W: { mobile: false },
-    Wd: { toneOf: () => 1 }, lightOf: () => 0, pool: null, info: null
+    Wd: { toneOf: () => 1 }, pool: null, info: null
   });
   for (const [p, hidden] of [[2, false], [2.5, true], [3, true], [2, false]]) {
     hooks.progress(0, { p });
@@ -248,6 +363,82 @@ test('validation outcome is attributed to the real project', () => {
   host.querySelector('.experience-buttons').children[2].click();
   assert.match(host.querySelector('.experience-copy').textContent, /92%.*Corporate Knights/);
   assert.match(host.markup, /Corporate Knights · Project outcome/);
+});
+
+function sustainabilityWorkflow(reduce = false) {
+  const document = new Element();
+  document.innerHTML = read('profile/sustainability-work.html');
+  document.getElementById = id => document.all().find(node => node.id === id);
+  const checks = Array.from({ length: 3 }, () => {
+    const item = new Element();
+    item.appendChild(new Element({ class: 'sus-check' }));
+    return item;
+  });
+  const queryAll = document.querySelectorAll.bind(document);
+  document.querySelectorAll = selector => selector === '.sus-validation li' ? checks : queryAll(selector);
+  const timers = new Map();
+  const media = { matches: reduce, addEventListener(name, listener) { this.change = listener; } };
+  let timerId = 0;
+  vm.runInNewContext(read('profile/sustainability-work.js'), {
+    document, matchMedia: () => media,
+    setTimeout: callback => { timers.set(++timerId, callback); return timerId; },
+    clearTimeout: id => timers.delete(id)
+  });
+  return {
+    document, checks, timers, media, dashboard: document.querySelector('.sus-dashboard'),
+    advance() {
+      assert.equal(timers.size, 1, 'only one animation timer should run');
+      const [id, callback] = timers.entries().next().value;
+      timers.delete(id); callback();
+    }
+  };
+}
+
+test('ESG workflow advances, pauses, inspects sources, replays and suspends in hidden tabs', () => {
+  const { document, dashboard, checks, timers, advance } = sustainabilityWorkflow();
+  const pause = document.getElementById('sus-pause');
+  assert.equal(dashboard.dataset.step, '0');
+  advance();
+  assert.equal(dashboard.dataset.step, '1');
+  pause.click();
+  assert.equal(dashboard.dataset.running, 'false');
+  assert.equal(timers.size, 0);
+  document.querySelectorAll('[data-step-control]').find(node => node.dataset.stepControl === '2').click();
+  assert.equal(dashboard.dataset.step, '2');
+  assert.equal(checks.filter(item => item.classList.contains('sus-checked')).length, 1);
+  document.querySelectorAll('[data-metric]').find(node => node.dataset.metric === 'water').click();
+  assert.match(document.getElementById('sus-source').textContent, /p\. 51.*m³/);
+  document.querySelectorAll('[data-metric]').forEach(button => {
+    assert.equal(button.getAttribute('aria-pressed'), String(button.dataset.metric === 'water'));
+    assert.equal(button.getAttribute('aria-controls'), 'sus-source');
+  });
+  document.getElementById('sus-replay').click();
+  assert.equal(dashboard.dataset.step, '0');
+  document.hidden = true; document.events.visibilitychange();
+  assert.equal(timers.size, 0);
+  assert.equal(dashboard.dataset.running, 'false');
+  document.hidden = false; document.events.visibilitychange();
+  advance(); advance(); advance(); advance();
+  assert.equal(dashboard.dataset.step, '3');
+  assert.equal(dashboard.dataset.running, 'false');
+  assert.equal(timers.size, 0);
+  assert.equal(pause.disabled, true);
+  assert.equal(checks.filter(item => item.classList.contains('sus-checked')).length, 3);
+  assert.match(document.getElementById('sus-status').textContent, /human review/);
+});
+
+test('ESG reduced motion starts complete and allows manual exploration without autoplay', () => {
+  const { document, dashboard, timers, media } = sustainabilityWorkflow(true);
+  assert.equal(dashboard.dataset.step, '3');
+  assert.equal(timers.size, 0);
+  document.getElementById('sus-replay').click();
+  assert.equal(dashboard.dataset.step, '0');
+  assert.equal(dashboard.dataset.running, 'false');
+  assert.equal(timers.size, 0);
+  document.querySelectorAll('[data-step-control]').find(node => node.dataset.stepControl === '1').click();
+  assert.match(document.getElementById('sus-status').textContent, /NLP pipeline/);
+  media.change();
+  assert.equal(dashboard.dataset.step, '3');
 });
 
 test('missing route retains the existing fallback', () => {
@@ -382,6 +573,7 @@ test('image and video previews ride the 3D scene and pause video when leaving Wo
   assert.equal(video.getAttribute('tabindex'), '-1');
   assert.equal(video.getAttribute('controls'), undefined);
   assert.equal(video.getAttribute('autoplay'), undefined);
+  assert.equal(video.getAttribute('loop'), undefined);
   assert.equal(body.children.find(node => node.className === 'fw-notes').hidden, true);
   document.hidden = true;
   document.events.visibilitychange();
@@ -402,6 +594,30 @@ test('image and video previews ride the 3D scene and pause video when leaving Wo
   Stage.web.hash = 'noshi-boshi';
   events['web:select']();
   assert.equal(stage.querySelector('.nb-video').playCount, 1);
+  const completedVideo = stage.querySelector('.nb-video');
+  completedVideo.ended = true;
+  document.hidden = true;
+  document.events.visibilitychange();
+  document.hidden = false;
+  document.events.visibilitychange();
+  Stage.state.p = 3;
+  callbacks.forEach(callback => callback());
+  Stage.state.p = 2;
+  callbacks.forEach(callback => callback());
+  assert.equal(stage.querySelector('.nb-video'), completedVideo);
+  assert.equal(completedVideo.playCount, 1, 'completed playback must retain its last frame when returning to Work or the tab');
+  Stage.web.hash = 'sustainability';
+  events['web:select']();
+  assert(document.documentElement.classList.contains('sustainability-work'));
+  Stage.state.p = 3;
+  callbacks.forEach(callback => callback());
+  assert.equal(document.documentElement.classList.contains('sustainability-work'), false);
+  Stage.state.p = 2;
+  callbacks.forEach(callback => callback());
+  assert(document.documentElement.classList.contains('sustainability-work'));
+  Stage.web.hash = 'sttc';
+  events['web:select']();
+  assert.equal(document.documentElement.classList.contains('sustainability-work'), false);
 });
 
 test('Noshi Boshi presents the supplied video and retains its founder story', () => {
@@ -411,7 +627,8 @@ test('Noshi Boshi presents the supplied video and retains its founder story', ()
   const video = host.querySelector('.nb-video');
   assert.equal(video.getAttribute('src'), 'http://localhost/profile/media/noshi-boshi-unboxing.mp4');
   assert.equal(video.getAttribute('poster'), 'http://localhost/profile/media/noshi-boshi-unboxing-poster.jpg');
-  for (const attr of ['autoplay', 'muted', 'loop', 'playsinline', 'disablepictureinpicture', 'disableremoteplayback']) assert.equal(video.getAttribute(attr), '');
+  for (const attr of ['autoplay', 'muted', 'playsinline', 'disablepictureinpicture', 'disableremoteplayback']) assert.equal(video.getAttribute(attr), '');
+  assert.equal(video.getAttribute('loop'), undefined);
   assert.equal(video.getAttribute('preload'), 'metadata');
   assert.match(video.getAttribute('aria-label'), /meal-kit product unboxing/);
   assert.equal(video.getAttribute('controls'), undefined);

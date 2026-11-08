@@ -8,7 +8,7 @@ window.PORTFOLIO = {
   threads: 'https://www.threads.com/@karukapur',
   projects: [
     {
-      id: 'flipwords', name: 'FlipWords', coverTitle: ['A WORD.', 'AT A GLANCE.'], color: '#c4b0ed',
+      id: 'flipwords', name: 'FlipWords', color: '#c4b0ed',
       organization: 'FlipWords · Open source', role: 'Design & development',
       logos: [{ src: 'profile/flipwords.svg', alt: 'FlipWords' }],
       resources: [{ label: 'View on GitHub', url: 'https://github.com/karukapur/flipwords' }],
@@ -27,7 +27,7 @@ window.PORTFOLIO = {
       ]
     },
     {
-      id: 'edgesentry', name: 'EdgeSentry', coverTitle: ['EYES ON.', 'AT THE EDGE.'], color: '#b4c7c0',
+      id: 'edgesentry', name: 'EdgeSentry', color: '#b4c7c0',
       organization: 'EdgeSentry · Open source', role: 'Design & development',
       logos: [{ src: 'profile/edgesentry.svg', alt: 'EdgeSentry camera reticle' }],
       resources: [{ label: 'View on GitHub', url: 'https://github.com/karukapur/edgesentry' }],
@@ -45,7 +45,7 @@ window.PORTFOLIO = {
       ]
     },
     {
-      id: 'edge-ai', name: 'On-device AI', coverTitle: ['AI, AT', 'THE EDGE.'], color: '#b9b9ed',
+      id: 'edge-ai', name: 'On-device AI', color: '#b9b9ed',
       organization: 'NXP Semiconductors', role: 'Lead Software Engineer',
       logos: [{ src: 'profile/logos/nxp.svg', alt: 'NXP Semiconductors logo' }],
       resources: [{ label: 'NXP website', url: 'https://www.nxp.com/' }],
@@ -60,7 +60,7 @@ window.PORTFOLIO = {
       ]
     },
     {
-      id: 'embedded', name: 'Embedded systems', coverTitle: ['SMALL', 'FOOTPRINT.'], color: '#a8c8c4',
+      id: 'embedded', name: 'Embedded systems', color: '#a8c8c4',
       organization: 'Himax Technologies', role: 'Senior Engineer · AI & Deployment',
       logos: [{ src: 'profile/logos/himax.png', alt: 'Himax Technologies logo' }],
       resources: [{ label: 'Himax website', url: 'https://www.himax.com.tw/' }],
@@ -75,7 +75,7 @@ window.PORTFOLIO = {
       ]
     },
     {
-      id: 'sustainability', name: 'AI for sustainability', coverTitle: ['REPORTS', 'TO INSIGHT.'], color: '#b9cbaa',
+      id: 'sustainability', name: 'AI for sustainability', color: '#b9cbaa',
       organization: 'Corporate Knights', role: 'AI Consultant · Contract',
       logos: [{ src: 'profile/logos/corporate-knights-wordmark.png', alt: 'Corporate Knights logo' }],
       resources: [
@@ -85,6 +85,16 @@ window.PORTFOLIO = {
       timeline: 'Aug 2023 — Feb 2024', year: '2023–24', type: 'NLP & sustainability research',
       scope: 'GPT-4 · LangChain · RAG · Information extraction',
       big: 'Turning climate disclosures into useful, validated data.',
+      work: {
+        previewUrl: 'profile/sustainability-work.html',
+        tabLabels: ['What', 'Why', 'The build', 'Impact'],
+        tabs: [
+          'I worked with Corporate Knights on an AI document workflow for sustainability research. The system turns complex disclosures into structured metrics and supports human validation, making the data easier to analyze at scale.',
+          'ESG and annual reports hold useful climate data, but inconsistent layouts and terminology make comparisons difficult. The workflow connects extracted figures to their source context and a shared sustainability taxonomy.',
+          'I built NLP pipelines with GPT-4, LangChain, and retrieval-augmented generation, combining prompt engineering, fine-tuning, and multi-source, multi-step information extraction.',
+          'The project achieved a 92% data validation success rate and delivered human-validated insights to a real-time database used by client organizations. The laptop shows an illustrative version of that workflow.'
+        ]
+      },
       tabs: [
         'I designed and implemented NLP pipelines using GPT-4, LangChain, and retrieval-augmented generation to support sustainability research at Corporate Knights.',
         'Climate disclosures contain valuable information in inconsistent formats. The work focused on extracting metrics aligned with Corporate Knights’ taxonomy.',
@@ -93,7 +103,7 @@ window.PORTFOLIO = {
       ]
     },
     {
-      id: 'sttc', name: 'Building STTC', coverTitle: ['BETTER', 'CONNECTED.'], color: '#e1bba8',
+      id: 'sttc', name: 'Building STTC', color: '#e1bba8',
       liveUrl: 'https://sttc.tw/',
       organization: 'Southern Taiwan Technology Council', role: 'Co-Founder',
       logos: [{ src: 'profile/logos/sttc.png', alt: 'Southern Taiwan Technology Council logo' }],
@@ -112,7 +122,7 @@ window.PORTFOLIO = {
       ]
     },
     {
-      id: 'camh', name: 'NLP for learning', coverTitle: ['LISTEN.', 'LEARN.'], color: '#afc5e3',
+      id: 'camh', name: 'NLP for learning', color: '#afc5e3',
       organization: 'CAMH · Collaborative project', role: 'NLP project contributor',
       logos: [{ src: 'profile/logos/camh.svg', alt: 'Centre for Addiction and Mental Health logo' }],
       resources: [{ label: 'CAMH website', url: 'https://www.camh.ca/' }],
@@ -127,7 +137,7 @@ window.PORTFOLIO = {
       ]
     },
     {
-      id: 'education', name: 'Across disciplines', coverTitle: ['CHEMISTRY', 'TO COMPUTE.'], color: '#d8c99e',
+      id: 'education', name: 'Across disciplines', color: '#d8c99e',
       organization: 'University of Toronto · TIET', role: 'MEng · BE',
       logos: [
         { src: 'profile/logos/toronto.jpg', alt: 'University of Toronto logo' },
@@ -148,7 +158,7 @@ window.PORTFOLIO = {
       ]
     },
     {
-      id: 'noshi-boshi', name: 'Noshi Boshi', coverTitle: ['MAKE IT.', 'FROM SCRATCH.'], color: '#d1b7bd',
+      id: 'noshi-boshi', name: 'Noshi Boshi', color: '#d1b7bd',
       video: { src: 'media/noshi-boshi-unboxing.mp4', poster: 'media/noshi-boshi-unboxing-poster.jpg', label: 'Noshi Boshi meal-kit product unboxing animation' },
       organization: 'Noshi Boshi · Delhi, India', role: 'Co-Founder',
       logos: [{ src: 'profile/logos/noshi-boshi.jpg', alt: 'Noshi Boshi logo' }],
