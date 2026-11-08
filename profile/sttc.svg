@@ -1,7 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 960">
-<rect width="640" height="960" fill="#e1bba8"/>
-<g fill="#110f21" font-family="Arial,Helvetica,sans-serif"><text x="48" y="60" font-size="15" letter-spacing="2">KARAN KAPUR / SELECTED WORK</text>
-<g font-weight="500"><text x="48" y="172" font-size="70" letter-spacing="-3">BETTER</text><text x="48" y="252" font-size="70" letter-spacing="-3">CONNECTED.</text></g><g fill="none" stroke="#110f21" stroke-width="2" opacity=".75"><path d="M320 550 480.0 550.0"/><circle cx="480.0" cy="550.0" r="28"/><path d="M320 550 400.0 688.6"/><circle cx="400.0" cy="688.6" r="28"/><path d="M320 550 240.0 688.6"/><circle cx="240.0" cy="688.6" r="28"/><path d="M320 550 160.0 550.0"/><circle cx="160.0" cy="550.0" r="28"/><path d="M320 550 240.0 411.4"/><circle cx="240.0" cy="411.4" r="28"/><path d="M320 550 400.0 411.4"/><circle cx="400.0" cy="411.4" r="28"/><circle cx="320" cy="550" r="50"/></g>
-<path d="M48 813h544" stroke="#110f21" opacity=".3"/>
-<text x="48" y="855" font-size="21">Building STTC</text><text x="48" y="891" font-size="16">2026</text>
-<text x="592" y="903" text-anchor="end" font-size="15">04 / 07</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#625b73" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="5" r="2"/><circle cx="20" cy="5" r="2"/><circle cx="4" cy="19" r="2"/><circle cx="20" cy="19" r="2"/><path d="m5.5 6.5 4.2 3.6m4.6 0 4.2-3.6m-13 11 4.2-3.6m4.6 0 4.2 3.6"/></svg>

@@ -7,13 +7,8 @@ html.stage-on body .web-info.sustainability-selected .wi-body > * { flex-shrink:
 .sus-case-study[hidden] { display: none; }
 .sus-case-study:hover { text-decoration: underline; text-underline-offset: 5px; }
 .sus-case-study:focus-visible { outline: 2px solid #638951; outline-offset: 5px; }
-html.stage-on body .web-info.sustainability-selected .wd-c[data-id="sustainability"] .wd-k { outline: 1px solid #69905e; box-shadow: 0 2px 9px #69905e33; }
-html.stage-on body .web-info.sustainability-selected .wd-c.on::after { background: #46783b; }
 @media (max-width: 820px) {
   html.stage-on body .web-info.sustainability-selected .wi-body { position: absolute; left: 7vw; top: 9vh; width: 84vw; max-width: none; max-height: 20vh; }
-  html.stage-on body .web-info.sustainability-selected .wi-dock { display: flex; bottom: max(20px, 4vh); gap: 10px; padding: 12px 12px 18px; max-width: 90vw; overflow-x: auto; }
-  html.stage-on body .web-info.sustainability-selected .wd-c, html.stage-on body .web-info.sustainability-selected .wd-k { width: 56px; }
-  html.stage-on body .web-info.sustainability-selected .wd-k { height: 44px; }
 }
 
 @font-face { font-family: 'Sustainability SUIT'; src: url('../fonts/SUIT-Medium.sub.woff2') format('woff2'); font-weight: 400 600; font-display: swap; }

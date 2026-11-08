@@ -113,6 +113,7 @@ h1 span{display:block;color:var(--soft)}
 .go:hover{transform:scale(1.08)}
 .go:focus-visible{outline:2px solid var(--dot);outline-offset:2px}
 .go svg{width:12px;height:12px}
+.card.closing #toBack{visibility:hidden}
 
 .back .ko{margin:52px 4px 0;font-family:var(--f-ko);font-size:30px;font-weight:700;letter-spacing:-.02em}
 .back .en{margin:2px 4px 0;font-size:13.5px;color:var(--ink-2)}
@@ -562,34 +563,7 @@ html.stage-on body .web-info .wi-go{color:inherit;text-transform:none;letter-spa
 html.stage-on body .web-info .wi-go:hover{color:var(--nt-ink);text-decoration-color:currentColor}
 html.stage-on body .web-info .wi-go:focus{outline:none}
 html.stage-on body .web-info .wi-go:focus-visible{outline:2px solid var(--nt-2);outline-offset:3px;border-radius:2px}
-/* The dock remains in viewport space; keyboard and pointer input select projects. */
-html.stage-on body .web-info .wi-dock{position:absolute;left:50%;top:min(calc(var(--scr-b,575px) + calc(222px * var(--k,1))), calc(100vh - calc(86px * var(--k,1))));transform:translateX(-50%);box-sizing:border-box;
-  display:flex;gap:calc(14px * var(--k,1));padding:calc(10px * var(--k,1)) calc(14px * var(--k,1)) calc(14px * var(--k,1));border-radius:calc(22px * var(--k,1));
-  background:linear-gradient(180deg,rgba(36,34,54,.42),rgba(20,18,34,.54));-webkit-backdrop-filter:blur(30px) saturate(1.5);backdrop-filter:blur(30px) saturate(1.5);
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.14),inset 0 1px 0 rgba(255,255,255,.30),
-    0 calc(10px * var(--k,1)) calc(30px * var(--k,1)) rgba(5,4,14,.34),0 calc(1px * var(--k,1)) calc(2px * var(--k,1)) rgba(5,4,14,.22);
-  pointer-events:auto;touch-action:pan-x;overscroll-behavior-x:contain}
-html.stage-on body .web-info .wd-c{position:relative;flex:none;width:calc(80px * var(--k,1))}
-
-html.stage-on body .web-info .wd-k{all:unset;box-sizing:border-box;cursor:pointer;display:block;width:calc(80px * var(--k,1));height:calc(50px * var(--k,1));border-radius:calc(9px * var(--k,1));overflow:hidden;opacity:.82;
-  box-shadow:0 0 0 1px rgba(255,255,255,.1),0 calc(2px * var(--k,1)) calc(6px * var(--k,1)) rgba(5,4,14,.28);
-  outline:2px solid transparent;outline-offset:calc(2px * var(--k,1));transform-origin:50% 100%;
-  transition:opacity .18s,transform .18s cubic-bezier(.2,.8,.2,1)}
-html.stage-on body .web-info .wd-k img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
-html.stage-on body .web-info .wd-k:hover{opacity:1;transform:translateY(calc(-3px * var(--k,1))) scale(1.08)}
-html.stage-on body .web-info .wd-k[aria-selected="true"]{opacity:1;outline-color:transparent}
-html.stage-on body .web-info .wd-k:focus-visible{outline-color:var(--nt-2)}
-
-html.stage-on body .web-info .wd-c::after{content:"";position:absolute;left:50%;bottom:calc(-9px * var(--k,1));width:calc(4px * var(--k,1));height:calc(4px * var(--k,1));margin-left:calc(-2px * var(--k,1));
-  border-radius:50%;background:rgba(240,241,250,.95);box-shadow:0 0 0 1px rgba(10,8,20,.28);opacity:0;transition:opacity .2s}
-html.stage-on body .web-info .wd-c.on::after{opacity:1}
-
-html.stage-on body .web-info .wd-tip{position:absolute;left:50%;bottom:calc(100% + calc(16px * var(--k,1)));transform:translate(-50%,4px);white-space:nowrap;padding:calc(5px * var(--k,1)) calc(10px * var(--k,1));border-radius:99px;
-  background:rgba(28,26,44,.72);-webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4);
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.12),0 calc(4px * var(--k,1)) calc(12px * var(--k,1)) rgba(5,4,14,.3);
-  font:500 calc(11px * var(--k,1))/1 var(--f-en);letter-spacing:.01em;color:var(--nt-ink);opacity:0;pointer-events:none;transition:opacity .15s,transform .18s cubic-bezier(.2,.8,.2,1)}
-html.stage-on body .web-info .wd-c:hover .wd-tip{opacity:1;transform:translate(-50%,0)}
-@media (prefers-reduced-motion:reduce){html.stage-on body .web-info :is(.wi-tab,.wi-go,.wd-k,.wd-tip){transition:none}html.stage-on body .web-info .wd-k:hover{transform:none}html.stage-on body .web-info .wd-c::after{transition:none}}
+@media (prefers-reduced-motion:reduce){html.stage-on body .web-info :is(.wi-tab,.wi-go){transition:none}}
 @media (max-width:820px){
 
   html.stage-on body .web-info{--k:1;padding:var(--txt-top,60dvh) 20px 0}
@@ -623,6 +597,12 @@ html.stage-on .mb .mb-arrive svg{width:calc(16 * var(--u));height:calc(16 * var(
 .end-info .ei-top svg{width:11px;height:11px}
 .end-info.on .ei-a{pointer-events:auto}
 .end-info .ei-lead{margin:0;font:500 clamp(18px,1.5vw,22px)/1.1 var(--f-disp);letter-spacing:-.02em;color:var(--nt-ink)}
+.end-info .ei-greeting{display:grid;justify-items:center;gap:8px;flex:none;width:224px}
+.end-info .ei-avatar{grid-area:1/1;display:block;width:224px;height:160px;pointer-events:none}
+.end-info img.ei-avatar,.end-info .is-unavailable canvas.ei-avatar{display:none}
+.end-info .is-unavailable img.ei-avatar{display:block}
+.end-info .ei-greeting .ei-lead{grid-row:2;opacity:0;transition:opacity .7s ease}
+.end-info .ei-greeting.is-complete .ei-lead{opacity:1}
 .end-info .ei-list{display:flex;flex-wrap:wrap;gap:20px clamp(24px,3vw,48px);margin:0;padding:0;list-style:none}
 .end-info .ei-item{display:grid;gap:6px;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:copy}
 .end-info a.ei-item{text-decoration:none;cursor:pointer}
@@ -649,7 +629,7 @@ html.stage-on .mb .mb-arrive svg{width:calc(16 * var(--u));height:calc(16 * var(
   .end-info .ei-v{font-size:15px}
 }
 html:not(.stage-on) .end-info{display:none}
-@media (prefers-reduced-motion:reduce){.end-info .ei-a{transition:none}}
+@media (prefers-reduced-motion:reduce){.end-info .ei-a,.end-info .ei-greeting .ei-lead{transition:none}}
 </style>
 <link rel="stylesheet" href="profile/theme.css">
 <link rel="stylesheet" href="profile/flipwords.css">
@@ -2477,7 +2457,7 @@ window.ticker = (() => {
       },
       get endAt(){ const g = geo(), e = endSpot(g); return e ? { x: e.x - (heroLayer.offsetWidth || innerWidth) / 2, z: e.z } : this.cornerAt; },
       // 맺음 자리로 옮김(0 귀퉁이, 1 맥북 왼쪽). 명함이 보이지 않는 동안에만 바뀐다(scene-hero)
-      end(k){ k = k ? 1 : 0; if (k !== desk.ek) { desk.ek = k; wakeBadge(); } },
+      end(k){ k = k ? 1 : 0; if (k !== desk.ek) { desk.ek = k; card.classList.toggle('closing', !!k); wakeBadge(); } },
       // 명함이 지금 멈춰 있을 자리(귀퉁이 보정 포함). hero 층 왼쪽 기준 x, 책상 깊이 z. 맺음 카메라가 따라간다
       get spot(){ const tg = target(geo()); return { x: tg.x, z: tg.z }; },
     },
@@ -2953,11 +2933,11 @@ window.ticker = (() => {
 
 
   // ←/→: 독에 초점이 있을 때, 그리고 맥북 정거장에 와 있기만 해도(아래 keydown) 앞뒤 화면으로, 끝에서 처음으로 돈다. 세로 휠은 가로채지 않는다(정거장 이동 그대로)
-  const DOCK = WORK_PROJECTS.map(p => [p.id, p.name, p.id]);
+  const DOCK = WORK_PROJECTS.map(p => [p.id, p.name]);
   const th = f => `profile/${f}.svg`;
   const dock = el('div', 'wi-dock'); dock.setAttribute('role', 'tablist'); dock.setAttribute('aria-label', 'Works');
-  dock.innerHTML = DOCK.map(([id, name, f]) => `<div class="wd-c" data-id="${id}"><span class="wd-tip" aria-hidden="true">${name}</span>` +
-    `<button type="button" class="wd-k" role="tab" aria-selected="false" tabindex="-1" aria-label="${name}" data-go="${id}"><img src="${th(f)}" alt="" draggable="false" decoding="async"></button></div>`).join('');
+  dock.innerHTML = DOCK.map(([id, name]) => `<div class="wd-c" data-id="${id}">` +
+    `<button type="button" class="wd-k" role="tab" aria-selected="false" tabindex="-1" aria-label="${name}" data-go="${id}"><img src="${th(id)}" alt="" width="20" height="20" draggable="false" decoding="async"><span class="wd-label">${name}</span></button></div>`).join('');
   info.appendChild(dock);
   const cols = [...dock.querySelectorAll('.wd-c')];
   const pickId = id => { const w = Stage.web; if (w && w.select) w.select(id); };
@@ -2990,7 +2970,7 @@ window.ticker = (() => {
   const scrEl = mb.querySelector('.mb-screen');
   let infoKey = '';
   const setGlass = (t, h) => {
-    info.style.setProperty('--scr-t', t.toFixed(1) + 'px'); info.style.setProperty('--scr-b', (t + h).toFixed(1) + 'px'); info.style.setProperty('--k', (h / 474).toFixed(4));
+    info.style.setProperty('--scr-t', t.toFixed(1) + 'px'); info.style.setProperty('--k', (h / 474).toFixed(4));
     fitPanel();   // 글자 크기(k)가 바뀌면 본문 높이도 다시 잰다
   };
   const guessGlass = () => { const h = 0.3298 * innerWidth; setGlass(0.3756 * innerHeight - h / 2, h); };
@@ -3020,7 +3000,7 @@ window.ticker = (() => {
     const rows = [['Email', PORTFOLIO.email, PORTFOLIO.email], ['LinkedIn', 'in/karukapur', PORTFOLIO.linkedin], ['GitHub', '@karukapur', PORTFOLIO.github], ['Threads', '@karukapur', PORTFOLIO.threads]];
     // Contact links sit above the return-to-start link.
     const up = '<svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 11.5V2.5M7 2.5L3 6.5M7 2.5l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    endInfo.innerHTML = `<div class="ei-body"><div class="ei-up"><p class="ei-lead">Say hello.</p><ul class="ei-list">` +
+    endInfo.innerHTML = `<div class="ei-body"><div class="ei-up"><div class="ei-greeting"><canvas class="ei-avatar" width="896" height="640" aria-hidden="true"></canvas><img class="ei-avatar" src="profile/media/karan-minecraft-avatar.png" width="896" height="640" alt=""><p class="ei-lead">Say hello.</p></div><ul class="ei-list">` +
       rows.map(([k, v, c]) => k === 'Email'
         ? `<li><button type="button" class="ei-item" data-copy="${c}" aria-label="${k} ${v} — copy"><span class="ei-k"><span class="ei-kt">${k}</span><span class="ei-ok" aria-hidden="true">Copied</span></span><span class="ei-v">${v}</span></button></li>`
         : `<li><a class="ei-item" href="${c}" target="_blank" rel="noopener noreferrer" aria-label="Open Karan’s ${k} profile"><span class="ei-k">${k} ↗</span><span class="ei-v">${v}</span></a></li>`).join('') +
@@ -3039,6 +3019,13 @@ window.ticker = (() => {
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, legacy); else legacy();
     });
   }
+  const greeting = endInfo.querySelector('.ei-greeting');
+  let avatarVisible = false, avatarAnimation = null;
+  const finishGreeting = () => greeting.classList.add('is-complete');
+  import('./profile/contact-avatar.js').then(async ({ mountContactAvatar }) => {
+    avatarAnimation = await mountContactAvatar(greeting, finishGreeting);
+    avatarAnimation.setVisible(avatarVisible);
+  }).catch(() => { greeting.classList.add('is-unavailable'); finishGreeting(); });
   // 큰 줄은 글 영역 폭에 꼭 맞춘다(서체 크기 = 폭 ÷ 문장의 em 폭). 굵기 칸은 em이라 크기가 바뀌어도 그대로 맞는다
   const eMark = endInfo.querySelector('.ei-mark');
   const fitMark = () => {
@@ -3059,6 +3046,8 @@ window.ticker = (() => {
     const v = endOf(Stage.state.p), str = v.toFixed(3); if (str === endStr) return; endStr = str; endV = v;
     // 숨김(visibility)을 켜고 끄면 처음 드러나는 순간 큰 글 층을 새로 그리느라 휴대폰에서 한 번 멈춘다(10-21 측정 296ms). 층은 늘 그려 두고 투명도만 바꾼다
     endInfo.style.opacity = str; endInfo.inert = v < 0.5; endInfo.classList.toggle('on', v >= 0.5);
+    const visible = v >= 0.5;
+    if (visible !== avatarVisible) { avatarVisible = visible; avatarAnimation?.setVisible(visible); }
     document.documentElement.classList.toggle('end-on', v > 0.5);
   });
 })();

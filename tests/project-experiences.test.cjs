@@ -620,6 +620,66 @@ test('image and video previews ride the 3D scene and pause video when leaving Wo
   assert.equal(document.documentElement.classList.contains('sustainability-work'), false);
 });
 
+test('Minecraft avatar runs, jumps, lands, waves and holds its final pose', () => {
+  const context = vm.createContext({});
+  vm.runInContext(read('profile/contact-avatar.js').replace(/^export /gm, ''), context);
+  const pose = t => JSON.parse(JSON.stringify(vm.runInContext(`avatarPose(${t})`, context)));
+  assert(pose(.7).x > pose(.2).x, 'the run must move toward the greeting');
+  assert(pose(1.8).y > 12, 'the jump must visibly clear the ground');
+  assert.equal(pose(2.4).y, 0);
+  assert(pose(2.85).kneeR > 1, 'the landing must absorb the impact');
+  assert.notEqual(pose(4.1).wave, pose(4.3).wave);
+  assert(pose(6.4).wave < -2, 'the final pose must keep the hand raised');
+  assert.deepEqual(pose(6.4), pose(60), 'the final pose must remain fixed');
+  for (let t = 0; t <= 7; t += .025) assert(Object.values(pose(t)).every(Number.isFinite));
+  const markup = read('index.html').match(/<canvas class="ei-avatar"[^>]*>/)[0];
+  assert.match(markup, /width="896" height="640"/);
+  assert.doesNotMatch(read('index.html'), /<video class="ei-avatar"/);
+  assert(readFileSync(resolve(root, 'profile/media/karan-minecraft-avatar.png')).length > 0);
+});
+
+test('Minecraft animation pauses away, resumes, completes once and respects reduced motion', () => {
+  function mount(reduced = false) {
+    const frames = new Map(), events = {}, times = [];
+    let frameId = 0, completed = 0;
+    const document = { hidden: false, addEventListener: (name, fn) => events[name] = fn };
+    const context = vm.createContext({
+      DURATION: 6.4, document, canvas: { clientWidth: 224, clientHeight: 160 },
+      renderer: { render() {}, setSize() {} }, scene: {}, camera: { updateProjectionMatrix() {} },
+      matchMedia: () => ({ matches: reduced, addEventListener() {} }),
+      ResizeObserver: class { observe() {} },
+      requestAnimationFrame: fn => { frames.set(++frameId, fn); return frameId; },
+      cancelAnimationFrame: id => frames.delete(id),
+      applyPose: t => times.push(t), onComplete: () => completed++
+    });
+    const source = read('profile/contact-avatar.js');
+    const lifecycle = source.slice(source.indexOf('  let elapsed ='), source.lastIndexOf('\n}'));
+    const avatar = vm.runInContext(`(() => {${lifecycle}})()`, context);
+    return { avatar, frames, events, times, document, completed: () => completed,
+      tick(now) { const pending = [...frames.values()]; frames.clear(); pending.forEach(fn => fn(now)); } };
+  }
+  const a = mount();
+  assert.equal(a.frames.size, 0);
+  a.avatar.setVisible(true); a.tick(0); a.tick(50);
+  assert(a.times.at(-1) > 0);
+  a.avatar.setVisible(false);
+  assert.equal(a.frames.size, 0);
+  const paused = a.times.at(-1);
+  a.avatar.setVisible(true); a.tick(5000);
+  assert.equal(a.times.at(-1), paused, 'time away must not skip the animation');
+  a.document.hidden = true; a.events.visibilitychange();
+  assert.equal(a.frames.size, 0);
+  a.document.hidden = false; a.events.visibilitychange();
+  for (let now = 5050; now < 13000; now += 50) a.tick(now);
+  assert.equal(a.completed(), 1); assert.equal(a.frames.size, 0);
+  assert.equal(a.times.at(-1), 6.4);
+  a.avatar.setVisible(false); a.avatar.setVisible(true);
+  assert.equal(a.frames.size, 0); assert.equal(a.completed(), 1);
+  const reduced = mount(true); reduced.avatar.setVisible(true);
+  assert.equal(reduced.frames.size, 0); assert.equal(reduced.times.at(-1), 6.4);
+  assert.equal(reduced.completed(), 1);
+});
+
 test('Noshi Boshi presents the supplied video and retains its founder story', () => {
   const { document, host } = page('noshi-boshi');
   assert.equal(document.title, 'Noshi Boshi — Karan Kapur');
