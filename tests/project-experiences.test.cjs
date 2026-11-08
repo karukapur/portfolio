@@ -268,7 +268,7 @@ test('Work shares the STTC MacBook with sustainability and resets it for other p
   assert.equal(mb.querySelector('.mb-chin').textContent, '');
 });
 
-test('Contact frames the right-tilted ID card within the space above its links', () => {
+test('Contact enlarges and lowers the right-tilted ID card while clearing the links', () => {
   const html = read('index.html');
   const tilt = Number(html.match(/const END_TILT = Math.PI - ([\d.]+);/)[1]);
   const END_TILT = Math.PI - tilt;
@@ -288,10 +288,12 @@ test('Contact frames the right-tilted ID card within the space above its links',
   for (const [width, height, contactTop] of [[1440, 900, 620], [1728, 1117, 850], [1024, 700, 420], [375, 812, 420], [375, 667, 290], [844, 390, 180]]) {
     const focalLength = width <= 820 ? 820 : 1200;
     const cardCenter = { x: 2000, z: 1500 };
+    const linksTop = contactTop + 154;
     const camera = vm.runInNewContext(cameraCode + '\ncam.end();', {
       W: { Wd: width, H: height, mobile: width <= 820 }, P: () => focalLength,
       window: { Hero: { desk: { endAt: cardCenter, endBounds: bounds } } },
-      document: { querySelector: () => ({ offsetTop: contactTop }) }, safeTop: () => 0
+      document: { querySelector: selector => selector.endsWith('.ei-list')
+        ? { getBoundingClientRect: () => ({ top: linksTop }) } : { offsetTop: contactTop } }, safeTop: () => 0
     });
     assert.equal(camera.th, 90);
     assert.equal(camera.Tx, cardCenter.x);
@@ -299,7 +301,12 @@ test('Contact frames the right-tilted ID card within the space above its links',
     const centerY = height / 2 + (cardCenter.z - camera.Tz) / scale;
     assert(width / 2 - bounds.width / scale / 2 >= .15 * width - 1);
     assert(centerY - bounds.height / scale / 2 >= 63);
-    assert(centerY + bounds.height / scale / 2 <= contactTop - 31);
+    assert(centerY + bounds.height / scale / 2 <= linksTop - 31);
+    const oldHeight = Math.max(80, Math.min(.7 * height, contactTop - 32) - 64);
+    const oldScale = Math.max(bounds.width / (.7 * width), bounds.height / oldHeight);
+    assert(centerY > 64 + oldHeight / 2, 'the card must sit lower than the previous framing');
+    assert(oldScale / scale >= 1 && oldScale / scale <= 1.25 + 1e-9);
+    if (width === 1440) assert(Math.abs(oldScale / scale - 1.25) < 1e-9);
   }
 });
 
@@ -338,6 +345,19 @@ test('Contact hides the entire project display and restores it on returning to W
     assert.equal(mb.hidden, hidden);
   }
   assert.match(html, /html.stage-on \.mb\[hidden\]\{display:none\}/);
+});
+
+test('the purple spotlight stays off through Work, Contact and overscroll', () => {
+  const source = read('index.html').match(/const poolOp = o => \{[^\n]+/)[0];
+  const pool = { style: {} }, Stage = { state: { p: 1 } };
+  const context = vm.createContext({ pool, Stage, WEB: () => 2 });
+  vm.runInContext(source, context);
+  for (const [p, opacity, visibility] of [[1, '0.500', 'visible'], [1.5, '0.000', 'hidden'], [2, '0.000', 'hidden'], [3, '0.000', 'hidden'], [3.01, '0.000', 'hidden'], [3.2, '0.000', 'hidden'], [3, '0.000', 'hidden'], [1, '0.500', 'visible']]) {
+    Stage.state.p = p;
+    vm.runInContext('poolOp(0.5);', context);
+    assert.equal(pool.style.opacity, opacity, `spotlight opacity at p=${p}`);
+    assert.equal(pool.style.visibility, visibility);
+  }
 });
 
 test('topic map uses synthetic coordinates, labels them, and links the selected method', () => {
@@ -641,7 +661,7 @@ test('Minecraft avatar runs, jumps, lands, waves and holds its final pose', () =
 test('Minecraft animation pauses away, resumes, completes once and respects reduced motion', () => {
   function mount(reduced = false) {
     const frames = new Map(), events = {}, times = [];
-    let frameId = 0, completed = 0;
+    let frameId = 0;
     const document = { hidden: false, addEventListener: (name, fn) => events[name] = fn };
     const context = vm.createContext({
       DURATION: 6.4, document, canvas: { clientWidth: 224, clientHeight: 160 },
@@ -650,12 +670,12 @@ test('Minecraft animation pauses away, resumes, completes once and respects redu
       ResizeObserver: class { observe() {} },
       requestAnimationFrame: fn => { frames.set(++frameId, fn); return frameId; },
       cancelAnimationFrame: id => frames.delete(id),
-      applyPose: t => times.push(t), onComplete: () => completed++
+      applyPose: t => times.push(t)
     });
     const source = read('profile/contact-avatar.js');
     const lifecycle = source.slice(source.indexOf('  let elapsed ='), source.lastIndexOf('\n}'));
     const avatar = vm.runInContext(`(() => {${lifecycle}})()`, context);
-    return { avatar, frames, events, times, document, completed: () => completed,
+    return { avatar, frames, events, times, document,
       tick(now) { const pending = [...frames.values()]; frames.clear(); pending.forEach(fn => fn(now)); } };
   }
   const a = mount();
@@ -671,13 +691,12 @@ test('Minecraft animation pauses away, resumes, completes once and respects redu
   assert.equal(a.frames.size, 0);
   a.document.hidden = false; a.events.visibilitychange();
   for (let now = 5050; now < 13000; now += 50) a.tick(now);
-  assert.equal(a.completed(), 1); assert.equal(a.frames.size, 0);
+  assert.equal(a.frames.size, 0);
   assert.equal(a.times.at(-1), 6.4);
   a.avatar.setVisible(false); a.avatar.setVisible(true);
-  assert.equal(a.frames.size, 0); assert.equal(a.completed(), 1);
+  assert.equal(a.frames.size, 0);
   const reduced = mount(true); reduced.avatar.setVisible(true);
   assert.equal(reduced.frames.size, 0); assert.equal(reduced.times.at(-1), 6.4);
-  assert.equal(reduced.completed(), 1);
 });
 
 test('Noshi Boshi presents the supplied video and retains its founder story', () => {

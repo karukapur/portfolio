@@ -31,7 +31,7 @@ export function avatarPose(time) {
   return pose;
 }
 
-export async function mountContactAvatar(host, onComplete) {
+export async function mountContactAvatar(host) {
   const T = await import('https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js');
   const canvas = host.querySelector('canvas');
   const renderer = new T.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'low-power' });
@@ -190,14 +190,14 @@ export async function mountContactAvatar(host, onComplete) {
     frame = 0;
     if (last !== null) elapsed = Math.min(DURATION, elapsed + Math.min((now - last) / 1000, .05));
     last = now; draw();
-    if (elapsed >= DURATION) { complete = true; last = null; onComplete(); }
+    if (elapsed >= DURATION) { complete = true; last = null; }
     else if (visible && !document.hidden) frame = requestAnimationFrame(tick);
   };
   const sync = () => {
     if (frame) cancelAnimationFrame(frame);
     frame = 0; last = null;
     if (complete) return;
-    if (reduce.matches) { elapsed = DURATION; draw(); complete = true; onComplete(); return; }
+    if (reduce.matches) { elapsed = DURATION; draw(); complete = true; return; }
     if (visible && !document.hidden) frame = requestAnimationFrame(tick);
   };
   resize();

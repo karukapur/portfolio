@@ -8,7 +8,7 @@ These two previews ride the original 3D display's camera path into and out of Wo
 
 The contact scene frames the ID card alone with a slight rightward tilt, sized above the contact links. The project display is hidden when leaving Work.
 
-Contact uses an original Minecraft-style character in `profile/contact-avatar.js`, rendered on a transparent, high-resolution canvas. The miniature avatar runs in, jumps, lands, and waves once, then holds its final pose as “Say hello” fades in. Playback pauses away from Contact and in hidden tabs. Reduced motion shows the final pose immediately. The supplied source video is retained in `profile/media/karan-avatar-parkour-wave.mp4`.
+Contact uses an original Minecraft-style character in `profile/contact-avatar.js`, rendered on a transparent, high-resolution canvas. The miniature avatar runs in, jumps, lands, and waves once, then holds its final pose. “Say hello” stays visible throughout. Playback pauses away from Contact and in hidden tabs. Reduced motion shows the final pose immediately. The supplied source video is retained in `profile/media/karan-avatar-parkour-wave.mp4`.
 
 The original 3D badge and card deck lead into Work's interactive project displays. Work shows FlipWords, EdgeSentry, AI for sustainability, Building STTC, and Noshi Boshi. STTC displays its live website inside a CSS MacBook, styled in `profile/sttc-work.css`; the other website previews use a neutral display without the former Edge AI board. Personal content lives in `profile/portfolio.js`. The introduction, cards, Work, and project pages share a light silver/lavender palette in `profile/theme.css`. The CV (October 2026) takes precedence over LinkedIn for current employment, location, and dates.
 

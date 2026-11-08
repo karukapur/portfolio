@@ -601,8 +601,7 @@ html.stage-on .mb .mb-arrive svg{width:calc(16 * var(--u));height:calc(16 * var(
 .end-info .ei-avatar{grid-area:1/1;display:block;width:224px;height:160px;pointer-events:none}
 .end-info img.ei-avatar,.end-info .is-unavailable canvas.ei-avatar{display:none}
 .end-info .is-unavailable img.ei-avatar{display:block}
-.end-info .ei-greeting .ei-lead{grid-row:2;opacity:0;transition:opacity .7s ease}
-.end-info .ei-greeting.is-complete .ei-lead{opacity:1}
+.end-info .ei-greeting .ei-lead{grid-row:2}
 .end-info .ei-list{display:flex;flex-wrap:wrap;gap:20px clamp(24px,3vw,48px);margin:0;padding:0;list-style:none}
 .end-info .ei-item{display:grid;gap:6px;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:copy}
 .end-info a.ei-item{text-decoration:none;cursor:pointer}
@@ -629,7 +628,7 @@ html.stage-on .mb .mb-arrive svg{width:calc(16 * var(--u));height:calc(16 * var(
   .end-info .ei-v{font-size:15px}
 }
 html:not(.stage-on) .end-info{display:none}
-@media (prefers-reduced-motion:reduce){.end-info .ei-a,.end-info .ei-greeting .ei-lead{transition:none}}
+@media (prefers-reduced-motion:reduce){.end-info .ei-a{transition:none}}
 </style>
 <link rel="stylesheet" href="profile/theme.css">
 <link rel="stylesheet" href="profile/flipwords.css">
@@ -2842,7 +2841,8 @@ window.ticker = (() => {
   // 밤 빛웅덩이(.pool, 남색)는 work 단계 밝기 위로 더 어두워진 만큼만 보인다
   const nightOf = dk => Math.max(0, (dk - T1) / (1 - T1));
   // 밤 빛웅덩이의 세기. 0이면 그리지 않는다(층을 내려놓는다). scene-web도 이것으로 쓴다
-  const poolOp = o => { if (!pool) return; const s = o.toFixed(3); pool.style.opacity = s; pool.style.visibility = +s <= 0.001 ? 'hidden' : 'visible'; };
+  // Fallback lighting must stay off past Work, including overscroll beyond Contact.
+  const poolOp = o => { if (!pool) return; const s = (Stage.state.p >= WEB() - 0.5 ? 0 : o).toFixed(3); pool.style.opacity = s; pool.style.visibility = +s <= 0.001 ? 'hidden' : 'visible'; };
 
   // 카드 상태는 p의 순수 함수다: 명함이 더미를 치는 0.5부터 모으기 시작점 1.04까지만 쏟아져 있다(scene-hero 0.5, scene-table 1.04와 같은 기준).
   // 장면이 지나가며 부르는 것이 먼저이고, 해시·Stage.go(instant)처럼 장면을 건너뛴 이동 뒤에 어긋난 것만 여기서 맞춘다
@@ -3021,11 +3021,10 @@ window.ticker = (() => {
   }
   const greeting = endInfo.querySelector('.ei-greeting');
   let avatarVisible = false, avatarAnimation = null;
-  const finishGreeting = () => greeting.classList.add('is-complete');
   import('./profile/contact-avatar.js').then(async ({ mountContactAvatar }) => {
-    avatarAnimation = await mountContactAvatar(greeting, finishGreeting);
+    avatarAnimation = await mountContactAvatar(greeting);
     avatarAnimation.setVisible(avatarVisible);
-  }).catch(() => { greeting.classList.add('is-unavailable'); finishGreeting(); });
+  }).catch(() => greeting.classList.add('is-unavailable'));
   // 큰 줄은 글 영역 폭에 꼭 맞춘다(서체 크기 = 폭 ÷ 문장의 em 폭). 굵기 칸은 em이라 크기가 바뀌어도 그대로 맞는다
   const eMark = endInfo.querySelector('.ei-mark');
   const fitMark = () => {
@@ -3462,13 +3461,16 @@ window.ticker = (() => {
       const d = G.Wi * P() / (0.52 * W.Wd), k = d / P(), xc = W.Wd * (1 - 0.08) - G.lidW / (2 * k);
       return { th: TH, Tx: s.Tx - (xc - W.Wd / 2) * k, Ty: s.Ty + 0.12 * W.H * k, Tz: s.Tz + 0.03 * W.H * k, d };
     },
-    // Frame the ID card alone, above the contact links, with room for its rightward tilt.
+    // Center the larger card above the links; the miniature avatar can sit alongside it.
     end: () => {
       const e = window.Hero?.desk.endAt || { x: G.cx - W.Wd / 2 - G.lidW, z: G.zh };
       const bounds = window.Hero?.desk.endBounds || { width: .3 * G.lidW, height: .45 * G.lidW };
       const contactTop = document.querySelector('.end-info .ei-body')?.offsetTop || .75 * W.H;
-      const top = Math.max(64, safeTop() + 40), bottom = Math.min(.7 * W.H, contactTop - 32);
-      const height = Math.max(80, bottom - top), centerY = top + height / 2;
+      const linksTop = document.querySelector('.end-info .ei-list')?.getBoundingClientRect().top || contactTop;
+      const top = Math.max(64, safeTop() + 40);
+      const baseHeight = Math.max(80, Math.min(.7 * W.H, contactTop - 32) - top);
+      const availableHeight = Math.max(80, linksTop - 32 - top);
+      const height = Math.min(baseHeight * 1.25, availableHeight), centerY = top + availableHeight / 2;
       const k = Math.max(bounds.width / (.7 * W.Wd), bounds.height / height);
       return { th: 90, Tx: e.x, Ty: 0, Tz: e.z + (W.H / 2 - centerY) * k, d: k * P() };
     },
