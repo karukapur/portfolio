@@ -46,8 +46,8 @@ html.stage-off .hero { padding: 112px 0 56px; }
 html.stage-off .hero .copy { position: static; display: block; box-sizing: border-box; padding: 0 var(--page-gutter); max-width: 1240px; margin: auto; pointer-events: auto; }
 html.stage-off .hero :is(#badge, #strap, .stage, .mark, .gate-note), html.stage-off :is(.work, .web-list, .peek, .totop, .web-info, .end-info) { display: none; }
 html.stage-off .copy .hero-offer { max-width: 700px; }
-html.stage-off .copy .hero-offer h1 { font-size: clamp(38px, 7vw, 68px); max-width: 12em; margin: 0 0 24px; }
-html.stage-off .hero-services { display: block; padding: 0; margin-bottom: 24px; font-size: 22px; }
+html.stage-off .copy .hero-offer h1 { font-size: clamp(38px, 7vw, 68px); max-width: 12em; margin: 0 0 12px; }
+html.stage-off .hero-services { display: block; padding-inline-start: 16px; margin-bottom: 12px; font-size: 22px; }
 html.stage-off .hero-actions { display: flex; gap: 12px; }
 html.stage-off .hero-action { min-height: 48px; padding: 12px 20px; font-size: 16px; }
 html.stage-off .copy .intro { display: block; max-width: 660px; margin: 32px 0 16px; }
