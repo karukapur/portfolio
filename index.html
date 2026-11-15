@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="profile/share.jpg">
 <meta name="theme-color" content="#ffffff">
-<link rel="icon" type="image/svg+xml" href="profile/icon.svg">
+<link rel="icon" type="image/svg+xml" href="profile/icon.svg?v=avatar">
 <link rel="apple-touch-icon" href="profile/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -108,7 +108,7 @@ h1 span{display:block;color:var(--soft-text)}
 .photo{border-radius:15px;overflow:hidden;aspect-ratio:1/1;background:var(--soft)}
 .photo img{width:100%;height:100%;object-fit:cover;object-position:center 35%;display:block;transform:none;pointer-events:none;-webkit-user-drag:none;user-select:none}
 .name{margin:14px 4px 0;font-family:var(--f-disp);font-size:26px;font-weight:500;letter-spacing:-.025em;line-height:1.1}
-.role{margin:4px 4px 0;font-size:13.5px;color:var(--ink-2)}
+.role{margin:4px 4px 8px;font-size:13.5px;color:var(--ink-2)}
 .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding:12px 4px 0;border-top:1px solid var(--line);font-size:var(--card-sm,11px);letter-spacing:.09em;color:var(--ink-2);text-transform:uppercase}
 .go{width:28px;height:28px;border-radius:50%;border:0;background:var(--ink);color:#fff;display:grid;place-items:center;cursor:pointer;transition:transform .2s;position:relative;z-index:3}
 .go:hover{transform:scale(1.08)}
@@ -620,8 +620,8 @@ html:not(.stage-on) .end-info{display:none}
 
 <!-- Interactive project displays share the existing 3D scene. -->
 
-<a class="skip-link" href="profile/projects.html">Skip to projects and experience</a>
-<header class="site-header"><nav aria-label="Main navigation"><a href="#experience" data-scene-link="work">Experience</a><a href="#projects" data-scene-link="web">Work</a><a href="#contact" data-scene-link="end">Contact</a></nav></header>
+<a class="skip-link" href="#projects" data-scene-link="web">Skip to projects and experience</a>
+<header class="site-header"><nav aria-label="Main navigation"><a href="#hero" data-scene-link="hero">Home</a><a href="#experience" data-scene-link="work">Experience</a><a href="#projects" data-scene-link="web">Work</a><a href="#contact" data-scene-link="end">Contact</a></nav></header>
 <main id="main-content" tabindex="-1">
 <div id="stage-root"><div class="stage-camera">
 <div class="wall">
@@ -636,7 +636,7 @@ html:not(.stage-on) .end-info{display:none}
           <img class="swivel" src="lanyard/swivel2.webp" alt="" width="60" height="67" draggable="false">
           <section class="face front" aria-label="Front of contact card">
             <span class="slot"><i></i></span>
-            <div class="row"><span>Edge AI Engineer</span><span>#01</span></div>
+            <div class="row"><span>Edge AI Engineer</span></div>
             <div class="photo"><img src="profile/karan-avatar-v2.webp" alt="3D avatar of Karan Kapur" draggable="false"></div>
             <p class="name">Karan Kapur</p>
             <p class="role">Edge AI · Software · Community</p>
@@ -646,7 +646,7 @@ html:not(.stage-on) .end-info{display:none}
           </section>
           <section class="face back" aria-label="Back of contact card">
             <span class="slot"><i></i></span>
-            <div class="row"><span>Contact</span><span>#01</span></div>
+            <div class="row"><span>Contact</span></div>
             <p class="ko">Karan Kapur</p>
             <p class="en">Edge AI Engineer · Hyderabad, India</p>
             <div class="contact">
@@ -656,7 +656,7 @@ html:not(.stage-on) .end-info{display:none}
               <a class="crow" href="https://www.threads.com/@karukapur" target="_blank" rel="noopener noreferrer" aria-label="Open Karan’s Threads profile"><span class="k">Threads</span><span class="v">@karukapur</span><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5"/></svg></a>
             </div>
             <div class="issue">
-              <a class="qr" href="profile/CV_Karan_Kapur.pdf" download aria-label="Download Karan Kapur’s CV"><svg viewBox="0 0 92 92" aria-hidden="true"><rect x="1" y="1" width="90" height="90" rx="16" fill="none" stroke="currentColor" opacity=".2"/><text x="46" y="52" text-anchor="middle" font-family="sans-serif" font-size="28" fill="currentColor">CV</text><path d="M34 66h24m-12-8v12m-5-5 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+              <a class="qr" href="profile/CV_Karan_Kapur.pdf" download aria-label="Download Karan Kapur’s CV"><svg viewBox="0 0 92 92" aria-hidden="true"><rect x="1" y="1" width="90" height="90" rx="16" fill="none" stroke="currentColor" opacity=".2"/><text x="46" y="52" text-anchor="middle" font-family="sans-serif" font-size="28" fill="currentColor">CV</text><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M46 58v12m-5-5 5 5 5-5"/><path d="M35 72v6h22v-6"/></g></svg></a>
               <div class="iss"><span class="scan">Take a closer look</span><span class="note">Experience · Skills · Education</span></div>
               <div class="bt"><span class="k">2026 · Hyderabad</span><button class="go" id="toFront" aria-label="View front of card"><svg viewBox="0 0 12 12" fill="none"><path d="M9 3L3 9M3 9H7.8M3 9V4.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
             </div>
@@ -671,11 +671,11 @@ html:not(.stage-on) .end-info{display:none}
       <h1>Making AI work<span>in the real world.</span></h1>
       <p class="hero-services">AI document workflows.<br>Efficient on-device inference.</p>
       <nav class="hero-actions" aria-label="Get started" data-stage-ignore>
-        <a class="hero-action hero-action-primary" href="#contact" data-scene-link="end">Get in touch <span aria-hidden="true">↗</span></a>
-        <a class="hero-action" href="profile/projects.html">View case studies</a>
+        <a class="hero-action hero-action-primary" href="#projects" data-scene-link="web">View work <span aria-hidden="true">↗</span></a>
+        <a class="hero-action" href="#contact" data-scene-link="end">Get in touch</a>
       </nav>
     </div>
-    <p class="intro"><span class="en">I help research teams and businesses turn complex documents into <em>reliable data</em>, and deploy <em>AI on constrained hardware</em>.</span><span class="ko" lang="en">Lead Software Engineer at <img class="intro-logo" src="profile/logos/nxp.svg" alt="NXP Semiconductors" width="93" height="32"><br>Co-founder of <em class="intro-sttc">STTC</em></span></p>
+    <p class="intro"><span class="en">I help research teams and businesses <em>design robust algorithms</em>, <em>build intelligent systems</em>, and <em>optimize AI </em>— even on resource-constrained edge hardware.</span><span class="ko" lang="en">Lead Software Engineer at <img class="intro-logo" src="profile/logos/nxp.svg" alt="NXP Semiconductors" width="93" height="32"><br>Co-founder of <em class="intro-sttc">STTC</em></span></p>
     <p class="meta"><i></i>Hyderabad, India</p>
     <p class="mark" aria-hidden="true">Karan Kapur</p>
   </section>
@@ -705,7 +705,7 @@ html:not(.stage-on) .end-info{display:none}
 <section class="web-list" id="web" aria-label="Projects and experience">
   <p class="wl-ey"><span><i></i>Selected Work</span></p>
   <ul>
-    <li><a href="profile/project.html?id=sustainability" target="_blank" rel="noopener">AI for sustainability ↗</a><span>Turning climate disclosures into useful, validated data.</span></li>
+    <li><a href="profile/project.html?id=sustainability" target="_blank" rel="noopener">AI for sustainability ↗</a><span>From complex disclosures to trustworthy sustainability intelligence.</span></li>
     <li><a href="profile/project.html?id=flipwords" target="_blank" rel="noopener">FlipWords ↗</a><span>Traditional Chinese, without opening your phone.</span></li>
     <li><a href="profile/project.html?id=whispener" target="_blank" rel="noopener">Whispener ↗</a><span>Follow the conversation. Keep the original words.</span></li>
     <li><a href="profile/project.html?id=edgesentry" target="_blank" rel="noopener">EdgeSentry ↗</a><span>A little field tech. A lot of local intelligence.</span></li>
@@ -728,7 +728,7 @@ html:not(.stage-on) .end-info{display:none}
 </div></div>
 
 <div class="portfolio-overview" data-portfolio-overview>
-  <div class="browse-fallback"><h2>Projects & experience</h2><p><a href="profile/projects.html">Explore all projects</a> · <a href="profile/project.html?id=sustainability">AI for sustainability</a> · <a href="profile/project.html?id=flipwords">FlipWords</a> · <a href="profile/project.html?id=whispener">Whispener</a> · <a href="profile/project.html?id=edgesentry">EdgeSentry</a> · <a href="profile/project.html?id=sttc">Building STTC</a> · <a href="profile/project.html?id=noshi-boshi">Noshi Boshi</a></p><p><a href="profile/CV_Karan_Kapur.pdf">Read my CV</a> or <a href="mailto:karankapur.kapur@gmail.com">send me an email</a>.</p></div>
+  <div class="browse-fallback"><h2>Projects & experience</h2><p><a href="#projects" data-scene-link="web">Explore all projects</a> · <a href="profile/project.html?id=sustainability">AI for sustainability</a> · <a href="profile/project.html?id=flipwords">FlipWords</a> · <a href="profile/project.html?id=whispener">Whispener</a> · <a href="profile/project.html?id=edgesentry">EdgeSentry</a> · <a href="profile/project.html?id=sttc">Building STTC</a> · <a href="profile/project.html?id=noshi-boshi">Noshi Boshi</a></p><p><a href="profile/CV_Karan_Kapur.pdf">Read my CV</a> or <a href="mailto:karankapur.kapur@gmail.com">send me an email</a>.</p></div>
 </div>
 <aside class="web-info" aria-live="polite" style="visibility:hidden"></aside>
 </main>
@@ -1344,6 +1344,15 @@ window.ticker = (() => {
     c.toss = 1; c.dest = s; wake();
   }, delay);
   let sorted = false, dealt = false, dealtAt = 0;
+  let firstDeal = true, autoShuffleTimer = 0;
+  const arrangeSorted = () => {
+    sorted = true;
+    sortBtn.ariaLabel = 'Scatter'; label(sortBtn, 'Scatter'); sortBtn.setAttribute('aria-pressed', 'true');
+    const g = sortedGrid(); table.style.height = g.h + 'px'; TH = g.h; K = g.k;
+    order = cards.slice().reverse(); restack();
+    cards.forEach((c, i) => { c.home = g.at[i]; setFlip(c, false); });
+    wake();
+  };
   // 나눠 주기: 한 벌의 맨 위 카드부터 한 장씩 집어 테이블에 놓는다. 집은 카드는 그 순간 Back to top 올라오고,
   // 먼저 놓은 카드일수록 아래에 깔리는 자리(seq 앞쪽)를 받는다
   const dealFromTop = (spots, d0, step) => {
@@ -1356,10 +1365,20 @@ window.ticker = (() => {
   };
   const deal = () => {
     if (dealt) return; dealt = true; dealtAt = performance.now();
+    if (firstDeal) {
+      firstDeal = false;
+      arrangeSorted();
+      autoShuffleTimer = setTimeout(() => {
+        autoShuffleTimer = 0;
+        if (dealt && sorted && !touched && !drag) shuffleBtn.click();
+      }, 1000);
+      return;
+    }
     dealFromTop(scatterSpots(), 0, 55);
   };
   // 되감기: 위로 올라가 테이블이 화면 아래로 빠지면 카드가 다시 한 벌로 모이고, 내려오면 다시 쏟아진다
   const regather = () => {
+    clearTimeout(autoShuffleTimer); autoShuffleTimer = 0;
     dealt = false; dealtAt = 0;
     order.slice().reverse().forEach((c, k) => { setFlip(c, false); c.toss = 0; c.home = { x: TW / 2 - k * 1.2, y: gatherY() + k * 1.6, r: (k ? c.j1 * 3 : 0) * Math.PI / 180 }; });
   };
@@ -1389,9 +1408,7 @@ window.ticker = (() => {
     sorted = !sorted; dealt = true; touched = true;
     sortBtn.ariaLabel = sorted ? 'Scatter' : 'Sort'; label(sortBtn, sorted ? 'Scatter' : 'Sort'); sortBtn.setAttribute('aria-pressed', sorted);
     if (sorted) {
-      const g = sortedGrid(); table.style.height = g.h + 'px'; TH = g.h; K = g.k; wake();
-      order = cards.slice().reverse(); restack();
-      cards.forEach((c, i) => { c.home = g.at[i]; setFlip(c, false); });
+      arrangeSorted();
       flipAllBtn.setAttribute('aria-pressed', 'false'); label(flipAllBtn, 'Show details');
     } else {
       scatterH();
@@ -2891,7 +2908,17 @@ window.ticker = (() => {
   tabList.innerHTML = TABS.map((t, i) => `<button type="button" role="tab" class="wi-tab" id="wi-tab-${i}" aria-controls="wi-panel" aria-selected="false" tabindex="-1">${t}</button>`).join('');
   const tabs = [...tabList.children];
   // 탭 본문은 문단 여럿(빈 줄로 나뉜 원고, 탭원고 3판)이다. 높이는 그 작업 네 칸 중 가장 긴 칸에 맞춰 두어 탭을 바꿔도 아래 메타가 들썩이지 않는다
-  const fill = (box, text) => { box.replaceChildren(...String(text || '').split(/\n\s*\n/).map(t => { const p = el('p'); p.textContent = t.trim(); return p; })); };
+  const fill = (box, text) => {
+    box.replaceChildren(...String(text || '').split(/\n\s*\n/).map(t => {
+      const p = el('p');
+      const name = 'Southern Taiwan Technology Council';
+      t.trim().split(name).forEach((part, i) => {
+        if (i) { const brand = el('strong', 'sttc-name'); brand.textContent = name; p.append(brand); }
+        p.append(part);
+      });
+      return p;
+    }));
+  };
   const probe = el('div', 'wi-panel wi-probe'); probe.setAttribute('aria-hidden', 'true'); panel.after(probe);
   const fitPanel = () => {
     let h = 0; tabText.forEach(t => { fill(probe, t); h = Math.max(h, probe.offsetHeight); }); probe.replaceChildren();
@@ -3117,7 +3144,14 @@ window.ticker = (() => {
     const p = Stage.state.p, on = live(p);
     // 층 줄이기(10-21 조율 배정): 띠의 9칸 중 고른 칸(바꾸는 동안에는 앞 칸까지)만 그린다. 나머지 칸은 화면 밖이거나 검은 틈이라, 내려놓아도 모습이 같다(.mb-screen 바탕도 검정)
     panes.forEach((x, i) => { const v = i === sel || (!!anim && i === prev); if (x._v !== v) { x._v = v; x.pane.style.visibility = v ? '' : 'hidden'; } });
-    if (!narrow()) { panes.forEach((x, i) => { if (on && (i === sel || (anim && i === prev))) mount(x); else unmount(x); }); return; }
+    if (!narrow()) {
+      panes.forEach((x, i) => {
+        // Warm STTC after arriving at Work, then reuse it across project selections.
+        const warmSTTC = x.sv.id === 'sttc' && (x.frame || (!anim && Stage.state.settled && Math.abs(p - WEB) < 0.02));
+        if (on && (i === sel || (anim && i === prev) || warmSTTC)) mount(x); else unmount(x);
+      });
+      return;
+    }
     const ready = on && !anim && Stage.state.settled && Math.abs(p - WEB) < 0.02;
     panes.forEach((x, i) => { if (!(on && i === sel)) unmount(x); });
     const x = panes[sel];

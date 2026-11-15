@@ -22,7 +22,7 @@ The badge uses `profile/karan-avatar-v2.webp`, generated from Karan’s supplied
 
 Run locally with `python3 -m http.server 4173`, then open `http://localhost:4173/`.
 
-The homepage uses a complete scrolling layout on screens up to 820px, with reduced motion, or when animation dependencies are unavailable. It includes selected projects, About, experience, CV and email contact. Wider screens retain the 3D scenes with a visible navigation bar; crossing the mobile breakpoint reloads into the appropriate layout while retaining the URL destination. `profile/projects.html` provides the same browsable overview on any screen. The shared renderer and styles live in `profile/browse.js` and `profile/browse.css`.
+The homepage uses a complete scrolling layout on screens up to 820px, with reduced motion, or when animation dependencies are unavailable. It includes selected projects, About, experience, CV and email contact. Wider screens retain the 3D scenes with a visible navigation bar; crossing the mobile breakpoint reloads into the appropriate layout while retaining the URL destination. The shared renderer and styles live in `profile/browse.js` and `profile/browse.css`.
 
 Every project has structured contribution, engineering decisions, results and limitations in `profile/portfolio.js`. Career-only project hashes return to Experience instead of selecting an unrelated Work item. Videos use silent autoplay without playback controls or full-size player links. Work previews pause away from the scene and resume unfinished playback when returning; completed videos hold their final frame. Reduced-motion preferences suppress autoplay. No new performance or customer metrics have been invented.
 

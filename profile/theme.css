@@ -20,7 +20,7 @@
 .copy .hero-offer h1 { margin-bottom: 20px; }
 .hero-services { margin: 0 0 20px; padding-inline-start: 16px; font-size: calc(clamp(22px, 1.9vw, 32px) - 2px); line-height: 1.4; letter-spacing: -.02em; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 20px; pointer-events: auto; }
-.hero-action { display: inline-flex; justify-content: center; align-items: center; gap: 12px; box-sizing: border-box; min-height: 54px; padding: 12px 26px; border: 1px solid #cbcbd7; border-radius: 11px; color: var(--ink); background: transparent; font-size: 20px; font-weight: 500; line-height: 1.4; letter-spacing: -.035em; text-decoration: none; }
+.hero-action { display: inline-flex; justify-content: center; align-items: center; gap: 12px; box-sizing: border-box; min-height: 54px; padding: 12px 26px; border: 1px solid #64619a; border-radius: 11px; color: #64619a; background: transparent; font-size: 20px; font-weight: 500; line-height: 1.4; letter-spacing: -.035em; text-decoration: none; }
 .hero-action-primary { color: #fff; background: var(--ink); border-color: var(--ink); }
 .hero-action:hover { background: #f3f4fa; }
 .hero-action-primary:hover { background: #292930; }
@@ -31,6 +31,7 @@
 .copy .intro em { color: #64619a; font-style: normal; }
 .copy .intro .intro-logo { display: inline-block; width: auto; height: 1cap; vertical-align: baseline; }
 .copy .intro .intro-sttc { font-family: "Times New Roman", Times, serif; font-size: calc(1em + 1px); font-weight: 700; color: #B60100; }
+.sttc-name { font-family: "Times New Roman", Times, serif; font-weight: 700; color: #B60100; }
 @media (min-width: 821px) and (max-width: 1400px) {
   .copy .hero-offer { max-width: calc(50vw - 192px); }
   .hero-services { font-size: 20px; }
@@ -78,7 +79,7 @@ html.stage-on body .web-info .wi-mark {
 html.stage-on body .web-info .wi-dock {
   position: absolute; left: 50%; bottom: max(24px, env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
   display: flex; gap: 4px; box-sizing: border-box; width: max-content; max-width: calc(100vw - 40px); padding: 8px;
-  border: 1px solid rgba(36,35,49,.12); border-radius: 16px; background: #fff; box-shadow: 0 4px 20px rgba(14,14,18,.08);
+  border: 1px solid rgba(36,35,49,.12); border-radius: 16px; background: linear-gradient(160deg,rgba(255,255,255,.94),rgba(242,243,248,.82) 46%,rgba(233,236,246,.88)); box-shadow: 0 4px 20px rgba(14,14,18,.08);
   overflow-x: auto; scrollbar-width: thin; pointer-events: auto; touch-action: pan-x; overscroll-behavior-x: contain;
 }
 html.stage-on body .web-info .wd-c { flex: none; }

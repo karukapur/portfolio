@@ -137,23 +137,23 @@ window.PORTFOLIO = {
         result: 'The project reported a 92% data validation success rate and delivered human-validated insights to a real-time database used by client organizations.',
         limitation: 'The public portfolio does not include the evaluation sample, denominator or baseline, so 92% should not be read as general model accuracy. Dashboard data and trends are illustrative.'
       },
-      organization: 'Corporate Knights', role: 'AI Consultant · Contract',
+      organization: 'Corporate Knights', role: 'AI Consultant · Systems & NLP',
       logos: [{ src: 'profile/logos/corporate-knights-wordmark.png', alt: 'Corporate Knights logo' }],
       resources: [
         { label: 'Corporate Knights', url: 'https://corporateknights.com/' },
         { label: 'Research resources', url: 'https://corporateknights.com/resources/' }
       ],
-      timeline: 'Aug 2023 — Feb 2024', year: '2023–24', type: 'NLP & sustainability research',
-      scope: 'GPT-4 · LangChain · RAG · Information extraction',
-      big: 'Turning climate disclosures into useful, validated data.',
+      timeline: '	Aug 2023 – Feb 2024 · Aug 2026 – Present', year: '2023–26', type: 'AI Systems · Sustainability Analytics',
+      scope: 'LLMs · RAG · PDF Processing · Evaluation · Orchestration',
+      big: 'From complex disclosures to trustworthy sustainability intelligence.',
       work: {
         previewUrl: 'profile/sustainability-work.html',
         tabLabels: ['What', 'Why', 'The build', 'Impact'],
         tabs: [
           'I worked with Corporate Knights on an AI document workflow for sustainability research. The system turns complex disclosures into structured metrics and supports human validation, making the data easier to analyze at scale.',
-          'ESG and annual reports hold useful climate data, but inconsistent layouts and terminology make comparisons difficult. The workflow connects extracted figures to their source context and a shared sustainability taxonomy.',
-          'I built NLP pipelines with GPT-4, LangChain, and retrieval-augmented generation, combining prompt engineering, fine-tuning, and multi-source, multi-step information extraction.',
-          'The project achieved a 92% data validation success rate and delivered human-validated insights to a real-time database used by client organizations. The laptop shows an illustrative version of that workflow.'
+          'ESG and annual reports contain valuable sustainability data, but extracting consistent, trustworthy information across thousands of documents is challenging. Beyond extraction accuracy, the system must preserve source evidence, handle complex document structures, and produce reproducible results at scale.',
+          'I developed NLP extraction workflows using GPT-4, LangChain, and RAG. In my latest engagement, I evaluated the existing PDF extraction pipeline, investigated benchmarking inconsistencies, and identified opportunities to improve orchestration, reliability, and large-scale automated processing.',
+          'The original pipeline achieved a 92% data-validation success rate, delivering human-validated sustainability insights to a real-time database used by client organizations. My recent evaluation identified reliability and benchmarking gaps, helping inform the next phase of scalable, auditable document processing.'
         ]
       },
       tabs: [

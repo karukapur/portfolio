@@ -7,6 +7,28 @@ const vm = require('node:vm');
 const root = resolve(__dirname, '..');
 const read = file => readFileSync(resolve(root, file), 'utf8');
 
+test('Experience starts sorted and shuffles after 1.4 seconds unless interacted with', () => {
+  const code = read('index.html').match(/const deal = \(\) => \{[\s\S]*?\n  \};/)[0];
+  for (const interrupted of [false, true]) {
+    let callback, delay, arranged = 0, shuffled = 0;
+    const context = vm.createContext({
+      dealt: false, dealtAt: 0, firstDeal: true, sorted: false,
+      touched: false, drag: null, autoShuffleTimer: 0,
+      performance: { now: () => 100 },
+      arrangeSorted: () => { arranged++; context.sorted = true; },
+      setTimeout: (fn, ms) => { callback = fn; delay = ms; return 1; },
+      shuffleBtn: { click: () => shuffled++ }
+    });
+    vm.runInContext(code + '\ndeal(); deal();', context);
+    assert.equal(arranged, 1);
+    assert.equal(delay, 1400);
+    assert.equal(shuffled, 0);
+    context.touched = interrupted;
+    callback();
+    assert.equal(shuffled, interrupted ? 0 : 1);
+  }
+});
+
 // A small DOM fixture checks selection logic; layout and native keyboard behavior need a browser.
 class Element {
   constructor(attrs = {}) {
@@ -259,6 +281,31 @@ test('lab loads STTC directly as an external website and keeps other project rou
   });
 });
 
+test('desktop warms STTC at Work, reuses it across selections, and releases it on exit', () => {
+  const panes = ['sustainability', 'sttc', 'flipwords'].map(id => ({ sv: { id }, pane: { style: {} }, frame: null }));
+  const context = vm.createContext({
+    panes, Stage: { state: { p: 2, settled: false } }, WEB: 2,
+    sel: 0, prev: -1, anim: null, mountT: 0,
+    narrow: () => false, live: p => p > 1.5 && p < 2.65,
+    mount: x => { x.frame ||= {}; }, unmount: x => { x.frame = null; }
+  });
+  vm.runInContext(read('index.html').match(/function sync\(\)\{[\s\S]*?\n  \}/)[0], context);
+  vm.runInContext('sync()', context);
+  assert.equal(panes[1].frame, null);
+  context.Stage.state.settled = true;
+  vm.runInContext('sync()', context);
+  const frame = panes[1].frame;
+  assert(frame);
+  for (const selection of [1, 2, 0]) {
+    context.sel = selection;
+    vm.runInContext('sync()', context);
+    assert.equal(panes[1].frame, frame);
+  }
+  context.Stage.state.p = 3;
+  vm.runInContext('sync()', context);
+  assert(panes.every(x => x.frame === null));
+});
+
 test('Work shares the STTC MacBook with sustainability and resets it for other projects', () => {
   const mb = new Element();
   mb.innerHTML = '<p class="mb-chin"></p>';
@@ -490,7 +537,7 @@ test('visible home navigation enhances desktop links and preserves ordinary mobi
   const document = new Element();
   document.innerHTML = html.split('<script')[0];
   const links = document.querySelectorAll('[data-scene-link]');
-  assert.equal(links.length, 4);
+  assert.equal(links.length, 8);
   const destinations = [];
   const Stage = { enabled: true, go: destination => destinations.push(destination) };
   const context = { document, Stage, window: { Stage } };
@@ -502,11 +549,12 @@ test('visible home navigation enhances desktop links and preserves ordinary mobi
     return prevented;
   };
   links.forEach(link => assert.equal(click(link), true));
-  assert.deepEqual(destinations, ['work', 'web', 'end', 'end']);
+  assert.deepEqual(destinations, ['web', 'hero', 'work', 'web', 'end', 'web', 'end', 'web']);
   for (const modifier of ['metaKey', 'ctrlKey', 'shiftKey', 'altKey']) assert.equal(click(links[0], { [modifier]: true }), false);
   Stage.enabled = false;
   links.forEach(link => assert.equal(click(link), false));
-  assert.match(html, /href="profile\/projects.html">View case studies/);
+  assert.match(html, /href="#projects" data-scene-link="web">View work/);
+  assert.doesNotMatch(html, /profile\/projects\.html/);
 });
 
 
