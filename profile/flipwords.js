@@ -19,7 +19,13 @@
     host.classList.toggle('es-stage', project.id === 'edgesentry');
     const bondLogoUrl = new URL('logos/james-bond-007.svg', assetBase).href;
     const mockupUrl = new URL(`${project.id}-mockup.png`, assetBase).href;
-    host.innerHTML = `${project.id === 'edgesentry' ? `<div class="es-insignia"><span class="es-reticle" aria-hidden="true"></span><img class="es-bond-logo" src="${bondLogoUrl}" alt="James Bond 007" width="476" height="149"><span>Field tech / EdgeSentry</span></div>` : ''}<img class="fw-mockup" src="${mockupUrl}" width="1374" height="1145" alt="${project.mockup.alt}">`;
+    const markup = `${project.id === 'edgesentry' ? `<div class="es-insignia"><span class="es-reticle" aria-hidden="true"></span><img class="es-bond-logo" src="${bondLogoUrl}" alt="James Bond 007" width="476" height="149"><span>Field tech / EdgeSentry</span></div>` : ''}<img class="fw-mockup" src="${mockupUrl}" width="1374" height="1145" alt="${project.mockup.alt}">`;
+    host.innerHTML = markup;
+    if (project.id === 'edgesentry') {
+      const boundaries = [0, 225, 350, 545, 710, 890, 1000, 1245, 1374];
+      const layers = `<svg viewBox="0 0 1374 1145" width="1374" height="1145" aria-hidden="true">${boundaries.slice(0, -1).map((left, i) => `<svg x="${left}" y="0" width="${boundaries[i + 1] - left}" height="1145" viewBox="${left} 0 ${boundaries[i + 1] - left} 1145" overflow="hidden"><image class="es-part" style="--part-delay:${i * 220 - i * (i - 1) * 10}ms;--part-duration:${720 - i * 55}ms" href="${mockupUrl}" width="1374" height="1145"/></svg>`).join('')}</svg>`;
+      host.innerHTML = markup.replace(/<img class="fw-mockup"[^>]*>/, image => `<div class="es-assembly">${layers}${image}</div>`);
+    }
   };
 
   if (!window.Stage?.enabled) return;
@@ -66,6 +72,7 @@
     }
     document.documentElement.classList.toggle('flipwords-work', selected);
     document.documentElement.classList.toggle('sustainability-work', project?.id === 'sustainability' && Stage.state.p >= webStation - .4 && Stage.state.p <= webStation + .25);
+    stage.classList.toggle('preview-paused', Stage.state.p < webStation - .4 || Stage.state.p > webStation + .25 || document.hidden);
     if (video) {
       const active = Stage.state.p >= webStation - .4 && Stage.state.p <= webStation + .25 && !document.hidden;
       if (active !== videoActive) {

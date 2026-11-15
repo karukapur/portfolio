@@ -2914,7 +2914,13 @@ window.ticker = (() => {
       const name = 'Southern Taiwan Technology Council';
       t.trim().split(name).forEach((part, i) => {
         if (i) { const brand = el('strong', 'sttc-name'); brand.textContent = name; p.append(brand); }
-        p.append(part);
+        part.split(/\b(007)\b/).forEach(fragment => {
+          if (fragment !== '007') { p.append(fragment); return; }
+          const logo = el('img', 'inline-bond-logo');
+          logo.src = 'profile/logos/james-bond-007.svg'; logo.alt = '007';
+          logo.width = 476; logo.height = 149;
+          p.append(logo);
+        });
       });
       return p;
     }));

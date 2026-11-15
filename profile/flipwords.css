@@ -22,7 +22,17 @@ html.stage-on body .web-info.fw-selected .wi-meta { margin-top: 28px; grid-templ
 [data-project="flipwords"] .experience.fw-stage { min-height: 570px; }
 [data-project="edgesentry"] .experience { padding: 0; background: var(--bg); border: 0; }
 [data-project="edgesentry"] .experience.fw-stage { min-height: 570px; }
-.es-stage .fw-mockup { min-height: 0; mix-blend-mode: multiply; transform: translateY(3%) scale(1.15); transform-origin: center; }
+.es-assembly { position: relative; width: 100%; height: 100%; min-height: 0; mix-blend-mode: multiply; transform: translateY(3%) scale(1.15); transform-origin: center; }
+.es-assembly > .fw-mockup { visibility: hidden; }
+.es-assembly > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.es-part { animation: es-part-enter var(--part-duration) cubic-bezier(.22,1,.36,1) var(--part-delay) both; }
+.preview-paused .es-part { animation-play-state: paused; }
+@keyframes es-part-enter {
+  from { opacity: 0; transform: translateX(-32px); filter: blur(4px); }
+  65% { opacity: 1; filter: blur(.6px); }
+  to { opacity: 1; transform: translateX(0); filter: blur(0); }
+}
+@media (prefers-reduced-motion: reduce) { .es-part { animation: none; } }
 .es-insignia { position: absolute; top: 10%; left: 4%; display: flex; align-items: center; gap: 12px; color: #34564a; }
 .es-bond-logo { display: block; height: 24px; width: auto; flex: none; }
 .es-insignia > span:last-child { border-left: 1px solid #a7bbb1; padding-left: 12px; font-size: 12px; }

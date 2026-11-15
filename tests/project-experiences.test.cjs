@@ -831,6 +831,14 @@ test('EdgeSentry uses its hardware concept, source and shared Work presentation'
   assert.doesNotMatch(host.markup, /Exploded hardware concept|On-device vision/);
   const image = host.querySelector('.fw-mockup');
   assert.equal(image.getAttribute('src'), 'http://localhost/profile/edgesentry-mockup.png');
+  const parts = host.querySelectorAll('.es-part');
+  assert.equal(parts.length, 8);
+  parts.forEach((part, i) => {
+    assert.equal(part.getAttribute('href'), image.getAttribute('src'));
+    assert.equal(part.getAttribute('style'), `--part-delay:${i * 220 - i * (i - 1) * 10}ms;--part-duration:${720 - i * 55}ms`);
+    assert.equal(part.getAttribute('width'), '1374');
+    assert.equal(part.getAttribute('height'), '1145');
+  });
   assert.match(image.getAttribute('alt'), /hardware concept.*OV5647/);
   assert(readFileSync(resolve(root, 'profile/edgesentry-mockup.png')).length > 0);
   assert(readFileSync(resolve(root, 'profile/edgesentry.svg')).length > 0);

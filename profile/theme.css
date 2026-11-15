@@ -32,6 +32,7 @@
 .copy .intro .intro-logo { display: inline-block; width: auto; height: 1cap; vertical-align: baseline; }
 .copy .intro .intro-sttc { font-family: "Times New Roman", Times, serif; font-size: calc(1em + 1px); font-weight: 700; color: #B60100; }
 .sttc-name { font-family: "Times New Roman", Times, serif; font-weight: 700; color: #B60100; }
+.inline-bond-logo { display: inline-block; width: auto; height: .85em; aspect-ratio: 476 / 149; margin-inline: .2em; vertical-align: -.05em; }
 @media (min-width: 821px) and (max-width: 1400px) {
   .copy .hero-offer { max-width: calc(50vw - 192px); }
   .hero-services { font-size: 20px; }
