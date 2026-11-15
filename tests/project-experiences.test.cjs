@@ -7,7 +7,7 @@ const vm = require('node:vm');
 const root = resolve(__dirname, '..');
 const read = file => readFileSync(resolve(root, file), 'utf8');
 
-test('Experience starts sorted and shuffles after 1.4 seconds unless interacted with', () => {
+test('Experience starts sorted and shuffles after 1 second unless interacted with', () => {
   const code = read('index.html').match(/const deal = \(\) => \{[\s\S]*?\n  \};/)[0];
   for (const interrupted of [false, true]) {
     let callback, delay, arranged = 0, shuffled = 0;
@@ -21,7 +21,7 @@ test('Experience starts sorted and shuffles after 1.4 seconds unless interacted 
     });
     vm.runInContext(code + '\ndeal(); deal();', context);
     assert.equal(arranged, 1);
-    assert.equal(delay, 1400);
+    assert.equal(delay, 1000);
     assert.equal(shuffled, 0);
     context.touched = interrupted;
     callback();
