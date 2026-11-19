@@ -31,8 +31,11 @@ jobs:
           node-version: '24'
           package-manager-cache: false
 
+      - name: Check generated portfolio content
+        run: node scripts/sync-portfolio.cjs --check
+
       - name: Check project routes and interactions
-        run: node --test tests/project-experiences.test.cjs
+        run: node --test tests/*.test.cjs
 
       - name: Prepare website files
         run: |

@@ -271,7 +271,7 @@ test('lab loads STTC directly as an external website and keeps other project rou
   for (const [hash, expected] of [['', 'sustainability'], ['#web', 'sustainability'], ['#whispener', 'whispener']]) {
     assert.equal(vm.runInNewContext(selectionCode, { services, Stage: { config: { startHash: hash.slice(1) } }, location: { hash } }), expected);
   }
-  const fallbackIds = [...html.match(/<section class="web-list"[\s\S]*?<\/section>/)[0].matchAll(/project.html\?id=([^"&]+)/g)].map(([, id]) => id);
+  const fallbackIds = [...html.match(/<!-- portfolio:projects -->[\s\S]*?<!-- \/portfolio:projects -->/)[0].matchAll(/project.html\?id=([^"&]+)/g)].map(([, id]) => id);
   assert.deepEqual(fallbackIds, Array.from(services, service => service.id));
   const dock = vm.runInContext(html.match(/const DOCK = WORK_PROJECTS\.map[^\n]+/)[0] + '\nDOCK;', context);
   assert.deepEqual(Array.from(dock, entry => entry[0]), Array.from(services, service => service.id));
@@ -535,7 +535,7 @@ test('unknown experience leaves its host hidden', () => {
 test('visible home navigation enhances desktop links and preserves ordinary mobile links', () => {
   const html = read('index.html');
   const document = new Element();
-  document.innerHTML = html.split('<script')[0];
+  document.innerHTML = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '');
   const links = document.querySelectorAll('[data-scene-link]');
   assert.equal(links.length, 8);
   const destinations = [];
@@ -563,9 +563,9 @@ test('FlipWords uses the supplied mockup on its project route', () => {
   assert.equal(document.title, 'FlipWords — Karan Kapur');
   assert.equal(host.hidden, false);
   const mockup = host.querySelector('.fw-mockup');
-  assert.equal(mockup.getAttribute('src'), 'http://localhost/profile/flipwords-mockup.png');
+  assert.equal(mockup.getAttribute('src'), 'http://localhost/profile/flipwords-mockup.webp');
   assert.match(mockup.getAttribute('alt'), /folded cover screen/);
-  assert(readFileSync(resolve(root, 'profile/flipwords-mockup.png')).length > 0);
+  assert(readFileSync(resolve(root, 'profile/flipwords-mockup.webp')).length > 0);
   assert.equal(host.querySelectorAll('.fw-phone').length, 0);
   const project = context.PORTFOLIO.projects.find(p => p.id === 'flipwords');
   assert.equal(project.sourceUrl, 'https://github.com/karukapur/flipwords');
@@ -606,7 +606,7 @@ test('image and video previews ride the 3D scene and pause video when leaving Wo
   events['web:select']();
   assert.equal(stage.hidden, false);
   assert(stage.classList.contains('es-stage'));
-  assert.equal(stage.querySelector('.fw-mockup').getAttribute('src'), 'http://localhost/profile/edgesentry-mockup.png');
+  assert.equal(stage.querySelector('.fw-mockup').getAttribute('src'), 'http://localhost/profile/edgesentry-mockup.webp');
   assert.equal(body.children.find(node => node.className === 'fw-notes').href, 'https://github.com/karukapur/edgesentry');
   Stage.web.hash = 'flipwords';
   events['web:select']();
@@ -830,7 +830,11 @@ test('EdgeSentry uses its hardware concept, source and shared Work presentation'
   assert.equal(host.querySelector('.es-caption'), null);
   assert.doesNotMatch(host.markup, /Exploded hardware concept|On-device vision/);
   const image = host.querySelector('.fw-mockup');
-  assert.equal(image.getAttribute('src'), 'http://localhost/profile/edgesentry-mockup.png');
+  assert.equal(image.getAttribute('src'), 'http://localhost/profile/edgesentry-mockup.webp');
+  const assembly = host.querySelector('.es-assembly');
+  assert.equal(assembly.classList.contains('es-ready'), false);
+  image.events.load();
+  assert.equal(assembly.classList.contains('es-ready'), true);
   const parts = host.querySelectorAll('.es-part');
   assert.equal(parts.length, 8);
   parts.forEach((part, i) => {
@@ -840,7 +844,7 @@ test('EdgeSentry uses its hardware concept, source and shared Work presentation'
     assert.equal(part.getAttribute('height'), '1145');
   });
   assert.match(image.getAttribute('alt'), /hardware concept.*OV5647/);
-  assert(readFileSync(resolve(root, 'profile/edgesentry-mockup.png')).length > 0);
+  assert(readFileSync(resolve(root, 'profile/edgesentry-mockup.webp')).length > 0);
   assert(readFileSync(resolve(root, 'profile/edgesentry.svg')).length > 0);
   const project = context.PORTFOLIO.projects.find(p => p.id === 'edgesentry');
   assert.equal(project.sourceUrl, 'https://github.com/karukapur/edgesentry');
@@ -890,6 +894,9 @@ test('shared overview exposes all projects and honors mobile deep links from eit
       }
       assert(document.all().some(node => node.getAttribute('href') === `mailto:${context.PORTFOLIO.email}`));
       assert.equal(typeof events.hashchange, 'function');
+      // A reload's restored scroll position must not undo the deep link.
+      events.pageshow();
+      assert.equal(document.getElementById(target).scrollCount, 2);
     }
   }
 });
@@ -930,4 +937,26 @@ test('each Work selection retains one case-study link pointing to the selected p
     assert.equal(links[0].href, `profile/project.html?id=${id}`);
     assert.equal(links[0].hidden, false);
   }
+});
+
+test('static portfolio content stays synchronized and safely follows data changes', () => {
+  const { render } = require('../scripts/sync-portfolio.cjs');
+  const { PORTFOLIO: portfolio } = page().context;
+  for (const file of ['index.html', 'profile/project.html']) {
+    assert.equal(render(read(file), portfolio), read(file), `${file}: run node scripts/sync-portfolio.cjs`);
+  }
+  portfolio.selectedProjects = [{ id: 'renamed', name: 'Research <&> "community"' }];
+  portfolio.location = 'New <city>';
+  portfolio.currentRole.role = 'New role';
+  portfolio.linkedin = 'https://example.com/?a=1&b=2';
+  const html = render(read('index.html'), portfolio);
+  const fallback = html.match(/<!-- portfolio:projects -->[\s\S]*?<!-- \/portfolio:projects -->/)[0];
+  assert.match(fallback, /id=renamed/);
+  assert.match(fallback, /Research &lt;&amp;&gt; &quot;community&quot;/);
+  assert.doesNotMatch(fallback, /id=sttc/);
+  assert.match(html, /<!-- portfolio:location -->New &lt;city&gt;/);
+  assert.match(html, /<!-- portfolio:currentRole.role -->New role/);
+  assert.match(html, /href="https:\/\/example.com\/\?a=1&amp;b=2"/);
+  assert.equal(render(html, portfolio), html);
+  assert.throws(() => render('<!-- portfolio:missing -->old<!-- /portfolio:missing -->', portfolio), /Unknown portfolio field/);
 });

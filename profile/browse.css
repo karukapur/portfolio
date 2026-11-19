@@ -44,7 +44,7 @@ html.stage-on .portfolio-overview { display: none; }
 .browse-email { display: inline-block; padding: 12px 0; margin: 8px 0 16px; overflow-wrap: anywhere; font-size: clamp(18px, 3vw, 28px); }
 html.stage-off .hero { padding: 112px 0 56px; }
 html.stage-off .hero .copy { position: static; display: block; box-sizing: border-box; padding: 0 var(--page-gutter); max-width: 1240px; margin: auto; pointer-events: auto; }
-html.stage-off .hero :is(#badge, #strap, .stage, .mark, .gate-note), html.stage-off :is(.work, .web-list, .peek, .totop, .web-info, .end-info) { display: none; }
+html.stage-off .hero :is(#badge, #strap, .stage, .mark, .gate-note), html.stage-off :is(.work, .peek, .totop, .web-info, .end-info) { display: none; }
 html.stage-off .copy .hero-offer { max-width: 700px; }
 html.stage-off .copy .hero-offer h1 { font-size: clamp(38px, 7vw, 68px); max-width: 12em; margin: 0 0 12px; }
 html.stage-off .hero-services { display: block; padding-inline-start: 16px; margin-bottom: 12px; font-size: 22px; }
@@ -67,3 +67,26 @@ html.stage-off .copy .meta { margin: 0; font-size: 12px; }
   html.stage-off .hero { padding: 96px 0 40px; }
 }
 @media (max-width: 359px) { .site-header nav { gap: 8px; } }
+
+/* Document mode also serves landscape touch devices and short desktop windows. */
+html.stage-off .hero .hero-offer { max-width: 700px; }
+html.stage-off .hero-services { line-height: 1.5; }
+html.stage-off .hero-actions { flex-wrap: wrap; }
+html.stage-off .hero .copy .intro { max-width: 660px; }
+html.stage-off .site-header { padding-inline: max(var(--page-gutter), env(safe-area-inset-left, 0px)) max(var(--page-gutter), env(safe-area-inset-right, 0px)); }
+html.stage-off .portfolio-overview { padding-bottom: max(32px, env(safe-area-inset-bottom, 0px)); }
+html.stage-off :is(.browse-project, .browse-experience article, .hero-offer) { overflow-wrap: anywhere; }
+@media (max-width: 430px) {
+  :root { --page-gutter: 20px; }
+  html.stage-off .hero .hero-offer h1 { font-size: clamp(34px, 10vw, 43px); }
+  html.stage-off .hero-services { font-size: 19px; }
+  html.stage-off .hero-action { padding-inline: 16px; }
+  .browse-project { padding: 20px; }
+  .site-header nav { gap: 8px; }
+}
+html.stage-off .copy :is(.intro, .meta) { justify-self: start; }
+
+/* Reserve the desktop composition while animation libraries are loading. */
+html.stage-preparing { overflow: hidden; }
+html.stage-preparing :is(.portfolio-overview, .work, .web-info, .end-info, #badge, #strap, .peek, .totop) { visibility: hidden; }
+html.stage-preparing .copy { padding-top: 88px; padding-inline: var(--page-gutter); }

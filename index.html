@@ -3,12 +3,12 @@
 <meta charset="utf-8">
 <!-- Karan Kapur — personal portfolio. See LICENSE for content and component terms. -->
 <meta name="copyright" content="© 2026 Karan Kapur. Personal portfolio content.">
-<meta name="author" content="Karan Kapur">
-<title>Karan Kapur — Edge AI Engineer</title>
-<meta name="description" content="Karan Kapur is an Edge AI engineer at NXP Semiconductors and co-founder of STTC. Explore on-device AI, embedded systems, NLP, and community building.">
+<meta name="author" data-portfolio-content="name" content="Karan Kapur">
+<!-- portfolio:documentTitle --><title>Karan Kapur — Edge AI Engineer</title><!-- /portfolio:documentTitle -->
+<meta name="description" data-portfolio-content="description" content="Karan Kapur is an Edge AI Engineer at NXP Semiconductors and co-founder of STTC. Explore on-device AI, embedded systems, NLP, and community building.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Karan Kapur — Edge AI Engineer">
-<meta property="og:description" content="Karan Kapur is an Edge AI engineer at NXP Semiconductors and co-founder of STTC. Explore on-device AI, embedded systems, NLP, and community building.">
+<meta property="og:title" data-portfolio-content="title" content="Karan Kapur — Edge AI Engineer">
+<meta property="og:description" data-portfolio-content="description" content="Karan Kapur is an Edge AI Engineer at NXP Semiconductors and co-founder of STTC. Explore on-device AI, embedded systems, NLP, and community building.">
 <meta property="og:image" content="profile/share.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -20,8 +20,9 @@
 <link rel="apple-touch-icon" href="profile/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="claude:viewport-fit-sides" content="cover">
+<script src="profile/layout.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400;500;600&family=Funnel+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400;500;600&family=Funnel+Sans:wght@400;500;600;700&display=swap">
 <style>
 /* Local SUIT subsets provide fallback fonts. */
 @font-face{font-family:SUIT;font-weight:500;font-display:swap;src:url(fonts/SUIT-Medium.sub.woff2) format("woff2")}
@@ -188,12 +189,6 @@ html.stage-on .tbar,html.stage-on .tmeta{color:var(--ink-2)}
 
 body{background:color-mix(in oklab,var(--bg),var(--nt) calc(var(--dk,0) * 100%))}
 /* 작업 목록의 눈썹 글(stage-off) */
-.wl-ey{display:flex;align-items:center;margin:0;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
-.wl-ey span{display:flex;align-items:center;gap:8px;color:var(--nt-2)}
-.wl-ey i{width:5px;height:5px;border-radius:50%;background:var(--soft)}
-/* 목록 끝의 맺음 줄도 밤색 위에서 읽히게 */
-.web-list .foot-note{color:var(--nt-3);max-width:none;margin-top:clamp(56px,9vh,96px);padding:0}
-.web-list .foot-note a{color:var(--nt-ink)}
 /* Back to top: 첫 화면을 지난 뒤 위로 스크롤하거나 끝에 닿았을 때만 오른쪽 아래에 나타난다. 밤색 방에서는 색을 뒤집는다 */
 .totop{position:fixed;z-index:50;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));
   width:40px;height:40px;padding:0;border:0;border-radius:50%;display:grid;place-items:center;cursor:pointer;
@@ -323,11 +318,7 @@ html.stage-held .peek{visibility:hidden}   /* 맥북을 써 보는 동안 */
 .resource-links svg{width:9px;height:9px;flex:none}
 .pc.flipped .resource-links a{pointer-events:auto}
 .resource-links a:focus-visible{outline:2px solid var(--dot);outline-offset:3px;border-radius:2px}
-.foot-note{max-width:1240px;margin:0 auto;padding:40px max(24px,env(safe-area-inset-right,0px)) calc(56px + env(safe-area-inset-bottom,0px)) max(24px,env(safe-area-inset-left,0px));
-  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:11px;letter-spacing:.08em;color:var(--ink-3);text-transform:uppercase}
-.foot-note a{color:var(--ink);text-decoration:none}
-.footer-socials{display:flex;flex-wrap:wrap;gap:16px}
-.tmeta a,.foot-note a{display:inline-flex;align-items:center;gap:7px}
+.tmeta a{display:inline-flex;align-items:center;gap:7px}
 .ig{width:13px;height:13px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8}
 
 @media (max-width:820px){
@@ -365,7 +356,7 @@ html.stage-held .peek{visibility:hidden}   /* 맥북을 써 보는 동안 */
 @media (prefers-reduced-motion:reduce){.go{transition:none}}
 
 .page{display:block;position:relative;max-width:none;min-height:0;padding:0}
-.stage{min-height:max(700px,100vh)}
+.stage{min-height:100dvh}
 .copy{position:absolute;inset:0;z-index:1;pointer-events:none;align-self:auto;
   display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto 1fr auto auto;
   padding:calc(32px + env(safe-area-inset-top,0px)) max(32px,env(safe-area-inset-right,0px)) 64px max(32px,env(safe-area-inset-left,0px))}
@@ -400,7 +391,7 @@ html.stage-held .peek{visibility:hidden}   /* 맥북을 써 보는 동안 */
 /* Above 1920px, --hs scales the badge, rope and text with viewport width.
    tan(atan2()) converts the length ratio into a unitless number. */
 @media (min-width:1921px){
-  .hero{--hs:tan(atan2(100vw,1920px))}
+  .hero{--hs:clamp(1,min(tan(atan2(100vw,1920px)),tan(atan2(100dvh,1080px))),1.5)}
   .copy{padding:calc(32px * var(--hs) + env(safe-area-inset-top,0px)) max(calc(32px * var(--hs)),env(safe-area-inset-right,0px)) calc(64px * var(--hs)) max(calc(32px * var(--hs)),env(safe-area-inset-left,0px))}
   .copy .meta{font-size:calc(11px * var(--hs));gap:calc(8px * var(--hs))}
   .copy .meta i{width:calc(5px * var(--hs));height:calc(5px * var(--hs))}
@@ -421,7 +412,7 @@ html.stage-on #stage-root{position:fixed;inset:0;height:100vh;height:100dvh;touc
   perspective:1200px;perspective-origin:50% 50%}
 @media (max-width:820px){html.stage-on #stage-root{perspective:820px}}
 /* 카메라 하나만 움직인다. 조상에는 opacity·filter·overflow·clip-path·mix-blend-mode를 걸지 않는다(3D 평면화 방지) */
-html.stage-on .stage-camera{position:absolute;inset:0;transform-style:preserve-3d}
+html.stage-on .stage-camera{position:absolute;inset:0;transform-style:preserve-3d;transform:translate3d(0,50dvh,0)}
 
 html.stage-on .wall,html.stage-on .desk{position:absolute;left:0;right:0;transform-style:preserve-3d}
 html.stage-on .wall{top:-50%;height:100%}                      /* 세계 y∈[−H,0]: 원점(모서리)이 화면 가운데 */
@@ -464,13 +455,6 @@ html.stage-on .mb-chin{position:absolute;left:0;right:0;bottom:0;height:var(--ch
   font:500 11px var(--f-en);letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.28)}
 
 html.stage-on .web-info a{pointer-events:auto}
-
-/* 움직임 줄이기·GSAP 실패(stage-off): 맥북 장면 대신 작업 목록을 문서 흐름에 둔다. 무대에서는 쓰지 않는다 */
-.web-list{display:none}
-html.stage-off .web-list{display:block;padding:clamp(56px,9vh,96px) max(32px,env(safe-area-inset-left,0px));color:var(--nt-ink);background:var(--nt)}
-html.stage-off .web-list ul{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:18px}
-html.stage-off .web-list li{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--nt-2)}
-html.stage-off .web-list a{color:var(--nt-ink);text-decoration:none;font:500 clamp(22px,2.4vw,32px)/1.1 var(--f-disp);letter-spacing:-.02em}
 
 html.stage-on .mb:not(.mb-on){display:none}
 /* Screen-exit guidance passes pointer input through to the scene. */
@@ -636,9 +620,9 @@ html:not(.stage-on) .end-info{display:none}
           <img class="swivel" src="lanyard/swivel2.webp" alt="" width="60" height="67" draggable="false">
           <section class="face front" aria-label="Front of contact card">
             <span class="slot"><i></i></span>
-            <div class="row"><span>Edge AI Engineer</span></div>
+            <div class="row"><span><!-- portfolio:role -->Edge AI Engineer<!-- /portfolio:role --></span></div>
             <div class="photo"><img src="profile/karan-avatar-v2.webp" alt="3D avatar of Karan Kapur" draggable="false"></div>
-            <p class="name">Karan Kapur</p>
+            <p class="name"><!-- portfolio:name -->Karan Kapur<!-- /portfolio:name --></p>
             <p class="role">Edge AI · Software · Community</p>
             <div class="foot"><span>View contact</span>
               <button class="go" id="toBack" aria-label="View contact details"><svg viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4.2M9 3V7.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -647,18 +631,18 @@ html:not(.stage-on) .end-info{display:none}
           <section class="face back" aria-label="Back of contact card">
             <span class="slot"><i></i></span>
             <div class="row"><span>Contact</span></div>
-            <p class="ko">Karan Kapur</p>
-            <p class="en">Edge AI Engineer · Hyderabad, India</p>
+            <p class="ko"><!-- portfolio:name -->Karan Kapur<!-- /portfolio:name --></p>
+            <p class="en"><!-- portfolio:roleLocation -->Edge AI Engineer · Hyderabad, India<!-- /portfolio:roleLocation --></p>
             <div class="contact">
-              <a class="crow" href="mailto:karankapur.kapur@gmail.com" aria-label="Email Karan Kapur"><span class="k">Email</span><span class="v">karankapur.kapur@gmail.com</span><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5"/></svg></a>
-              <a class="crow" href="https://www.linkedin.com/in/karukapur/" target="_blank" rel="noopener" aria-label="Open Karan’s LinkedIn"><span class="k">LinkedIn</span><span class="v">in/karukapur</span><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5"/></svg></a>
-              <a class="crow" href="https://github.com/karukapur" target="_blank" rel="noopener" aria-label="Open Karan’s GitHub"><span class="k">GitHub</span><span class="v">@karukapur</span><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5"/></svg></a>
-              <a class="crow" href="https://www.threads.com/@karukapur" target="_blank" rel="noopener noreferrer" aria-label="Open Karan’s Threads profile"><span class="k">Threads</span><span class="v">@karukapur</span><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5"/></svg></a>
+              <a class="crow" data-portfolio-href="mailto" href="mailto:karankapur.kapur@gmail.com" aria-label="Email Karan Kapur"><span class="k">Email</span><span class="v"><!-- portfolio:email -->karankapur.kapur@gmail.com<!-- /portfolio:email --></span><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5"/></svg></a>
+              <a class="crow" data-portfolio-href="linkedin" href="https://www.linkedin.com/in/karukapur/" target="_blank" rel="noopener" aria-label="Open Karan’s LinkedIn"><span class="k">LinkedIn</span><span class="v">in/karukapur</span><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5"/></svg></a>
+              <a class="crow" data-portfolio-href="github" href="https://github.com/karukapur" target="_blank" rel="noopener" aria-label="Open Karan’s GitHub"><span class="k">GitHub</span><span class="v">@karukapur</span><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5"/></svg></a>
+              <a class="crow" data-portfolio-href="threads" href="https://www.threads.com/@karukapur" target="_blank" rel="noopener noreferrer" aria-label="Open Karan’s Threads profile"><span class="k">Threads</span><span class="v">@karukapur</span><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5"/></svg></a>
             </div>
             <div class="issue">
               <a class="qr" href="profile/CV_Karan_Kapur.pdf" download aria-label="Download Karan Kapur’s CV"><svg viewBox="0 0 92 92" aria-hidden="true"><rect x="1" y="1" width="90" height="90" rx="16" fill="none" stroke="currentColor" opacity=".2"/><text x="46" y="52" text-anchor="middle" font-family="sans-serif" font-size="28" fill="currentColor">CV</text><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M46 58v12m-5-5 5 5 5-5"/><path d="M35 72v6h22v-6"/></g></svg></a>
               <div class="iss"><span class="scan">Take a closer look</span><span class="note">Experience · Skills · Education</span></div>
-              <div class="bt"><span class="k">2026 · Hyderabad</span><button class="go" id="toFront" aria-label="View front of card"><svg viewBox="0 0 12 12" fill="none"><path d="M9 3L3 9M3 9H7.8M3 9V4.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+              <div class="bt"><span class="k">2026 · <!-- portfolio:city -->Hyderabad<!-- /portfolio:city --></span><button class="go" id="toFront" aria-label="View front of card"><svg viewBox="0 0 12 12" fill="none"><path d="M9 3L3 9M3 9H7.8M3 9V4.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
             </div>
           </section>
         </div>
@@ -675,9 +659,9 @@ html:not(.stage-on) .end-info{display:none}
         <a class="hero-action" href="#contact" data-scene-link="end">Get in touch</a>
       </nav>
     </div>
-    <p class="intro"><span class="en">I help research teams and businesses <em>design robust algorithms</em>, <em>build intelligent systems</em>, and <em>optimize AI </em>— even on resource-constrained edge hardware.</span><span class="ko" lang="en">Lead Software Engineer at <img class="intro-logo" src="profile/logos/nxp.svg" alt="NXP Semiconductors" width="93" height="32"><br>Co-founder of <em class="intro-sttc">STTC</em></span></p>
-    <p class="meta"><i></i>Hyderabad, India</p>
-    <p class="mark" aria-hidden="true">Karan Kapur</p>
+    <p class="intro"><span class="en">I help research teams and businesses <em>design robust algorithms</em>, <em>build intelligent systems</em>, and <em>optimize AI </em>— even on resource-constrained edge hardware.</span><span class="ko" lang="en"><!-- portfolio:currentRole.role -->Lead Software Engineer<!-- /portfolio:currentRole.role --> at <img class="intro-logo" data-portfolio-src="currentRole.logos.0.src" src="profile/logos/nxp.svg" data-portfolio-alt="currentRole.organization" alt="NXP Semiconductors" width="93" height="32"><br>Co-founder of <em class="intro-sttc">STTC</em></span></p>
+    <p class="meta"><i></i><!-- portfolio:location -->Hyderabad, India<!-- /portfolio:location --></p>
+    <p class="mark" aria-hidden="true"><!-- portfolio:name -->Karan Kapur<!-- /portfolio:name --></p>
   </section>
 
   <section class="stage" id="stage" aria-label="Karan Kapur’s contact card">
@@ -695,25 +679,13 @@ html:not(.stage-on) .end-info{display:none}
       <span class="r"><span class="cg" role="group" aria-label="Card controls"><button class="cg-b cg-pri" id="flipAll" type="button" aria-pressed="false" aria-label="Flip all"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="8" width="10" height="13" rx="2"/><path d="M10.5 8V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-5"/><path d="M5 5.5A4.5 4.5 0 0 1 9.5 3M9.5 3 8 1.6M9.5 3 8 4.4"/></svg><span class="cg-t">Show details</span></button><span class="cg-div" aria-hidden="true"></span><button class="cg-b" id="shuffle" type="button" aria-label="Shuffle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3.5c4.5 0 4.5 10 9 10H20M17 14l3 3-3 3M4 17h3.5c1.6 0 2.6-1.3 3.4-3M13.1 10c.8-1.7 1.8-3 3.4-3H20M17 4l3 3-3 3"/></svg><span class="cg-t">Shuffle</span></button><button class="cg-b" id="sort" type="button" aria-pressed="false" aria-label="Sort"><svg class="i-grid" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1.2"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.2"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.2"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.2"/></svg><svg class="i-scatter" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="7" height="7" rx="1.2" transform="rotate(-14 7 8.5)"/><rect x="13" y="3.5" width="7" height="7" rx="1.2" transform="rotate(10 16.5 7)"/><rect x="8" y="13" width="7" height="7" rx="1.2" transform="rotate(6 11.5 16.5)"/></svg><span class="cg-t">Sort</span></button></span></span>
     </div>
     <div class="tfoot">
-      <p class="tmeta"><span>7 chapters · Engineering & beyond</span><a href="https://www.linkedin.com/in/karukapur/" target="_blank" rel="noopener"><svg class="ig" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9v10M5 5v.1M10 19V9m0 4c0-5 8-5 8 0v6" stroke-linecap="round"/></svg>in/karukapur ↗</a></p>
+      <p class="tmeta"><span>7 chapters · Engineering & beyond</span><a data-portfolio-href="linkedin" href="https://www.linkedin.com/in/karukapur/" target="_blank" rel="noopener"><svg class="ig" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9v10M5 5v.1M10 19V9m0 4c0-5 8-5 8 0v6" stroke-linecap="round"/></svg>in/karukapur ↗</a></p>
       <p class="tmark" aria-hidden="true">Life’s Story</p>
     </div>
     <div class="pile" id="pile"></div>
   </div>
 </section>
 </div>
-<section class="web-list" id="web" aria-label="Projects and experience">
-  <p class="wl-ey"><span><i></i>Selected Work</span></p>
-  <ul>
-    <li><a href="profile/project.html?id=sustainability" target="_blank" rel="noopener">AI for sustainability ↗</a><span>From complex disclosures to trustworthy sustainability intelligence.</span></li>
-    <li><a href="profile/project.html?id=flipwords" target="_blank" rel="noopener">FlipWords ↗</a><span>Traditional Chinese, without opening your phone.</span></li>
-    <li><a href="profile/project.html?id=whispener" target="_blank" rel="noopener">Whispener ↗</a><span>Follow the conversation. Keep the original words.</span></li>
-    <li><a href="profile/project.html?id=edgesentry" target="_blank" rel="noopener">EdgeSentry ↗</a><span>A little field tech. A lot of local intelligence.</span></li>
-    <li><a href="profile/project.html?id=sttc" target="_blank" rel="noopener">Building STTC ↗</a><span>Good technology starts with people finding each other.</span></li>
-    <li><a href="profile/project.html?id=noshi-boshi" target="_blank" rel="noopener">Noshi Boshi ↗</a><span>Making new cuisines easier to explore at home.</span></li>
-  </ul>
-<footer class="foot-note"><span>Karan Kapur · Edge AI Engineer</span><span class="footer-socials"><a href="https://www.linkedin.com/in/karukapur/" target="_blank" rel="noopener"><svg class="ig" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9v10M5 5v.1M10 19V9m0 4c0-5 8-5 8 0v6" stroke-linecap="round"/></svg>linkedin.com/in/karukapur ↗</a><a href="https://www.threads.com/@karukapur" target="_blank" rel="noopener noreferrer">Threads @karukapur ↗</a></span></footer>
-</section>
 <div class="mb" aria-label="Interactive project showcase" style="visibility:hidden">
   <div class="mb-base" aria-hidden="true"></div>
   <div class="mb-lid">
@@ -728,7 +700,9 @@ html:not(.stage-on) .end-info{display:none}
 </div></div>
 
 <div class="portfolio-overview" data-portfolio-overview>
+  <!-- portfolio:projects -->
   <div class="browse-fallback"><h2>Projects & experience</h2><p><a href="#projects" data-scene-link="web">Explore all projects</a> · <a href="profile/project.html?id=sustainability">AI for sustainability</a> · <a href="profile/project.html?id=flipwords">FlipWords</a> · <a href="profile/project.html?id=whispener">Whispener</a> · <a href="profile/project.html?id=edgesentry">EdgeSentry</a> · <a href="profile/project.html?id=sttc">Building STTC</a> · <a href="profile/project.html?id=noshi-boshi">Noshi Boshi</a></p><p><a href="profile/CV_Karan_Kapur.pdf">Read my CV</a> or <a href="mailto:karankapur.kapur@gmail.com">send me an email</a>.</p></div>
+  <!-- /portfolio:projects -->
 </div>
 <aside class="web-info" aria-live="polite" style="visibility:hidden"></aside>
 </main>
@@ -736,10 +710,16 @@ html:not(.stage-on) .end-info{display:none}
 <button class="totop" id="toTop" type="button" aria-label="Back to top"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 11.5V2.5M7 2.5L3 6.5M7 2.5l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 
 <script src="profile/portfolio.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/Observer.min.js"></script>
 <script>
-const WORK_PROJECTS = PORTFOLIO.selectedIds.map(id => PORTFOLIO.projects.find(p => p.id === id));
+// Parser-ordered scripts keep the scene initialization synchronous on desktop.
+if (!PortfolioLayout.documentMode) {
+  for (const file of ['gsap.min.js', 'Observer.min.js']) {
+    document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/' + file + '"><' + '/script>');
+  }
+}
+</script>
+<script>
+const WORK_PROJECTS = PORTFOLIO.selectedProjects;
 // 무대 골격: 문서 스크롤 대신 휠·트랙패드·터치 입력을 진행값 p에 스크럽으로 적분한다. 입력이 p를 직접 쥐고, 자동 재생은 없다.
 
 (() => {
@@ -775,9 +755,10 @@ const WORK_PROJECTS = PORTFOLIO.selectedIds.map(id => PORTFOLIO.projects.find(p 
   // 쓸 수 없는 환경(움직임 줄이기, GSAP 로드 실패): 지금의 문서 스크롤 판을 그대로 둔다
   const narrowScreen = matchMedia('(max-width: 820px)');
   // A breakpoint change needs a fresh scene/document layout, preserving the URL destination.
-  narrowScreen.addEventListener('change', () => location.reload());
-  matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', () => location.reload());
-  if (reduce || narrowScreen.matches || !gsap || !Observer) {
+  if (!window.PortfolioLayout) narrowScreen.addEventListener('change', () => location.reload());
+  if (!window.PortfolioLayout) matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', () => location.reload());
+  if (reduce || (window.PortfolioLayout?.documentMode ?? narrowScreen.matches) || !gsap || !Observer) {
+    root.classList.remove('stage-preparing');
     root.classList.add('stage-off');
     const noop = () => {};
     window.Stage = { enabled: false, config, state: {}, add: noop, hold: () => 0, held: () => false, release: noop, on: noop, camera: { set: noop, P: () => 1200 }, tone: noop,
@@ -786,6 +767,7 @@ const WORK_PROJECTS = PORTFOLIO.selectedIds.map(id => PORTFOLIO.projects.find(p 
     return;
   }
   gsap.registerPlugin(Observer);
+  root.classList.remove('stage-preparing');
   root.classList.remove('stage-off');
   root.classList.add('stage-on');
 
@@ -1104,7 +1086,7 @@ window.ticker = (() => {
     mark.style.fontSize = (100 * avail / mark.scrollWidth).toFixed(2) + 'px';
     mark.dispatchEvent(new Event('mk-fit'));   // 이름 높이가 바뀌면 hero.js가 목줄 길이를 다시 잰다
   });
-  fit(); addEventListener('resize', fit); if (document.fonts) document.fonts.ready.then(fit);
+  fit(); addEventListener('resize', PortfolioLayout.schedule(fit)); if (document.fonts) document.fonts.ready.then(fit);
   marks.forEach(m => m.addEventListener('mk-split', fit));   // hero.js가 이름을 글자 칸으로 나눈 뒤(세로 화면은 두 줄) 다시 맞춘다
   // 책상 높이는 table.js가 나중에 정한다(무대: 화면 한 장, 모바일 1.2장). 높이가 바뀌면 세운 제목을 다시 맞춘다
   if (window.ResizeObserver) { let h = 0; const box = document.querySelector('.tfoot'); if (box) new ResizeObserver(() => { if (box.clientHeight !== h) { h = box.clientHeight; fit(); } }).observe(box); }
@@ -1145,7 +1127,7 @@ window.ticker = (() => {
   const MOB = () => STAGE && innerWidth <= 820;
   const FEAT = new Set([0, 1, 4]);                  // Featured cards in the compact layout.
   const hasKo = s => /[가-힣]/.test(s), pad = n => String(n).padStart(2, '0');
-  const esc = s => s.replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+  const esc = PORTFOLIO.escapeHtml;
   const ARROW = '<svg viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4.2M9 3V7.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   // 카드 앞면은 커버, 뒷면은 Back of contact card과 같은 문법의 작업 정보. 카드 자체는 링크가 아니고, 뒷면의 화살표만 원본을 연다
   const cards = ITEMS.map((it, i) => {
@@ -1811,7 +1793,7 @@ window.ticker = (() => {
     if (pts.length) pts.forEach(p => { p.x += nAX - AX; p.px += nAX - AX; p.y += nAY - AY; p.py += nAY - AY; });
     KS = parseFloat(getComputedStyle(card.parentElement).scale) || 1; STRAP_W = STRAP_W0 * KS;
     CT = parseFloat(getComputedStyle(card.parentElement).top) || 70.8;
-    W = r.width; H = r.height; AX = nAX; AY = nAY; UP = nUP; SH = sr.height; dpr = Math.min(2, devicePixelRatio || 1);
+    W = r.width; H = r.height; AX = nAX; AY = nAY; UP = nUP; SH = sr.height; dpr = Math.min(1.5, devicePixelRatio || 1, Math.sqrt(2000000 / (W * H)));
     cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     // 보이는 길이(옛 16마디 식 그대로). 세로 화면(820 이하, 10-21 대표님 실기기 판정): 명함 아래끝이 소개 글 28px 위에 오도록 가장 길게,
     // 단 명함 윗끝은 제목 아래 16px보다 내려간다(명함이 제목 오른쪽 끝과 가로로 겹치므로). 이름 크기는 core.js가 화면 폭에 맞춘다
@@ -1833,7 +1815,7 @@ window.ticker = (() => {
       } else { for (let i = 0; i < N; i++) { const x = a.x, y = a.y + i * seg; pts.push({ x, y, px: x, py: y }); } om = reduce ? 0 : 0.0025; }
       const E = pts[N - 1]; piv.x = E.x; piv.y = E.y; }   // 축의 첫 위치를 줄 끝에 맞춰 첫 프레임 튐 방지
   }
-  resize(); addEventListener('resize', resize); addEventListener('load', resize);   // load: 첫 배치가 끝난 뒤 세로 화면 목줄 길이를 다시 잰다
+  resize(); addEventListener('resize', PortfolioLayout.schedule(resize)); addEventListener('load', resize);   // load: 첫 배치가 끝난 뒤 세로 화면 목줄 길이를 다시 잰다
   if (document.fonts) document.fonts.ready.then(resize);
 
   const local = e => { const r = hero.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
@@ -1941,7 +1923,7 @@ window.ticker = (() => {
     if (desk.moved && deskTW && tw) desk.x = tl + (desk.x - deskTL) * tw / deskTW;
     deskTW = tw; deskTL = tl;
   };
-  addEventListener('resize', deskRefit); addEventListener('load', deskRefit);
+  addEventListener('resize', PortfolioLayout.schedule(deskRefit)); addEventListener('load', deskRefit);
   // 더미를 치는 자리(08 1절: 더미 자리에서 살짝 오른쪽). 명함은 여기 떨어진 뒤 흩어지는 카드와 함께 밀려난다
   const pileSpot = g => ({ x: g.tl + g.pa.x + 0.02 * innerWidth, z: Math.min(g.zMax, g.pa.y - 0.03 * g.Dt) });
   // 밀려나 멈추는 책상 앞 오른쪽 귀퉁이(10-21 대표님 결정: 작업 카드 밖, 화면 오른쪽 끝에 반쯤 걸쳐 작업보다 먼저 눈에 들지 않게.
@@ -2622,60 +2604,35 @@ window.ticker = (() => {
     pts.forEach((p, i) => { const s = seg * i, f = Math.max(0, s - UP) / LV; p.x = p.px = an.x - 26 * f * f; p.y = p.py = an.y + Math.min(s, UP) + LV * f * (1 - 0.06 * f); });
     phi = -0.07; tw = 14; flip = 0; om = 0;
     const draw = () => { prev = null; render(1); };
-    addEventListener('resize', draw); document.fonts.ready.then(draw); draw(); setTimeout(draw, 400);
+    addEventListener('resize', PortfolioLayout.schedule(draw)); document.fonts.ready.then(draw); draw(); setTimeout(draw, 400);
   } else { render(1); ticker.add('badge', loop); }
 })();
 </script>
 <script>
 (() => {
-  // Back to top 버튼과 문서 스크롤 판(stage-off)의 바탕 톤. 옛 cases.js에서 교정지와 무관한 두 가지만 남겼다(10-21 교정지 없앰)
+  if (!window.Stage?.enabled) return;
   const toTop = document.getElementById('toTop'); if (!toTop) return;
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const STAGE = !!(window.Stage && Stage.enabled);
-  const list = document.querySelector('.web-list');
-
-  // 바탕(문서 스크롤 판): 작업 목록이 올라오는 동안 화면 전체의 흰 바탕이 남보라 밤색으로 넘어간다. 위로 올리면 그대로 되돌아간다.
-  // 톤은 상속 변수를 문서 루트에 쓰지 않고 바탕(body의 배경색) 한 곳에만 쓴다. 루트 변수는 문서 전체 스타일을 다시 계산하게 만든다
-  let dk = 0, dkStr = '';
-  const tone = () => {
-    if (STAGE || !list) return;                      // 무대에서는 조명을 장면이 정한다(world.js·scene-web의 Stage.tone)
-    const t = list.getBoundingClientRect().top, k = Math.max(0, Math.min(1, (innerHeight - t) / (innerHeight * 0.85)));
-    const s = (k * k * k * (k * (k * 6 - 15) + 10)).toFixed(3); if (s === dkStr) return;
-    dkStr = s; dk = +s;
-    document.body.style.backgroundColor = `color-mix(in oklab,var(--bg),var(--nt) ${(dk * 100).toFixed(1)}%)`;
-  };
-  // Back to top: 첫 화면을 지난 뒤 위로 갈 때와 맨 끝에 닿았을 때만 보인다. 밤색 방에서는 색을 뒤집는다
-  let lastY = scrollY, lastP = 0;
+  let lastP = 0;
   const topBtn = () => {
-    if (STAGE) {
-      const s = Stage.state, p = s.p, end = Stage.config.stations.length - 1;
-      if (p < 1.1) toTop.classList.remove('show');
-      else if (p >= end - 0.05 || p < lastP - 0.002) toTop.classList.add('show');
-      else if (p > lastP + 0.002) toTop.classList.remove('show');
-      // 맥북 정거장과 그리로 가는 구간에서는 감춘다(화면 오른쪽 아래가 맥북 화면이다). 책상 위 명함과 겹치는 자리에서도 감춘다(10-21 점검)
-      const web = Stage.config.stations.findIndex(x => x.name === 'web');
-      if (p > web - 0.8 && p < end - 0.05) toTop.classList.remove('show');
-      else if (toTop.classList.contains('show')) {
-        const nc = document.querySelector('.card3d'), b = toTop.getBoundingClientRect(), r = nc && nc.getBoundingClientRect();
-        if (r && r.width && r.left < b.right + 12 && r.right > b.left - 12 && r.top < b.bottom + 12 && r.bottom > b.top - 12) toTop.classList.remove('show');
-      }
-      toTop.classList.toggle('night', s.dk > 0.5); lastP = p; return;
+    const s = Stage.state, p = s.p, end = Stage.config.stations.length - 1;
+    if (p < 1.1) toTop.classList.remove('show');
+    else if (p >= end - 0.05 || p < lastP - 0.002) toTop.classList.add('show');
+    else if (p > lastP + 0.002) toTop.classList.remove('show');
+    // 맥북 정거장과 그리로 가는 구간에서는 감춘다(화면 오른쪽 아래가 맥북 화면이다). 책상 위 명함과 겹치는 자리에서도 감춘다(10-21 점검)
+    const web = Stage.config.stations.findIndex(x => x.name === 'web');
+    if (p > web - 0.8 && p < end - 0.05) toTop.classList.remove('show');
+    else if (toTop.classList.contains('show')) {
+      const nc = document.querySelector('.card3d'), b = toTop.getBoundingClientRect(), r = nc && nc.getBoundingClientRect();
+      if (r && r.width && r.left < b.right + 12 && r.right > b.left - 12 && r.top < b.bottom + 12 && r.bottom > b.top - 12) toTop.classList.remove('show');
     }
-    const y = scrollY, up = y < lastY - 2, down = y > lastY + 2, end = y + innerHeight >= document.documentElement.scrollHeight - 40;
-    if (y < innerHeight * 1.1) toTop.classList.remove('show');
-    else if (up || end) toTop.classList.add('show');
-    else if (down) toTop.classList.remove('show');
-    toTop.classList.toggle('night', dk > 0.5);
-    lastY = y;
+    toTop.classList.toggle('night', s.dk > 0.5); lastP = p;
   };
-  toTop.addEventListener('click', () => { toTop.classList.remove('show'); if (STAGE) Stage.go(0); else scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); });
+  toTop.addEventListener('click', () => { toTop.classList.remove('show'); Stage.go(0); });
   // 무대에서는 world.js가 p가 바뀔 때마다 scroll 이벤트를 보낸다
   let ticking = false;
-  addEventListener('scroll', () => { if (!ticking) { ticking = true; ticker.once(() => { ticking = false; tone(); topBtn(); }); } }, { passive: true });
-  addEventListener('resize', tone);
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; ticker.once(() => { ticking = false; topBtn(); }); } }, { passive: true });
   // 해시로 맺음에 바로 들어오거나 한 번에 건너뛰면 scroll 이벤트가 정착 전에 끝난다: 정착할 때 한 번 더 따진다
-  if (STAGE) Stage.on('settle', topBtn);
-  tone();
+  Stage.on('settle', topBtn);
 })();
 </script>
 <script>
@@ -2730,7 +2687,6 @@ window.ticker = (() => {
   // 책상 조명(10-21 대표님 선택 「책상 위 조명 빛웅덩이」): 카메라가 책상으로 숙는 동안 방이 한 단계 어두워지고(T1),
   // 책상 가운데에 위에서 떨어지는 갓 조명 빛이 생긴다. 밝기 흐름은 hero(가장 밝음) → work(빛웅덩이) → web(어둠 속 화면 빛)
   const lampEl = document.createElement('div'); lampEl.className = 'lamp'; lampEl.setAttribute('aria-hidden', 'true'); desk.prepend(lampEl);
-  // 맺음 글은 card-drop의 끝 화면 층(.end-info)이 맡는다(10-21 대표님 결정 6). 옛 책상 인쇄 맺음 줄(.desk-sign)은 없앴고, .foot-note는 무대가 꺼진 판의 서비스 목록 끝에만 남는다
   [hero, table].forEach(l => { l.style.transform = ''; });
   const W = { H: 0, Wd: 0, Dt: 0, zP: 0, mobile: false };
   // cubic-bezier(.55,0,.2,1): 느리게 시작해 감속하며 내려앉는다(08 2절). 장면 파일도 Stage.world.ease를 쓴다
@@ -2871,7 +2827,7 @@ window.ticker = (() => {
   const remeasure = () => { measure(); Stage.refresh(); frame(); };
   measure(); frame();
   Stage.ticker.add(frame);
-  addEventListener('resize', remeasure);
+  addEventListener('resize', PortfolioLayout.schedule(remeasure));
   if (document.fonts) document.fonts.ready.then(remeasure);
 })();
 </script>
@@ -2985,7 +2941,7 @@ window.ticker = (() => {
   const scrEl = mb.querySelector('.mb-screen');
   let infoKey = '';
   const setGlass = (t, h) => {
-    info.style.setProperty('--scr-t', t.toFixed(1) + 'px'); info.style.setProperty('--k', (h / 474).toFixed(4));
+    info.style.setProperty('--scr-t', t.toFixed(1) + 'px'); info.style.setProperty('--k', Math.max(.9, Math.min(1.25, h / 474)).toFixed(4));
     fitPanel();   // 글자 크기(k)가 바뀌면 본문 높이도 다시 잰다
   };
   const guessGlass = () => { const h = 0.3298 * innerWidth; setGlass(0.3756 * innerHeight - h / 2, h); };
@@ -3051,7 +3007,7 @@ window.ticker = (() => {
     if (Stage.webEnd) Stage.refresh();
     // 끝 화면에서는 떠 있는 Back to top 원을 숨기고 아래층 「Back to start ↑」가 맡는다(3-night.css html.end-on .totop)
   };
-  fitMark(); addEventListener('resize', fitMark); if (window.visualViewport) visualViewport.addEventListener('resize', fitMark); document.fonts.load('500 1em "Funnel Display"').then(fitMark, () => {});
+  fitMark(); addEventListener('resize', PortfolioLayout.schedule(fitMark)); if (window.visualViewport) visualViewport.addEventListener('resize', PortfolioLayout.schedule(fitMark)); document.fonts.load('500 1em "Funnel Display"').then(fitMark, () => {});
   // 실제 GPU로 처음 열면 서체가 다 적용되기 전에 재서 큰 줄이 화면 밖으로 넘쳤다(10-29, 1440에서 171.8px → 맞는 값 154.6px). 모든 서체가 준비된 뒤 한 번 더 잰다
   document.fonts.ready.then(fitMark, () => {});
   const endOf = p => { const e = Stage.config.stations.length - 1; return Math.max(0, Math.min(1, (p - (e - 0.35)) / 0.25)); };
@@ -3446,7 +3402,7 @@ window.ticker = (() => {
     Object.assign(mb.style, { left: (G.cx - G.lidW / 2) + 'px', top: G.zh + 'px', width: G.lidW + 'px' });
     mb.style.setProperty('--wi', G.Wi + 'px'); mb.style.setProperty('--hi', G.Hi + 'px'); mb.style.setProperty('--bz', G.bz + 'px'); mb.style.setProperty('--chin', G.chin + 'px');
     // Convert the preview's viewport height limit to the 3D display's local scale.
-    mb.style.setProperty('--preview-scale', W.mobile ? '1' : (G.Wi / (0.52 * W.Wd)).toFixed(5));
+    mb.style.setProperty('--preview-scale', W.mobile ? '1' : (G.Wi / Math.min(0.50 * W.Wd, 0.72 * W.H)).toFixed(5));
     mb.style.setProperty('--gap', Math.round(G.Wi * 0.06) + 'px');
     mb.style.setProperty('--ls', (G.Wi / (W.mobile ? 1280 : 1728)).toFixed(5));   // 화면 속 서비스의 논리 해상도 배율(stage.css .mb-pane iframe)
     Object.assign(base.style, { width: G.lidW + 'px', height: G.baseD + 'px' });
@@ -3481,7 +3437,7 @@ window.ticker = (() => {
         return { th: TH, Tx: s.Tx, Ty: s.Ty - dl * Math.cos(a), Tz: s.Tz - dl * Math.sin(a), d: P() };
       }
       // 덮개 오른쪽 끝을 왼쪽 글 격자의 바깥 여백(8vw, 6-macbook.css .web-info)과 같은 거리에 둔다(10-21 대표님: 「맥북은 아주 살짝만 왼쪽으로, 왼쪽 글엔 여백」. 예전 고정 0.16W는 1728에서 덮개가 오른쪽 끝 약 110px)
-      const d = G.Wi * P() / (0.52 * W.Wd), k = d / P(), xc = W.Wd * (1 - 0.08) - G.lidW / (2 * k);
+      const d = G.Wi * P() / Math.min(0.50 * W.Wd, 0.72 * W.H), k = d / P(), xc = W.Wd * (1 - 0.08) - G.lidW / (2 * k);
       return { th: TH, Tx: s.Tx - (xc - W.Wd / 2) * k, Ty: s.Ty + 0.12 * W.H * k, Tz: s.Tz + 0.03 * W.H * k, d };
     },
     // Center the larger card above the links; the miniature avatar can sit alongside it.
@@ -3578,456 +3534,12 @@ window.ticker = (() => {
   Stage.webSign = () => { const e = (window.Hero && Hero.desk && Hero.desk.endAt) || { x: G.cx - W.Wd / 2 - G.lidW, z: G.zh }, k = cam.end().d / P(); return { x: e.x + W.Wd / 2, z: e.z + 0.1 * W.H * k }; };
   Stage.webGeo = { G, screen, cam, setLid };
   const remeasure = () => { measure(); Stage.refresh(); };
-  addEventListener('resize', remeasure);
+  addEventListener('resize', PortfolioLayout.schedule(remeasure));
   measure();   // 보이기·숨기기는 wake·sleep만 한다(Stage.add가 지금 진행값으로 바로 부른다). 해시로 바로 들어오면 state.p가 아직 0이라 여기서 판정하면 숨겨진다
 })();
 </script>
 
-<script type="module">
-// 이름 부풀기 3D(card-drop, 10-21 대표님 「일러스트레이터 3D Inflate 수준」 → 「웹 전용으로는 레이트레이싱」). 데스크톱(정밀 포인터)만. 휴대폰·움직임 줄이기는 hero.js의 SVG 필터 그대로.
-// 원리: 글자 마스크를 캔버스에 그려 부호 거리장(안쪽 +, 바깥 −, css px)을 CPU에서 한 번 구한다(Felzenszwalb EDT). 부푼 글자는 벽(z = 0) 위에 선
-// 높이장 입체다: 높이 h = A·k·sin(π/2 · d/r)라 획 가장자리에서 둥글게 솟고 굵은 곳은 r에서 평평하게 닿는다(Illustrator Inflate의 돔).
-// 셰이더가 이 입체의 3D 거리 하한(SDF)을 구하고 그 위로 실제 광선을 쏜다(레이마칭): 정면 직교 카메라라 1차 광선은 높이장에서 바로 맞고,
-// 맞은 점에서 ① 위쪽 주광으로 그림자 광선(반그림자) ② 반사 광선(다른 글자 → 벽(바탕·납작한 글자) → studio.hdr 순) ③ 법선 방향 주변 가림을 쏜다.
-// 벽에 떨어지는 그림자도 벽 위 점에서 같은 그림자 광선으로 구한다. 광선이 정해져 있어(무작위 표본 없음) 누적 없이 한 프레임에 깨끗하다.
-// 글자마다 부푼 정도 k는 hero.js(weightText 스프링)가 넘긴다. 부푼 글자만 이 캔버스가 그리고(DOM 글자는 숨김), k가 작을 때는 토큰 색과 그대로 섞여 평면 워드마크와 같다.
-
-const T3 = 'https://cdn.jsdelivr.net/npm/three@0.160.0';
-const fine = matchMedia('(pointer: fine)').matches, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-if (fine && !reduce && window.Stage?.enabled && window.WebGL2RenderingContext) {
-  let THREE = null, renderer = null, envTex = null, envS = 1, booting = false, floatLinear = false, ptOK = false;
-  const states = new Map();
-  const MAXL = 24, KN = 512;
-
-  // 1차원 제곱 거리 변환(Felzenszwalb & Huttenlocher)
-  function edt1(f, n, d, v, z){
-    let k = 0; v[0] = 0; z[0] = -1e20; z[1] = 1e20;
-    for (let q = 1; q < n; q++) {
-      let s = ((f[q] + q * q) - (f[v[k]] + v[k] * v[k])) / (2 * q - 2 * v[k]);
-      while (s <= z[k]) { k--; s = ((f[q] + q * q) - (f[v[k]] + v[k] * v[k])) / (2 * q - 2 * v[k]); }
-      k++; v[k] = q; z[k] = s; z[k + 1] = 1e20;
-    }
-    k = 0;
-    for (let q = 0; q < n; q++) { while (z[k + 1] < q) k++; const dq = q - v[k]; d[q] = dq * dq + f[v[k]]; }
-  }
-  // 2차원 제곱 거리 변환. grid는 초기 제곱 거리(0 = 씨앗, 1e20 = 멀다). 반환은 거리(px)
-  function edt(grid, w, h){
-    const g = grid, n = Math.max(w, h);
-    const f = new Float32Array(n), d = new Float32Array(n), v = new Int32Array(n), z = new Float32Array(n + 1);
-    for (let x = 0; x < w; x++) { for (let y = 0; y < h; y++) f[y] = g[y * w + x]; edt1(f, h, d, v, z); for (let y = 0; y < h; y++) g[y * w + x] = d[y]; }
-    for (let y = 0; y < h; y++) { const o = y * w; for (let x = 0; x < w; x++) f[x] = g[o + x]; edt1(f, w, d, v, z); for (let x = 0; x < w; x++) g[o + x] = Math.sqrt(d[x]); }
-    return g;
-  }
-  // 가로·세로 상자 흐림 세 번(가우스 근사). 거리장의 능선(획이 만나는 곳의 주름)을 부드럽게 한다
-  function blur3(a, w, h, r){
-    if (r < 1) return a;
-    let src = a, dst = new Float32Array(w * h);
-    const pass = (s, d, horiz) => {
-      const n = horiz ? w : h, m = horiz ? h : w, inv = 1 / (2 * r + 1);
-      for (let j = 0; j < m; j++) {
-        const at = i => horiz ? j * w + Math.min(n - 1, Math.max(0, i)) : Math.min(n - 1, Math.max(0, i)) * w + j;
-        let acc = 0; for (let i = -r; i <= r; i++) acc += s[at(i)];
-        for (let i = 0; i < n; i++) { d[horiz ? j * w + i : i * w + j] = acc * inv; acc += s[at(i + r + 1)] - s[at(i - r)]; }
-      }
-    };
-    for (let k = 0; k < 3; k++) { pass(src, dst, true); [src, dst] = [dst, src === a ? new Float32Array(w * h) : src]; pass(src, dst, false); [src, dst] = [dst, src]; }
-    return src;
-  }
-  const floatTex = (data, w, h) => {
-    const t = new THREE.DataTexture(data, w, h, THREE.RGBAFormat, floatLinear ? THREE.FloatType : THREE.HalfFloatType);
-    if (!floatLinear) { const hd = new Uint16Array(data.length); for (let i = 0; i < data.length; i++) hd[i] = THREE.DataUtils.toHalfFloat(data[i]); t.image.data = hd; }
-    t.minFilter = t.magFilter = THREE.LinearFilter; t.needsUpdate = true;
-    return t;
-  };
-
-  // 좌표는 캔버스 css px(아래 왼쪽 원점, y 위), z는 벽에서 보는 사람 쪽
-  const FRAG = `
-    uniform sampler2D uSdf; uniform sampler2D uKt; uniform sampler2D uEnv;
-    uniform vec2 uSize; uniform float uR; uniform float uAmp; uniform float uGrow; uniform float uKmax; uniform float uEnvS; uniform float uDark;
-    uniform vec3 uTok; uniform vec3 uWall; uniform vec3 uLd; uniform vec3 uShadow;
-    varying vec2 vUv;
-    const float LIP = 2.6;            // 높이장 기울기 상한(가장자리 돔 + 칸 사이 k 변화). 거리 하한을 이만큼 나눠 광선이 입체를 뚫지 않게 한다
-    const float AMB = .6, KD = .55;   // 평평한 꼭대기(법선 정면)가 토큰 색과 같아지는 몫: AMB + KD·uLd.z ≈ .96, 나머지 .04는 반사
-    vec3 tokL;
-    float hTop(){ return uAmp * uKmax + .5; }
-    // 칸마다 부푼 정도(R: 칸 경계를 r의 0.6 폭으로 이은 값, G: 그림자가 닿을 만큼 넓게 번진 값)
-    vec2 kq(vec2 p){ return texture2D(uKt, vec2(p.x / uSize.x, .5)).rg; }
-    // 높이장: dd = 발자국 부호 거리(+ 안쪽, 부풀수록 uGrow만큼 살찐다), 반환은 높이
-    float hgt(vec2 p, out float dd){
-      vec3 s = texture2D(uSdf, p / uSize).rgb; float k = kq(p).r;
-      dd = s.r + uGrow * k;
-      if (dd <= 0.) return 0.;
-      float de = s.b + uGrow * k;   // 윤곽 쪽 높이는 조금 흐린 거리로: 날카로운 거리장은 네모난 모서리에서 대각선 주름(별 모양)을 만든다
-      // 흐린 거리로 획이 만나는 능선의 주름을 지우고, 윤곽에서는 발자국 거리로 0에서 시작한다(벽에서 둥글게 솟는다. 절벽이면 테두리에 각진 띠가 생겼다)
-      float t = clamp(max(0., min(max(s.g, s.b * .35) + uGrow * k, de)) / uR, 0., 1.);
-      return uAmp * k * sin(t * 1.5708);
-    }
-    float hgt(vec2 p){ float dd; return hgt(p, dd); }
-    // 3D 거리 하한. 발자국 밖은 가로 거리(입체는 발자국 안에만 있다), 안은 높이 차 / 기울기 상한. 어디서든 가장 높은 꼭대기 위는 그 높이 차
-    float map(vec3 q){
-      float dd; float h = hgt(q.xy, dd);
-      float top = q.z - hTop();
-      return dd <= 0. ? max(-dd, top) : max((q.z - h) / LIP, top);
-    }
-    // 반그림자용 거리: 기울기로 나누지 않은 세로 틈(나누면 평평한 곳에서 2.6배 진하고 계단이 졌다). 걸음은 map으로 안전하게 간다
-    float mapP(vec3 q){
-      float dd; float h = hgt(q.xy, dd);
-      float top = q.z - hTop();
-      // 발자국 밖: 가로 거리와 그 자리 글자가 가질 수 있는 가장 높은 곳 위의 세로 틈 중 큰 쪽(가로 거리만 쓰면 조금 부푼 글자도 다 부푼 글자만큼 진한 그림자를 드리웠다)
-      return dd <= 0. ? max(max(-dd, q.z - uAmp * kq(q.xy).r - .5), top) : max(q.z - h, top);
-    }
-    vec3 nrm(vec2 p){
-      float hx = hgt(p + vec2(1., 0.)) - hgt(p - vec2(1., 0.)), hy = hgt(p + vec2(0., 1.)) - hgt(p - vec2(0., 1.));
-      return normalize(vec3(-hx, -hy, 2.));
-    }
-    // 그림자 광선: 가장 가까이 스친 거리/간 거리로 반그림자를 만든다
-    float sshadow(vec3 ro, vec3 rd){
-      float res = 1., t = 1., ht = hTop();
-      for (int i = 0; i < 32; i++) {
-        vec3 q = ro + rd * t;
-        if (q.z > ht) break;
-        float d = map(q);
-        res = min(res, 3.5 * mapP(q) / t);
-        if (res < .002) break;
-        t += clamp(d, .5, uR * .35);
-      }
-      res = clamp(res, 0., 1.);
-      return res * res * (3. - 2. * res);
-    }
-    // 주변 가림: 법선을 따라 몇 점에서 그 위 높이장까지의 세로 틈을 잰다(벽·이웃 글자가 가까우면 어둡다)
-    float aoc(vec3 p, vec3 n){
-      float o = 0., s = 1.;
-      for (int i = 1; i <= 5; i++) { float h = uR * .13 * float(i); vec3 q = p + n * h; o += max(0., h - (q.z - hgt(q.xy))) * s; s *= .7; }
-      return clamp(1. - 1.4 * o / uR, 0., 1.);
-    }
-    vec3 envc(vec3 d){
-      vec2 uv = vec2(atan(d.x, -d.z) / 6.2832 + .5, .5 - asin(clamp(d.y, -1., 1.)) / 3.1416);
-      return texture2D(uEnv, uv).rgb * uEnvS;
-    }
-    // 벽: 납작한 글자 자리면 토큰 색, 아니면 바탕색
-    vec3 wallAt(vec2 p){ float dd; hgt(p, dd); return dd > 0. ? tokL : uWall; }
-    // 반사 광선이 맞은 다른 글자: 그 자리의 빛에 그 글자의 하이라이트와 환경 반사까지(납작한 라벤더만 칠하면 같은 라벤더 위에서 비친 것이 보이지 않았다)
-    vec3 letterAt(vec3 q, vec3 r){
-      vec3 n = nrm(q.xy);
-      float F = .04 + .96 * pow(1. - max(dot(n, -r), 0.), 5.);
-      vec3 c = tokL * (AMB + KD * max(dot(n, uLd), 0.)) * (1. - F) + envc(reflect(r, n)) * F;
-      return c + vec3(pow(max(dot(n, normalize(uLd - r)), 0.), 110.) * 1.4);
-    }
-    // 확산 광선이 맞은 글자: 그 자리의 빛만(한 번 튕김)
-    vec3 letterDif(vec3 q){ vec3 n = nrm(q.xy); return tokL * (AMB + KD * max(dot(n, uLd), 0.)); }
-    // 광선 추적: 다른 글자 → 벽(바탕·납작한 글자) → 바깥 순. a = 1이면 바깥(환경)으로 빠졌다
-    vec4 trace(vec3 p, vec3 r, bool gloss){
-      float tw = r.z < 0. ? -p.z / r.z : 1e5, t = .8, ht = hTop();
-      for (int i = 0; i < 40; i++) {
-        if (t > tw) return vec4(wallAt((p + r * tw).xy), 0.);
-        vec3 q = p + r * t;
-        if (r.z > 0. && q.z > ht) break;
-        if (q.x < 0. || q.y < 0. || q.x > uSize.x || q.y > uSize.y) break;
-        float d = map(q);
-        if (d < .2) return vec4(gloss ? letterAt(q, r) : letterDif(q), 0.);
-        t += max(d, .3);
-      }
-      return r.z < 0. ? vec4(wallAt((p + r * tw).xy), 0.) : vec4(envc(r), 1.);
-    }
-    vec3 refl(vec3 p, vec3 r){ return trace(p, r, true).rgb; }
-  `;
-  // 움직이는 동안: 정해진 광선(반그림자·주변 가림은 근사)으로 한 프레임에 그린다
-  const MAIN_DET = `
-    void main(){
-      vec2 p = vUv * uSize;
-      vec2 kk = kq(p);
-      if (kk.g < .004) discard;
-      tokL = pow(uTok, vec3(2.2));
-      float dd; float h = hgt(p, dd);
-      float k = kk.r;
-      float cov = k < .012 ? 0. : clamp(dd / max(fwidth(dd), 1e-3) + .5, 0., 1.);
-      vec4 outc = vec4(0.);
-      if (cov < 1.) {
-        // 벽: 위쪽 빛으로 그림자 광선 + 글자 밑동의 접지 가림
-        float s = sshadow(vec3(p, .3), uLd);
-        // 접지 가림은 높이에 비례하는 폭·세기로(조금 부푼 글자에 같은 폭을 주면 납작한 글자에 테두리를 두른 것처럼 읽혔다)
-        float kc = min(kk.r, 1.);
-        float contact = (1. - smoothstep(0., uR * .7 * kc + .5, -dd)) * kc * kc * .14;
-        float a = clamp((1. - s) * mix(.26, .5, uDark) + contact, 0., 1.);
-        outc = vec4(uShadow * a, a);
-      }
-      if (cov > 0.) {
-        vec3 P = vec3(p, h), N = nrm(p), V = vec3(0., 0., 1.);
-        float nl = max(dot(N, uLd), 0.);
-        float sh = nl > 0. ? sshadow(P + N * .6, uLd) : 0.;
-        float ao = aoc(P, N);
-        vec3 dif = tokL * (AMB * ao + KD * nl * sh);
-        dif += tokL * tokL * .3 * (1. - sh) * ao;   // 그림자 속으로 번진 빛(고무 속 산란): 회색이 아니라 짙은 토큰 색
-        float F = .04 + .96 * pow(1. - max(N.z, 0.), 5.);
-        vec3 rc = refl(P + N * .6, reflect(-V, N));
-        vec3 Hh = normalize(uLd + V);
-        float spec = pow(max(dot(N, Hh), 0.), 110.) * sh * 1.4;
-        vec3 col = dif * (1. - F) + rc * F + vec3(spec);
-        col = pow(clamp(col, 0., 1.), vec3(1. / 2.2));
-        col = mix(uTok, col, smoothstep(.012, .22, k));
-        outc = vec4(col, 1.) * cov + outc * (1. - cov);
-      }
-      gl_FragColor = outc;
-    }`;
-  // 멈춘 뒤: 경로 추적. 면광원 그림자(빛 원뿔 안의 한 방향, 맞음/안 맞음), 한 번 튕긴 간접광(옆 글자·벽 색이 번진다), 거친 반사를
-  // 화소마다 표본 하나씩 쌓는다. 표본은 R-수열(8차원)을 화소별 IGN만큼 돌려 쓰고, 화소 안 위치도 흔들어 윤곽 안티에일리어싱까지 같이 얻는다
-  const MAIN_PT = `
-    uniform sampler2D uAcc; uniform float uN; uniform float uQ[8]; uniform vec2 uRes;
-    float ign(vec2 p){ return fract(52.9829189 * fract(dot(p, vec2(.06711056, .00583715)))); }
-    float rnd(int i){ return fract(uQ[i] + ign(gl_FragCoord.xy + float(i) * vec2(17.31, 31.73))); }
-    vec3 tangentOf(vec3 n){ return normalize(abs(n.z) < .9 ? cross(n, vec3(0., 0., 1.)) : cross(n, vec3(1., 0., 0.))); }
-    vec3 cosDir(vec3 n, vec2 u){ vec3 t = tangentOf(n), b = cross(n, t); float a = 6.2832 * u.x, r = sqrt(u.y); return normalize(t * cos(a) * r + b * sin(a) * r + n * sqrt(1. - u.y)); }
-    vec3 coneDir(vec3 d, vec2 u, float ang){ vec3 t = tangentOf(d), b = cross(d, t); float a = 6.2832 * u.x, r = sqrt(u.y) * ang; return normalize(d + (t * cos(a) + b * sin(a)) * r); }
-    float vis(vec3 ro, vec3 rd){
-      float t = 1., ht = hTop();
-      for (int i = 0; i < 40; i++) { vec3 q = ro + rd * t; if (q.z > ht) return 1.; float d = map(q); if (d < .15) return 0.; t += max(d, .3); }
-      return 1.;
-    }
-    void main(){
-      vec2 p = (gl_FragCoord.xy + vec2(rnd(0), rnd(1)) - .5) / uRes * uSize;
-      vec4 prev = texture2D(uAcc, gl_FragCoord.xy / uRes);
-      vec2 kk = kq(p);
-      vec4 outc = vec4(0.);
-      if (kk.g >= .004) {
-        tokL = pow(uTok, vec3(2.2));
-        float dd; float h = hgt(p, dd);
-        float k = kk.r;
-        vec3 Ls = coneDir(uLd, vec2(rnd(2), rnd(3)), .16);   // 빛은 점이 아니라 면: 원뿔 안 한 방향
-        if (k < .012 || dd <= 0.) {
-          // 벽: 빛이 닿는가 + 위쪽 반구에서 들어오는 빛(글자에 막히면 그 글자의 라벤더 빛이 대신 든다). 막힌 데 없는 벽은 정확히 1이라 캔버스 경계가 보이지 않는다
-          vec3 W = vec3(p, .3);
-          float v = vis(W, Ls);
-          vec4 hit = trace(W, cosDir(vec3(0., 0., 1.), vec2(rnd(4), rnd(5))), false);
-          vec3 Li = hit.a > .5 ? vec3(1.) : hit.rgb;
-          vec3 c = (AMB * Li + KD * Ls.z * v) / (AMB + KD * Ls.z);
-          c = mix(c, c * c * c, uDark);   // 어두운 바탕에서는 비율 차가 묻혀 그림자가 사라졌다
-          vec3 Ws = pow(uWall, vec3(1. / 2.2)), T = pow(uWall * c, vec3(1. / 2.2));
-          float a = clamp(1. - min(min(T.r / max(Ws.r, 1e-3), T.g / max(Ws.g, 1e-3)), T.b / max(Ws.b, 1e-3)), 0., 1.);
-          outc = vec4(max(T - Ws * (1. - a), 0.), a);
-        } else {
-          vec3 P = vec3(p, h), N = nrm(p), V = vec3(0., 0., 1.);
-          float nl = max(dot(N, Ls), 0.);
-          float v = nl > 0. ? vis(P + N * .6, Ls) : 0.;
-          vec4 hit = trace(P + N * .6, cosDir(N, vec2(rnd(4), rnd(5))), false);
-          vec3 Li = hit.a > .5 ? vec3(1.) : hit.rgb;   // 열린 하늘은 1(평평한 꼭대기가 토큰 색 그대로), 막히면 옆 글자·벽의 빛
-          vec3 dif = tokL * (AMB * Li + KD * nl * v);
-          dif += tokL * tokL * .3 * (1. - v) * min(Li, vec3(1.));
-          float F = .04 + .96 * pow(1. - max(N.z, 0.), 5.);
-          vec3 rc = trace(P + N * .6, coneDir(reflect(-V, N), vec2(rnd(6), rnd(7)), .07), true).rgb;   // 거친 반사: 반사 방향 둘레의 원뿔
-          float spec = pow(max(dot(N, normalize(Ls + V)), 0.), 110.) * v * 1.4;
-          vec3 col = dif * (1. - F) + rc * F + vec3(spec);
-          col = pow(clamp(col, 0., 1.), vec3(1. / 2.2));
-          col = mix(uTok, col, smoothstep(.012, .22, k));
-          outc = vec4(col, 1.);
-        }
-      }
-      gl_FragColor = uN < .5 ? outc : mix(prev, outc, 1. / (uN + 1.));   // 첫 표본은 버퍼의 이전 내용(초기화 안 된 값일 수 있다)을 읽지 않는다
-    }`;
-  const SHOW = `
-    uniform sampler2D uDet; uniform sampler2D uAccS; uniform float uMix; varying vec2 vUv;
-    void main(){ gl_FragColor = mix(texture2D(uDet, vUv), texture2D(uAccS, vUv), uMix); }`;
-
-  async function boot(){
-    if (booting) return; booting = true;
-    const [T, { RGBELoader }] = await Promise.all([import(`${T3}/+esm`), import(`${T3}/examples/jsm/loaders/RGBELoader.js/+esm`)]);
-    THREE = T;
-    renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true, premultipliedAlpha: true });
-    floatLinear = renderer.extensions.has('OES_texture_float_linear');
-    ptOK = renderer.extensions.has('EXT_color_buffer_float');   // 누적 버퍼(반정밀 렌더 타깃)가 없으면 경로 추적 없이 정해진 광선 판만
-    renderer.setClearColor(0x000000, 0);
-    Object.assign(renderer.domElement.style, { position: 'absolute', pointerEvents: 'none', display: 'none' });
-    renderer.domElement.setAttribute('aria-hidden', 'true');
-    // 반사 환경: 등장방형 HDR을 그대로 쓴다(위쪽 줄이 하늘). 밝기는 평균이 1 안팎이 되게 맞춘다
-    const t = await new RGBELoader().setDataType(THREE.FloatType).loadAsync(new URL('macbook/studio.hdr', document.baseURI).href);
-    const { data, width, height } = t.image; let sum = 0;
-    for (let i = 0; i < width * height; i++) sum += data[i * 4] * .2126 + data[i * 4 + 1] * .7152 + data[i * 4 + 2] * .0722;
-    envS = 0.9 / Math.max(1e-3, sum / (width * height));
-    envTex = floatTex(new Float32Array(data), width, height); envTex.wrapS = THREE.RepeatWrapping; t.dispose();
-    window.Inflate3D.ok = true;
-    // 거리장은 처음 부풀 때 만들면 그 순간 멈칫한다. 첫 화면 이름은 한가할 때 미리 만들어 둔다
-    const pre = () => { const m = document.querySelector('.copy .mark'); if (m && m.offsetParent && innerWidth > 820 && !states.has(m)) build(m); };
-    (window.requestIdleCallback || setTimeout)(pre, { timeout: 1500 });
-  }
-
-  // CSS 색 → sRGB 0~1. 브라우저가 oklab()·color() 같은 꼴로 돌려주기도 해서 글자를 읽지 않고 1px에 칠해 되읽는다
-  const px1 = document.createElement('canvas').getContext('2d', { willReadFrequently: true });
-  const rgbOf = c => { px1.clearRect(0, 0, 1, 1); px1.fillStyle = '#000'; px1.fillStyle = c; px1.fillRect(0, 0, 1, 1); const d = px1.getImageData(0, 0, 1, 1).data; return [d[0] / 255, d[1] / 255, d[2] / 255, d[3] / 255]; };
-  // 반사에 비칠 벽 색: 끝 화면은 어두운 바탕, 그 밖은 위로 올라가며 처음 칠해진 바탕
-  function wallColor(mark){
-    if (mark.closest('.end-info')) return [0.086, 0.086, 0.106];
-    for (let e = mark; e; e = e.parentElement) { const c = rgbOf(getComputedStyle(e).backgroundColor); if (c && c[3] > 0.5) return c.slice(0, 3); }
-    return [1, 1, 1];
-  }
-  const lin = c => c.map(v => Math.pow(v, 2.2));
-
-  function build(mark){
-    const old = states.get(mark); if (old) dispose(old);
-    const fs = parseFloat(getComputedStyle(mark).fontSize) || 100;
-    const spans = [...mark.querySelectorAll('.mk')];
-    const mw = mark.offsetWidth, mh = mark.offsetHeight, pad = Math.round(fs * 0.22);
-    const W = mw + 2 * pad, H = mh + 2 * pad, S = Math.min(1.25, Math.max(0.8, 1500 / W));   // 거리장 해상도(css px당). 선형 보간이라 1 안팎이면 충분하다
-    const cw = Math.round(W * S), ch = Math.round(H * S);
-    // 기준선: 내용 없는 inline-block의 기준선은 아래 끝이다
-    const probe = document.createElement('i'); probe.style.cssText = 'display:inline-block;width:0;height:0;vertical-align:baseline';
-    mark.appendChild(probe); const base = probe.offsetTop - mark.offsetTop; probe.remove();
-    const cs = getComputedStyle(mark), ls = parseFloat(cs.letterSpacing) || 0;
-    const cv = document.createElement('canvas'); cv.width = cw; cv.height = ch;
-    const g = cv.getContext('2d', { willReadFrequently: true });
-    g.font = `500 ${fs * S}px "Funnel Display"`; g.textBaseline = 'alphabetic'; g.letterSpacing = '0px';
-    // 칸 i의 글자를 그 칸 자리에 그린다(빈칸은 건너뜀). 칸 경계(px)는 부푼 정도 띠(uKt)를 만들 때 쓴다
-    const bpx = [];
-    spans.slice(0, MAXL).forEach(sp => {
-      const x0 = sp.offsetLeft - mark.offsetLeft, w = sp.offsetWidth;
-      bpx.push(pad + x0);
-      const c = sp.textContent; if (!c.trim()) return;
-      const adv = g.measureText(c).width / S;
-      const x = pad + x0 + (w - (adv + ls)) / 2;
-      g.fillStyle = '#000'; g.fillText(c, x * S, (pad + base) * S);
-    });
-    const last = spans[Math.min(MAXL, spans.length) - 1]; bpx.push(pad + last.offsetLeft - mark.offsetLeft + last.offsetWidth);
-    const img = g.getImageData(0, 0, cw, ch).data;
-    // 안티에일리어싱 덮임(알파)으로 경계를 픽셀 아래까지 잡는다(TinySDF 방식): 계단 없는 윤곽이라 돔 가장자리 법선에 빗살이 생기지 않는다
-    const INF = 1e20, go = new Float32Array(cw * ch), gi = new Float32Array(cw * ch);
-    for (let y = 0; y < ch; y++) for (let x = 0; x < cw; x++) {
-      const a = img[(y * cw + x) * 4 + 3] / 255, j = (ch - 1 - y) * cw + x;   // 텍스처는 아래 줄부터
-      go[j] = a === 1 ? 0 : a === 0 ? INF : Math.max(0, 0.5 - a) ** 2;
-      gi[j] = a === 1 ? INF : a === 0 ? 0 : Math.max(0, a - 0.5) ** 2;
-    }
-    const dout = edt(go, cw, ch), din = edt(gi, cw, ch);
-    // R: 날카로운 부호 거리(윤곽·안티에일리어싱·광선 거리), G: 흐린 거리(돔 안쪽 높이, 획이 만나는 능선을 지운다), B: 조금 흐린 거리(돔 가장자리, 모서리 주름을 지운다)
-    const raw = new Float32Array(cw * ch);
-    for (let i = 0; i < cw * ch; i++) raw[i] = (din[i] - dout[i]) / S;
-    const soft = blur3(raw, cw, ch, Math.max(1, Math.round(fs * 0.032 * S)));   // 네모난 획 끝의 모서리 주름(대각선 능선)이 지워질 만큼
-    const sd = new Float32Array(cw * ch * 4);
-    const edge = blur3(raw, cw, ch, Math.max(1, Math.round(fs * 0.012 * S)));
-    for (let i = 0; i < cw * ch; i++) { sd[i * 4] = raw[i]; sd[i * 4 + 1] = soft[i]; sd[i * 4 + 2] = edge[i]; }
-    const sdfT = floatTex(sd, cw, ch);
-    const kT = floatTex(new Float32Array(KN * 4), KN, 1);
-
-    const tok = rgbOf(getComputedStyle(mark).color) || [159 / 255, 178 / 255, 230 / 255];
-    const dark = mark.closest('.end-info') ? 1 : 0;
-    const L = new THREE.Vector3(-0.25, 1, 0.9).normalize();   // 위(조금 왼쪽)에서 오는 장면 빛
-    const U = {
-      uSdf: { value: sdfT }, uKt: { value: kT }, uEnv: { value: envTex }, uSize: { value: new THREE.Vector2(W, H) },
-      uR: { value: fs * 0.085 }, uAmp: { value: fs * 0.07 }, uGrow: { value: fs * 0.012 }, uKmax: { value: 0 }, uEnvS: { value: envS }, uDark: { value: dark },
-      uTok: { value: new THREE.Vector3(tok[0], tok[1], tok[2]) }, uWall: { value: new THREE.Vector3(...lin(wallColor(mark))) }, uLd: { value: L },
-      uShadow: { value: new THREE.Vector3(0.063, 0.047, 0.118) },
-    };
-    Object.assign(U, { uAcc: { value: null }, uN: { value: 0 }, uQ: { value: new Array(8).fill(0) }, uRes: { value: new THREE.Vector2(1, 1) } });
-    const VS = 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0., 1.); }';
-    const sm = (frag, uniforms) => new THREE.ShaderMaterial({ uniforms, fragmentShader: frag, vertexShader: VS, blending: THREE.NoBlending, depthTest: false, depthWrite: false });
-    const mats = { det: sm(FRAG + MAIN_DET, U), pt: sm(FRAG + MAIN_PT, U), show: sm(SHOW, { uDet: { value: null }, uAccS: { value: null }, uMix: { value: 0 } }) };
-    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mats.det); mesh.frustumCulled = false;
-    const scene = new THREE.Scene(); scene.add(mesh);
-    const st = { mark, scene, cam: new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1), mesh, mats, U, W, H, pad, bpx, n: Math.min(MAXL, spans.length), key: sizeKey(mark), host: mark.offsetParent };
-    states.set(mark, st);
-    return st;
-  }
-  function dispose(st){ st.mesh.geometry.dispose(); Object.values(st.mats).forEach(m => m.dispose()); st.U.uSdf.value.dispose(); st.U.uKt.value.dispose(); states.delete(st.mark); }
-  const sizeKey = m => [m.offsetWidth, m.offsetHeight, getComputedStyle(m).fontSize, getComputedStyle(m).color, [...m.querySelectorAll('.mk')].map(s => s.style.width).join()].join('|');
-
-  // 칸마다 k를 가로 띠로 펴 둔다(셰이더가 광선 한 걸음마다 칸을 뒤지지 않게). R: r의 0.6 폭으로 이은 값, G: 그림자·접지 가림이 닿는 넓이로 번진 값
-  function putK(st, ks){
-    const tex = st.U.uKt.value, d = tex.image.data, half = !floatLinear, r = st.U.uR.value;
-    const ov = (x, w, l, rr) => Math.max(0, Math.min(x + w / 2, rr) - Math.max(x - w / 2, l)) / w;
-    let km = 0;
-    for (let i = 0; i < st.n; i++) km = Math.max(km, ks[i] || 0);
-    for (let j = 0; j < KN; j++) {
-      const x = (j + 0.5) / KN * st.W; let a = 0, b = 0;
-      for (let i = 0; i < st.n; i++) { const k = Math.max(0, ks[i] || 0); if (!k) continue; a += k * ov(x, r * 0.6, st.bpx[i], st.bpx[i + 1]); b += k * ov(x, r * 4, st.bpx[i], st.bpx[i + 1]); }
-      d[j * 4] = half ? THREE.DataUtils.toHalfFloat(a) : a; d[j * 4 + 1] = half ? THREE.DataUtils.toHalfFloat(b) : b;
-    }
-    tex.needsUpdate = true; st.U.uKmax.value = km;
-  }
-
-  let active = null, rebuildT = 0;
-
-  // 경로 추적 누적: 마지막으로 바뀐 뒤 60ms 조용하면 시작해 NS 표본에서 멈춘다. 첫 16표본(약 0.3초) 동안 정해진 광선 판에서 누적 판으로 섞어 넘긴다(바꿔치기가 보이지 않게)
-  // 표본 수는 화면 밀도에 맞춘다: 화소가 작으면(실제 배율 1.75 이상) 48표본에서 96표본과 구별되지 않았다(96 대비 평균 차 2.4/255, 6배 확대 비교). 그 아래는 96
-  const NS = () => renderer.getPixelRatio() >= 1.75 ? 48 : 96;
-  let pt = null, acc = -1, movedAt = 0, raf = 0, lastKs = null, hold = false;
-  // R-수열(8차원, 일반화 황금비): 표본 번호마다 고르게 퍼진 8개 값
-  let gq = 2; for (let i = 0; i < 40; i++) gq = Math.pow(1 + gq, 1 / 9);
-  const RA = Array.from({ length: 8 }, (_, i) => Math.pow(1 / gq, i + 1));
-  function targets(){
-    const v = renderer.getDrawingBufferSize(new THREE.Vector2());
-    if (pt && pt.w === v.x && pt.h === v.y) return pt;
-    if (pt) [pt.a, pt.b, pt.d].forEach(t => t.dispose());
-    const mk = () => new THREE.WebGLRenderTarget(v.x, v.y, { type: THREE.HalfFloatType, minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter, depthBuffer: false });
-    pt = { a: mk(), b: mk(), d: mk(), w: v.x, h: v.y };
-    return pt;
-  }
-  function draw(st, mat, target){ st.mesh.material = mat; renderer.setRenderTarget(target); if (target) renderer.clear(); renderer.render(st.scene, st.cam); renderer.setRenderTarget(null); }
-  // 누적 한 걸음. 끝났으면 false
-  function step(){
-    const st = active; if (!st || !ptOK || acc >= NS()) return false;
-    const T = targets();
-    if (acc < 0) { draw(st, st.mats.det, T.d); acc = 0; }
-    const U = st.U; U.uAcc.value = T.a.texture; U.uN.value = acc; U.uRes.value.set(T.w, T.h);
-    for (let i = 0; i < 8; i++) U.uQ.value[i] = (0.5 + RA[i] * (acc + 1)) % 1;
-    st.mesh.material = st.mats.pt; renderer.setRenderTarget(T.b); renderer.render(st.scene, st.cam); renderer.setRenderTarget(null);
-    [T.a, T.b] = [T.b, T.a];
-    const S = st.mats.show.uniforms; S.uDet.value = T.d.texture; S.uAccS.value = T.a.texture; S.uMix.value = Math.min(1, (acc + 1) / 16);
-    draw(st, st.mats.show, null);
-    acc++;
-    return acc < NS();
-  }
-  function tick(){
-    raf = 0;
-    if (!active || !ptOK) return;
-    // 움직임이 남아 있으면(hero.js가 hold로 알림: 스프링이 아직 출렁이거나 파도가 지나가는 중) 쌓지 않는다. 프레임이 한 번 늦게 와도 60ms 규칙만으로는 중간에 쌓기 시작했다
-    if (hold || performance.now() - movedAt < 60) { raf = requestAnimationFrame(tick); return; }
-    if (step()) raf = requestAnimationFrame(tick);
-  }
-
-  window.Inflate3D = {
-    ok: false,
-    // 첫 화면을 떠나면 이름 WebGL을 완전히 재운다(맥북 WebGL과 함께 돌지 않게): 캔버스를 숨기고 누적 루프를 끊는다
-    sleep(){ if (raf) { cancelAnimationFrame(raf); raf = 0; } if (renderer) renderer.domElement.style.display = 'none'; active = null; lastKs = null; acc = -1; },
-    warm: () => go(),                  // 이름 파도(hero.js)가 첫 파도 전에 미리 깨운다
-    has: mark => states.has(mark),     // 그 표식의 거리장이 이미 만들어졌는가
-    // hero.js가 이 표식을 쓸 수 있는지 묻는다(데스크톱 폭에서 준비가 끝났을 때만)
-    ready: mark => window.Inflate3D.ok && innerWidth > 820 && !!mark && !!mark.offsetParent,
-    // ks: 글자(칸)마다 부푼 정도. 하나도 부풀지 않으면 감추고 그리지 않는다
-    // hold: 아직 움직이는 중(쌓지 말 것)
-    frame(mark, ks, holdNow){
-      if (!window.Inflate3D.ok) return;
-      hold = !!holdNow;
-      const any = ks.some(k => k >= 0.012);
-      let st = states.get(mark);
-      if (!any) { lastKs = null; if (st && active === st) { renderer.domElement.style.display = 'none'; active = null; } return; }
-      if (!st || st.key !== sizeKey(mark)) {
-        // 크기·서체·색이 바뀌면 거리장을 다시 만든다(약 300ms). 연달아 바뀌는 동안은 기다린다
-        if (st && performance.now() - rebuildT < 250) return;
-        rebuildT = performance.now(); st = build(mark);
-      }
-      const cv = renderer.domElement;
-      if (active !== st || cv.parentNode !== st.host) {
-        st.host.appendChild(cv);
-        // 화소 수 상한(약 240만): 넓은 화면에서도 광선 비용이 한 프레임 안에 들게
-        renderer.setPixelRatio(Math.min(2, devicePixelRatio || 1, Math.sqrt(2.4e6 / (st.W * st.H))));
-        renderer.setSize(st.W, st.H, false);
-        Object.assign(cv.style, { width: st.W + 'px', height: st.H + 'px' });   // 쌓임은 이름과 같은 층(명함이 앞을 지나가면 명함이 위)
-        active = st;
-      }
-      cv.style.left = (st.mark.offsetLeft - st.pad) + 'px'; cv.style.top = (st.mark.offsetTop - st.pad) + 'px'; cv.style.display = '';
-      // 부푼 정도가 그대로면 다시 그리지 않는다(멈춘 동안 쌓이는 누적을 지우지 않게)
-      const same = lastKs && lastKs.st === st && lastKs.v.length === ks.length && ks.every((k, i) => Math.abs(k - lastKs.v[i]) < 1e-4);
-      if (same) return;
-      lastKs = { st, v: ks.slice() };
-      putK(st, ks);
-      draw(st, st.mats.det, null);
-      acc = -1; movedAt = performance.now();
-      if (!raf) raf = requestAnimationFrame(tick);
-    },
-  };
-  // 첫 화면 요청을 늘리지 않게 맥북처럼 load 3초 뒤 쉴 때 부른다. 그 전에 손이 움직이면 바로(준비 전엔 SVG 방식)
-  const go = () => boot().catch(() => {});
-  addEventListener('pointermove', go, { once: true, passive: true });
-  const later = () => setTimeout(() => (window.requestIdleCallback || setTimeout)(go), 3000);
-  if (document.readyState === 'complete') later(); else addEventListener('load', later, { once: true });
-}
-</script>
+<!-- Name animation uses the existing lightweight SVG treatment. -->
 
 
 <script src="profile/flipwords.js"></script>

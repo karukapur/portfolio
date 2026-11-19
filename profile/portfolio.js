@@ -2,6 +2,8 @@
 window.PORTFOLIO = {
   name: 'Karan Kapur',
   role: 'Edge AI Engineer',
+  location: 'Hyderabad, India',
+  currentRoleId: 'edge-ai',
   email: 'karankapur.kapur@gmail.com',
   linkedin: 'https://www.linkedin.com/in/karukapur/',
   github: 'https://github.com/karukapur',
@@ -19,14 +21,12 @@ window.PORTFOLIO = {
       },
       organization: 'FlipWords · Open source', role: 'Design & development',
       logos: [{ src: 'profile/flipwords.svg', alt: 'FlipWords' }],
-      resources: [{ label: 'View on GitHub', url: 'https://github.com/karukapur/flipwords' }],
       sourceUrl: 'https://github.com/karukapur/flipwords',
       mockup: { alt: 'FlipWords on a Galaxy Z Flip6: vocabulary on the folded cover screen and the Learn page on the open phone.' },
       notesUrl: 'https://github.com/karukapur/flipwords/blob/main/docs/SCHEDULER.md',
       timeline: '', year: '',
       type: 'Personal Android project', scope: 'Kotlin · Cover-screen overlay',
       big: 'Traditional Chinese, without opening your phone.',
-      tabLabels: ['What', 'Why', 'The build', 'Source'],
       tabs: [
         'I built FlipWords for passive vocabulary learning on the Galaxy Z Flip6. Chinese words, pinyin and English appear on the cover screen, with an adaptive scheduler deciding when to revisit them.',
         'Learning a language can fit into the moments when you glance at your phone. The cover screen gives Traditional Chinese vocabulary a place in those everyday moments, without needing to open the app.',
@@ -45,13 +45,11 @@ window.PORTFOLIO = {
       },
       organization: 'Narad · Android beta', role: 'Design & development',
       logos: [{ src: 'profile/whispener.svg', alt: 'Whispener microphone' }],
-      resources: [{ label: 'View on GitHub', url: 'https://github.com/karukapur/whispener' }],
       sourceUrl: 'https://github.com/karukapur/whispener',
       video: { src: 'media/whispener-narad-demo.mp4', poster: 'media/whispener-narad-demo-poster.jpg', width: 1080, height: 2640, label: 'Whispener screen recording: the Narad Android app with English context and Traditional Chinese transcript panels' },
       timeline: '', year: '', type: 'Personal Android project · Beta',
       scope: 'Kotlin · Whisper / Sherpa · On-device speech',
       big: 'Follow the conversation. Keep the original words.',
-      tabLabels: ['What', 'Why', 'The build', 'Source'],
       tabs: [
         'I built Whispener, installed as Narad, to help follow Chinese speech. The Android app preserves a timestamped Chinese transcript and can maintain a concise English context summary alongside it. The recording shows its Listen screen.',
         'Following a conversation in another language takes more than catching individual words. Narad keeps the original Chinese visible while offering English context, so the main idea and the words behind it stay together.',
@@ -70,13 +68,11 @@ window.PORTFOLIO = {
       },
       organization: 'EdgeSentry · Open source', role: 'Design & development',
       logos: [{ src: 'profile/edgesentry.svg', alt: 'EdgeSentry camera reticle' }],
-      resources: [{ label: 'View on GitHub', url: 'https://github.com/karukapur/edgesentry' }],
       sourceUrl: 'https://github.com/karukapur/edgesentry',
       mockup: { alt: 'EdgeSentry exploded hardware concept: OV5647 camera, Grove Vision AI V2, XIAO ESP32-C3, battery, charging board and magnetic enclosure.' },
       timeline: '', year: '', type: 'Personal edge-AI prototype',
       scope: 'YOLOv8 · Himax WE2 · ESP32-C3 · Wi-Fi / BLE',
       big: 'A little field tech. A lot of local intelligence.',
-      tabLabels: ['What', 'Why', 'The build', 'Source'],
       tabs: [
         'I built EdgeSentry as a compact object-detection prototype. A Grove Vision AI V2 runs YOLOv8 locally, while a XIAO ESP32-C3 sends detection results to a phone over a self-hosted Wi-Fi dashboard or BLE.',
         'A small camera can do useful work without streaming its view to the cloud. EdgeSentry keeps inference on the device and sends only detection metadata: timing, classes and bounding boxes. Think pocket-sized field tech, with a little 007 energy.',
@@ -264,3 +260,20 @@ window.PORTFOLIO = {
     }
   ]
 };
+
+// Derived views keep shared links and labels tied to their source fields.
+for (const project of PORTFOLIO.projects) {
+  if (project.sourceUrl) {
+    project.resources = [{ label: 'View on GitHub', url: project.sourceUrl }, ...(project.resources || [])];
+    project.tabLabels ||= ['What', 'Why', 'The build', 'Source'];
+  }
+}
+PORTFOLIO.selectedProjects = PORTFOLIO.selectedIds.map(id => PORTFOLIO.projects.find(project => project.id === id));
+PORTFOLIO.currentRole = PORTFOLIO.projects.find(project => project.id === PORTFOLIO.currentRoleId);
+PORTFOLIO.roleLocation = `${PORTFOLIO.role} · ${PORTFOLIO.location}`;
+PORTFOLIO.signature = `${PORTFOLIO.name} · ${PORTFOLIO.role}`;
+PORTFOLIO.mailto = `mailto:${PORTFOLIO.email}`;
+PORTFOLIO.escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
+PORTFOLIO.city = PORTFOLIO.location.split(',')[0];
+PORTFOLIO.title = `${PORTFOLIO.name} — ${PORTFOLIO.role}`;
+PORTFOLIO.description = `${PORTFOLIO.name} is an ${PORTFOLIO.role} at ${PORTFOLIO.currentRole.organization} and co-founder of STTC. Explore on-device AI, embedded systems, NLP, and community building.`;

@@ -1,8 +1,8 @@
 (() => {
-  const escape = value => String(value || '').replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
+  const escape = PORTFOLIO.escapeHtml;
   document.querySelectorAll('[data-portfolio-overview]').forEach(host => {
     const base = host.dataset.base || '';
-    const selected = PORTFOLIO.selectedIds.map(id => PORTFOLIO.projects.find(project => project.id === id));
+    const selected = PORTFOLIO.selectedProjects;
     const experience = PORTFOLIO.projects.filter(project => !project.mockup && !project.workOnly);
     const page = project => `${base}profile/project.html?id=${project.id}`;
     host.innerHTML = `
@@ -20,7 +20,7 @@
       </section>
       <section class="browse-section browse-about" id="about" aria-labelledby="about-title">
         <p class="browse-kicker">About</p><h2 id="about-title">Physical systems, data and software.</h2>
-        <p>I’m Karan Kapur, an Edge AI engineer based in Hyderabad, India. I work as a Lead Software Engineer at NXP Semiconductors and co-founded the Southern Taiwan Technology Council.</p>
+        <p>I’m ${escape(PORTFOLIO.name)}, an ${escape(PORTFOLIO.role)} based in ${escape(PORTFOLIO.location)}. I work as a ${escape(PORTFOLIO.currentRole.role)} at ${escape(PORTFOLIO.currentRole.organization)} and co-founded the ${escape(PORTFOLIO.projects.find(project => project.id === 'sttc').organization)}.</p>
         <p>My path runs from chemical engineering to analytics and machine learning, embedded systems, and on-device AI. I’m interested in making advanced technology useful within real hardware and human constraints.</p>
         <a href="${base}profile/CV_Karan_Kapur.pdf">Read my CV <span aria-hidden="true">↗</span></a>
       </section>
@@ -47,4 +47,7 @@
   };
   scrollToHash();
   addEventListener('hashchange', scrollToHash);
+  // Reload scroll restoration and font loading can undo the parser-time jump.
+  addEventListener('pageshow', scrollToHash);
+  if (document.fonts) document.fonts.ready.then(scrollToHash);
 })();

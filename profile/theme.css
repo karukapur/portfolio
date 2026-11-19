@@ -295,3 +295,19 @@ html.stage-on .web-note.is-cue { animation: none; }
 @media (prefers-reduced-motion: reduce) {
   .experience *, .experience *::before, .experience *::after { transition: none !important; animation: none !important; }
 }
+
+/* Keep scene copy clear of the badge and fixed controls on shallow desktops. */
+@media (min-width: 821px) and (max-height: 800px) {
+  html:is(.stage-on, .stage-preparing) .hero .hero-offer h1 { font-size: clamp(28px, 3vw, 38px); margin-top: 0; margin-bottom: 12px; }
+  html:is(.stage-on, .stage-preparing) .hero-services { font-size: 18px; margin-bottom: 12px; }
+  html:is(.stage-on, .stage-preparing) .hero-action { min-height: 44px; padding: 8px 14px; font-size: 16px; }
+  html:is(.stage-on, .stage-preparing) .hero .intro .en { font-size: 16px; }
+  html:is(.stage-on, .stage-preparing) .hero .intro .ko { font-size: 13px; margin-top: 10px; }
+  html:is(.stage-on, .stage-preparing) .hero .card3d { scale: .72; top: 50.976px; transform-origin: 150px 0; }
+  html.stage-on .hero :is(.ring, .clasp) { scale: .72; }
+}
+html:is(.stage-on, .stage-preparing) .hero-offer { max-width: min(38vw, calc(50vw - 180px)); }
+html.stage-on body .web-info .wi-body { top: max(88px, var(--scr-t, 101px)); max-height: calc(100dvh - max(88px, var(--scr-t, 101px)) - 120px); }
+.project-page :is(.overview, .chapters, .project-heading) > * { min-width: 0; }
+.project-page :is(p, dd, a) { overflow-wrap: anywhere; }
+.project-page header a, .project-page footer a { display: inline-flex; align-items: center; min-height: 44px; }
