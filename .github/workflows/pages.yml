@@ -15,12 +15,9 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
@@ -52,6 +49,14 @@ jobs:
           path: _site
           include-hidden-files: true
 
+  # Keep deployment separate so retrying it does not upload a duplicate artifact.
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy website
         id: deployment
         uses: actions/deploy-pages@v5
