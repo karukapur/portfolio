@@ -87,7 +87,7 @@ html.stage-on body .web-info .wd-c { flex: none; }
 html.stage-on body .web-info .wd-k {
   all: unset; box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 8px;
   height: 44px; padding: 0 16px; border: 1px solid transparent; border-radius: 8px; color: #61606f;
-  font: 500 13px/20px var(--f-en); letter-spacing: 0; white-space: nowrap; cursor: pointer;
+  font: 500 clamp(15px, 1vw, 17px)/20px var(--f-en); letter-spacing: 0; white-space: nowrap; cursor: pointer;
   transition: background-color .16s ease-out, border-color .16s ease-out, color .16s ease-out;
 }
 html.stage-on body .web-info .wd-k img { display: block; flex: none; width: 20px; height: 20px; object-fit: contain; pointer-events: none; }
