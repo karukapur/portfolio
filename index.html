@@ -502,29 +502,27 @@ html.stage-on .mb .mb-screen{opacity:var(--on,1)}
 html.stage-on body .web-info{--dn:calc(24px * var(--k,1));position:fixed;inset:0;width:auto;z-index:40;display:block;margin:0;padding:0;color:var(--nt-ink);pointer-events:none}
 
 html.stage-on body .web-info .wi-body{position:absolute;left:calc(128px * var(--k,1));top:calc(var(--scr-t,101px) + calc(4px * var(--k,1)) + var(--dn));width:calc(352px * var(--k,1));display:flex;flex-direction:column;align-items:stretch;min-width:0}
-html.stage-on body .web-info .wi-name{margin:0 0 calc(16px * var(--k,1));font:500 clamp(32px,2.2vw,40px)/1.1 var(--f-disp);letter-spacing:-.03em;color:var(--nt-ink)}
-html.stage-on body .web-info .wi-big{margin:0 0 calc(32px * var(--k,1));font:500 clamp(20px,1.5vw,24px)/1.5 var(--f-ko);letter-spacing:-.02em;color:var(--nt-hi);word-break:keep-all;text-wrap:balance}
+html.stage-on body .web-info .wi-name{margin:0 0 calc(16px * var(--k,1));font:500 calc(28px * var(--k,1))/1 var(--f-disp);letter-spacing:-.03em;color:var(--nt-ink)}
+html.stage-on body .web-info .wi-big{margin:0 0 calc(32px * var(--k,1));font:500 calc(18px * var(--k,1))/1.6 var(--f-ko);letter-spacing:-.02em;color:var(--nt-hi);word-break:keep-all;text-wrap:balance}
 html.stage-on body .web-info .wi-more{display:flex;flex-direction:column;gap:calc(16px * var(--k,1));width:100%}
 html.stage-on body .web-info .wi-tabs{display:flex;flex-wrap:wrap;gap:calc(20px * var(--k,1));margin-bottom:calc(18px * var(--k,1));box-shadow:inset 0 -1px 0 var(--nt-line);pointer-events:auto}
-html.stage-on body .web-info .wi-tab{all:unset;box-sizing:border-box;cursor:pointer;position:relative;padding:0 0 calc(12px * var(--k,1));font:500 clamp(16px,1vw,18px)/1.2 var(--f-en);letter-spacing:0;color:var(--nt-2);white-space:nowrap;transition:color .2s}
+html.stage-on body .web-info .wi-tab{all:unset;box-sizing:border-box;cursor:pointer;position:relative;padding:0 0 calc(12px * var(--k,1));font:500 clamp(14px,calc(14px * var(--k,1)),17px)/1.2 var(--f-en);letter-spacing:0;color:var(--nt-2);white-space:nowrap;transition:color .2s}
 
 html.stage-on body .web-info .wi-tab[aria-selected="true"]{color:var(--nt-ink)}
 html.stage-on body .web-info .wi-tab[aria-selected="true"]::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--nt-ink)}
 html.stage-on body .web-info .wi-tab:hover{color:var(--nt-ink)}
 html.stage-on body .web-info .wi-tab:focus{outline:none}
 html.stage-on body .web-info .wi-tab:focus-visible{outline:2px solid var(--nt-2);outline-offset:4px;border-radius:2px}
-/* fitPanel reserves the tallest tab height so metadata stays still when switching tabs. */
-html.stage-on body .web-info .wi-more{position:relative}
+/* Each tab uses its own content height rather than reserving space for hidden tabs. */
 html.stage-on body .web-info .wi-panel p{margin:0}
 html.stage-on body .web-info .wi-panel p+p{margin-top:calc(8px * var(--k,1))}
-html.stage-on body .web-info .wi-probe{position:absolute;left:0;right:0;top:0;height:auto!important;visibility:hidden;pointer-events:none}
-html.stage-on body .web-info .wi-panel{height:calc(clamp(18px,1.2vw,22px) * 1.65 * 4);overflow:hidden;font:500 clamp(18px,1.2vw,22px)/1.65 var(--f-ko);letter-spacing:0;color:var(--nt-body);word-break:keep-all}
+html.stage-on body .web-info .wi-panel{height:auto;font:500 clamp(16px,calc(16px * var(--k,1)),20px)/1.65 var(--f-ko);letter-spacing:0;color:var(--nt-body);word-break:keep-all}
 
-html.stage-on body .web-info .wi-meta{margin:calc(32px * var(--k,1)) 0 0;padding-top:calc(16px * var(--k,1));border-top:1px solid var(--nt-line);display:grid;grid-template-columns:minmax(84px,max-content) minmax(0,1fr);gap:calc(6px * var(--k,1)) calc(16px * var(--k,1));align-items:baseline}
+html.stage-on body .web-info .wi-meta{margin:calc(32px * var(--k,1)) 0 0;padding-top:calc(16px * var(--k,1));border-top:1px solid var(--nt-line);display:grid;grid-template-columns:calc(72px * var(--k,1)) minmax(0,1fr);gap:calc(6px * var(--k,1)) calc(16px * var(--k,1));align-items:baseline}
 html.stage-on body .web-info .wi-meta>div{display:contents}
 html.stage-on body .web-info .wi-meta>[hidden]{display:none}
-html.stage-on body .web-info .wi-meta dt{font:500 14px/1.5 var(--f-en);letter-spacing:.08em;text-transform:uppercase;color:var(--nt-3)}
-html.stage-on body .web-info .wi-meta dd{margin:0;font:500 clamp(16px,1vw,18px)/1.5 var(--f-en);letter-spacing:0;color:var(--nt-ink)}
+html.stage-on body .web-info .wi-meta dt{font:500 calc(10px * var(--k,1))/1 var(--f-en);letter-spacing:.08em;text-transform:uppercase;color:var(--nt-3)}
+html.stage-on body .web-info .wi-meta dd{margin:0;font:500 calc(12px * var(--k,1))/1.5 var(--f-en);letter-spacing:0;color:var(--nt-ink)}
 html.stage-on body .web-info .wi-go{color:inherit;text-transform:none;letter-spacing:0;pointer-events:auto;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:calc(3px * var(--k,1));text-decoration-color:currentColor;transition:color .2s,text-decoration-color .2s}
 html.stage-on body .web-info .wi-go:hover{color:var(--nt-ink);text-decoration-color:currentColor}
 html.stage-on body .web-info .wi-go:focus{outline:none}
@@ -2881,18 +2879,12 @@ window.ticker = (() => {
       return p;
     }));
   };
-  const probe = el('div', 'wi-panel wi-probe'); probe.setAttribute('aria-hidden', 'true'); panel.after(probe);
-  const fitPanel = () => {
-    let h = 0; tabText.forEach(t => { fill(probe, t); h = Math.max(h, probe.offsetHeight); }); probe.replaceChildren();
-    if (h) panel.style.height = h + 'px';
-  };
   const showTab = (i, focus) => {
     tabs.forEach((b, k) => { b.setAttribute('aria-selected', k === i); b.tabIndex = k === i ? 0 : -1; });
     panel.setAttribute('aria-labelledby', tabs[i].id); fill(panel, tabText[i]);
     if (focus) tabs[i].focus();
   };
-  info.wiTabs = (list, labels = TABS) => { tabText = list; tabs.forEach((b, i) => { b.textContent = labels[i]; }); fitPanel(); showTab(0); };
-  document.fonts.ready.then(fitPanel, () => {});
+  info.wiTabs = (list, labels = TABS) => { tabText = list; tabs.forEach((b, i) => { b.textContent = labels[i]; }); showTab(0); };
   tabList.addEventListener('click', e => { const b = e.target.closest('.wi-tab'); if (b) showTab(tabs.indexOf(b)); });
   tabList.addEventListener('keydown', e => {
     const b = e.target.closest('.wi-tab'); if (!b) return;
@@ -2942,7 +2934,6 @@ window.ticker = (() => {
   let infoKey = '';
   const setGlass = (t, h) => {
     info.style.setProperty('--scr-t', t.toFixed(1) + 'px'); info.style.setProperty('--k', Math.max(.9, Math.min(1.25, h / 474)).toFixed(4));
-    fitPanel();   // 글자 크기(k)가 바뀌면 본문 높이도 다시 잰다
   };
   const guessGlass = () => { const h = 0.3298 * innerWidth; setGlass(0.3756 * innerHeight - h / 2, h); };
   guessGlass(); addEventListener('resize', () => { infoKey = ''; guessGlass(); });
@@ -3386,6 +3377,10 @@ window.ticker = (() => {
   const P = () => Stage.camera.P();
   const OPEN = 112, TH = OPEN - 90;                  // 덮개 112° 열림 = 수직에서 22° 뒤로 누움 → 22°에서 화면과 정면으로 마주 본다
   const G = { Wi: 0, Hi: 0, bz: 0, chin: 0, lidW: 0, lidH: 0, baseD: 0, cx: 0, zh: 0 };
+  const previewWidth = () => {
+    const compact = W.H <= 760 || W.Wd <= 1100;
+    return Math.min((compact ? 0.32 : 0.44) * W.Wd, (compact ? 0.60 : 0.72) * W.H);
+  };
 
   function measure(){
     // 화면(iframe) 크기 = 화면 속 정거장에서 뷰포트의 96%(375급은 92%)를 배율 1로 채우는 크기. 16:10
@@ -3402,7 +3397,7 @@ window.ticker = (() => {
     Object.assign(mb.style, { left: (G.cx - G.lidW / 2) + 'px', top: G.zh + 'px', width: G.lidW + 'px' });
     mb.style.setProperty('--wi', G.Wi + 'px'); mb.style.setProperty('--hi', G.Hi + 'px'); mb.style.setProperty('--bz', G.bz + 'px'); mb.style.setProperty('--chin', G.chin + 'px');
     // Convert the preview's viewport height limit to the 3D display's local scale.
-    mb.style.setProperty('--preview-scale', W.mobile ? '1' : (G.Wi / Math.min(0.50 * W.Wd, 0.72 * W.H)).toFixed(5));
+    mb.style.setProperty('--preview-scale', W.mobile ? '1' : (G.Wi / previewWidth()).toFixed(5));
     mb.style.setProperty('--gap', Math.round(G.Wi * 0.06) + 'px');
     mb.style.setProperty('--ls', (G.Wi / (W.mobile ? 1280 : 1728)).toFixed(5));   // 화면 속 서비스의 논리 해상도 배율(stage.css .mb-pane iframe)
     Object.assign(base.style, { width: G.lidW + 'px', height: G.baseD + 'px' });
@@ -3437,7 +3432,7 @@ window.ticker = (() => {
         return { th: TH, Tx: s.Tx, Ty: s.Ty - dl * Math.cos(a), Tz: s.Tz - dl * Math.sin(a), d: P() };
       }
       // 덮개 오른쪽 끝을 왼쪽 글 격자의 바깥 여백(8vw, 6-macbook.css .web-info)과 같은 거리에 둔다(10-21 대표님: 「맥북은 아주 살짝만 왼쪽으로, 왼쪽 글엔 여백」. 예전 고정 0.16W는 1728에서 덮개가 오른쪽 끝 약 110px)
-      const d = G.Wi * P() / Math.min(0.50 * W.Wd, 0.72 * W.H), k = d / P(), xc = W.Wd * (1 - 0.08) - G.lidW / (2 * k);
+      const d = G.Wi * P() / previewWidth(), k = d / P(), xc = W.Wd * (1 - 0.08) - G.lidW / (2 * k);
       return { th: TH, Tx: s.Tx - (xc - W.Wd / 2) * k, Ty: s.Ty + 0.12 * W.H * k, Tz: s.Tz + 0.03 * W.H * k, d };
     },
     // Center the larger card above the links; the miniature avatar can sit alongside it.

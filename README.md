@@ -53,6 +53,11 @@ Portfolio identity and personal content © 2026 Karan Kapur. Third-party compone
 
 ## Responsive verification
 
+Work copy follows the available CSS viewport, including OS scaling and browser zoom.
+Tabs use their own content height. Narrow/short desktop windows use wider copy, compact
+spacing and two-column details; taller windows retain the original reading sizes. The
+browser suite checks every Work tab for internal overflow and preview overlap.
+
 Verified on 19 November 2026 in isolated headless Chromium: 16 viewport sizes, all six
 Work selections, and all ten case-study routes at 320px, 932px and 1440px widths.
 Desktop sizes cover 1024×600 through 3840×2160, including 3440×1440 and 2560×720;

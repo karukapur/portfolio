@@ -6,7 +6,7 @@ const os = require('node:os');
 const { chromium } = require('playwright');
 const base = process.env.PORTFOLIO_URL || 'http://localhost:4173';
 const output = process.env.PORTFOLIO_QA_OUTPUT || path.join(os.tmpdir(), 'portfolio-responsive-qa');
-const sizes = [[1024,600],[1280,720],[1366,768],[1440,900],[1920,1080],[2560,1440],[3440,1440],[3840,2160],[2560,720],[320,667],[360,740],[390,844],[430,932],[768,1024],[820,1180],[932,430]];
+const sizes = [[821,600],[821,720],[1024,701],[1101,761],[1024,600],[1280,720],[1366,768],[1440,900],[1920,1080],[2560,1440],[3440,1440],[3840,2160],[2560,720],[320,667],[360,740],[390,844],[430,932],[768,1024],[820,1180],[932,430]];
 (async () => {
   fs.mkdirSync(output, { recursive: true });
   const browser = await chromium.launch({ headless: true, ...(process.env.PORTFOLIO_CHROMIUM ? { executablePath: process.env.PORTFOLIO_CHROMIUM } : {}) });
@@ -42,6 +42,17 @@ const sizes = [[1024,600],[1280,720],[1366,768],[1440,900],[1920,1080],[2560,144
           const bounds = await page.locator('.wi-body').boundingBox();
           assert(bounds.y >= 64 && bounds.y + bounds.height <= height - 80, `${label}/${id}: description crosses fixed controls`);
           assert(await page.locator('.wi-body a[href*="project.html"]').count() > 0, `${label}/${id}: missing case study`);
+          for (let tab = 0; tab < 4; tab++) {
+            await page.locator(`#wi-tab-${tab}`).click();
+            const fits = await page.locator('.wi-body').evaluate(el => {
+              const panel = el.querySelector('.wi-panel');
+              return el.scrollHeight <= el.clientHeight + 1 && panel.scrollHeight <= panel.clientHeight + 1;
+            });
+            assert(fits, `${label}/${id}/tab-${tab}: Work text requires internal scrolling or is clipped`);
+            const gap = await page.evaluate(() => document.querySelector('.mb-screen').getBoundingClientRect().left - document.querySelector('.wi-body').getBoundingClientRect().right);
+            assert(gap >= 0, `${label}/${id}/tab-${tab}: Work text overlaps the preview`);
+          }
+          await page.locator('#wi-tab-0').click();
           await page.screenshot({ path: path.join(output, `${label}-${id}.png`) });
         }
       } else {
