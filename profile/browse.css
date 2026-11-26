@@ -10,13 +10,14 @@
 html.stage-on .copy { padding-top: 88px; padding-inline: max(var(--page-gutter), env(safe-area-inset-left, 0px)) max(var(--page-gutter), env(safe-area-inset-right, 0px)); }
 html.stage-on .tbar { padding-top: 80px; }
 /* Selected Work shares its centered frame with the camera in scene-web. */
+html.stage-on body .web-info { --work-left: max(82px, (100vw - var(--work-frame)) / 2); }
 html.stage-on body .web-info .wi-body {
-  --work-type: clamp(1rem, min(1.5vw, 2.7dvh), 3rem);
+  --work-type: clamp(1rem, min(calc(.65vw + .4375rem), 2.7dvh), 1.3125rem);
   position: absolute;
   min-width: 0;
-  left: calc((100% - var(--work-frame)) / 2);
+  left: var(--work-left);
   top: max(84px, 18dvh);
-  width: calc(var(--work-frame) * .52);
+  width: calc(50% + var(--work-frame) * .02 - var(--work-left));
   display: grid;
   grid-template-columns: max-content 1fr;
   align-items: start;
@@ -25,23 +26,30 @@ html.stage-on body .web-info .wi-body {
   font-size: var(--work-type);
   pointer-events: auto;
 }
-html.stage-on body .wi-body > :is(.wi-section, .wi-name, .wi-big, .wi-more) { grid-column: 1 / -1; }
-html.stage-on body .web-info .wi-section {
-  margin: 0 0 .9em;
-  color: var(--nt-2);
-  font: 600 max(.75rem, .63em)/1.2 var(--f-en);
-  letter-spacing: .09em;
-  text-transform: uppercase;
+html.stage-on body .wi-body > :is(.wi-name, .wi-big, .wi-more) { grid-column: 1 / -1; }
+html.stage-on body .web-info .wi-mark {
+  position: absolute;
+  top: 50%;
+  --mark-left: max(clamp(14px, 1.3vw, 28px), env(safe-area-inset-left, 0px));
+  left: var(--mark-left);
+  margin: 0;
+  writing-mode: vertical-rl;
+  transform: translateY(-50%) rotate(180deg);
+  color: var(--soft);
+  font: 500 clamp(40px, min(5vw, 8dvh, (var(--work-left) - var(--mark-left) - 10px) / .85), 64px)/.85 var(--f-disp);
+  letter-spacing: -.055em;
+  white-space: nowrap;
 }
+html.stage-on.sustainability-work body .web-info .wi-mark { color: var(--nt-ink); }
 html.stage-on body .web-info .wi-name {
   margin: 0 0 .20em;
-  font: 500 2.45em/1.03 var(--f-disp);
+  font: 500 1.9em/1.08 var(--f-disp);
   letter-spacing: -.045em;
   text-wrap: balance;
 }
 html.stage-on body .web-info .wi-big {
   margin: 0 0 1.05em;
-  font: 500 1.14em/1.3 var(--f-ko);
+  font: 500 1.05em/1.35 var(--f-ko);
   color: var(--nt-hi);
   text-wrap: balance;
 }

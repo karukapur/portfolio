@@ -2837,7 +2837,7 @@ window.ticker = (() => {
   const info = document.querySelector('.web-info');
   if (!info.querySelector('.wi-body')) {
     const row = (k, label, v = '') => `<div data-k="${k}"><dt>${label}</dt><dd>${v}</dd></div>`;
-    info.innerHTML = `<div class="wi-body"><p class="wi-section">Selected Work</p><h2 class="wi-name"></h2><p class="wi-big" lang="en"></p>` +
+    info.innerHTML = `<p class="wi-mark">Selected Work</p><div class="wi-body"><h2 class="wi-name"></h2><p class="wi-big" lang="en"></p>` +
       `<div class="wi-more"><div class="wi-tabs" role="tablist" aria-label="About this work"></div><div class="wi-panel" id="wi-panel" role="tabpanel" lang="en"></div><div id="wi-details" role="tabpanel" aria-labelledby="wi-tab-4" hidden>` +
       `<dl class="wi-meta">` + row('role', 'Role') + row('type', 'Type') + row('scope', 'Scope') + row('timeline', 'Timeline') +
       row('site', 'Project', '<a class="wi-go" href="#" target="_blank" rel="noopener">Read project ↗</a>') + `</dl></div></div></div>`;

@@ -6,7 +6,7 @@ const os = require('node:os');
 const { chromium } = require('playwright');
 const base = process.env.PORTFOLIO_URL || 'http://localhost:4173';
 const output = process.env.PORTFOLIO_QA_OUTPUT || path.join(os.tmpdir(), 'portfolio-responsive-qa');
-const sizes = [[821,600],[821,720],[1024,701],[1101,761],[1024,600],[1280,720],[1366,768],[1440,900],[1490,712],[1920,920],[1920,1080],[2560,1440],[3440,1440],[3840,2160],[2560,720],[5120,1440],[1280,599],[320,667],[360,740],[390,844],[430,932],[768,1024],[820,1180],[932,430]];
+const sizes = [[821,600],[821,720],[1024,701],[1101,761],[1024,600],[1280,720],[1366,768],[1440,900],[1490,712],[1709,982],[1920,920],[1920,1080],[2560,1440],[3440,1440],[3840,2160],[2560,720],[5120,1440],[1280,599],[320,667],[360,740],[390,844],[430,932],[768,1024],[820,1180],[932,430]];
 (async () => {
   fs.mkdirSync(output, { recursive: true });
   const browser = await chromium.launch({ headless: true, ...(process.env.PORTFOLIO_CHROMIUM ? { executablePath: process.env.PORTFOLIO_CHROMIUM } : {}) });
@@ -14,7 +14,8 @@ const sizes = [[821,600],[821,720],[1024,701],[1101,761],[1024,600],[1280,720],[
   try {
     for (const [width, height] of sizes) {
       const touch = width <= 820 || height === 430;
-      const context = await browser.newContext({ viewport: { width, height }, isMobile: touch, hasTouch: touch });
+      const context = await browser.newContext({ viewport: { width, height }, isMobile: touch, hasTouch: touch,
+        deviceScaleFactor: width === 1709 ? 2 : 1 });
       const page = await context.newPage();
       const errors = []; const dependencies = [];
       page.on('pageerror', error => errors.push(error.message));
@@ -36,10 +37,12 @@ const sizes = [[821,600],[821,720],[1024,701],[1101,761],[1024,600],[1280,720],[
         await page.evaluate(() => Stage.go('web', { instant: true }));
         await page.waitForFunction(() => Stage.state.station === 'web');
         const readingSize = await page.locator('.wi-panel').evaluate(el => parseFloat(getComputedStyle(el).fontSize));
-        assert(readingSize >= 16, `${label}: undersized Work copy`);
-        if (width >= 1920 && height >= 900) {
-          assert(readingSize >= 22, `${label}: Work copy did not scale up for the monitor`);
-        }
+        assert(readingSize >= 16 && readingSize <= 21, `${label}: Work copy outside its reading range`);
+        const heading = await page.locator('.wi-mark').boundingBox();
+        const copy = await page.locator('.wi-body').boundingBox();
+        assert(heading && heading.x >= 0 && heading.x + heading.width + 8 <= copy.x &&
+          heading.y >= 64 && heading.y + heading.height <= height - 86,
+          `${label}: vertical Selected Work heading overlaps the layout`);
         const ids = await page.locator('.wi-dock [data-go]').evaluateAll(nodes => nodes.map(node => node.dataset.go));
         for (const id of ids) {
           await page.locator(`.wi-dock [data-go="${id}"]`).click();
