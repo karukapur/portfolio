@@ -2838,16 +2838,15 @@ window.ticker = (() => {
   if (!info.querySelector('.wi-body')) {
     const row = (k, label, v = '') => `<div data-k="${k}"><dt>${label}</dt><dd>${v}</dd></div>`;
     info.innerHTML = `<p class="wi-mark">Selected Work</p><div class="wi-body"><h2 class="wi-name"></h2><p class="wi-big" lang="en"></p>` +
-      `<div class="wi-more"><div class="wi-tabs" role="tablist" aria-label="About this work"></div><div class="wi-panel" id="wi-panel" role="tabpanel" lang="en"></div><div id="wi-details" role="tabpanel" aria-labelledby="wi-tab-4" hidden>` +
+      `<div class="wi-more"><div class="wi-tabs" role="tablist" aria-label="About this work"></div><div class="wi-panel" id="wi-panel" role="tabpanel" lang="en"></div></div>` +
       `<dl class="wi-meta">` + row('role', 'Role') + row('type', 'Type') + row('scope', 'Scope') + row('timeline', 'Timeline') +
-      row('site', 'Project', '<a class="wi-go" href="#" target="_blank" rel="noopener">Read project ↗</a>') + `</dl></div></div></div>`;
+      row('site', 'Project', '<a class="wi-go" href="#" target="_blank" rel="noopener">Read project ↗</a>') + `</dl></div>`;
   }
   // 탭: What · Why · Perspective · Looking back(일곱 작업 공통). 작업이 바뀌면 What으로 돌아간다. 좌우 화살표로 옮긴다
   const TABS = ['What', 'Why', 'Perspective', 'Looking back'];
   const tabList = info.querySelector('.wi-tabs'), panel = info.querySelector('.wi-panel');
   let tabText = [];
-  const details = info.querySelector('#wi-details');
-  tabList.innerHTML = [...TABS, 'Details'].map((t, i) => `<button type="button" role="tab" class="wi-tab" id="wi-tab-${i}" aria-controls="${i === TABS.length ? details.id : panel.id}" aria-selected="false" tabindex="-1">${t}</button>`).join('');
+  tabList.innerHTML = TABS.map((t, i) => `<button type="button" role="tab" class="wi-tab" id="wi-tab-${i}" aria-controls="${panel.id}" aria-selected="false" tabindex="-1">${t}</button>`).join('');
   const tabs = [...tabList.children];
   const fill = (box, text) => {
     box.replaceChildren(...String(text || '').split(/\n\s*\n/).map(t => {
@@ -2868,13 +2867,8 @@ window.ticker = (() => {
   };
   const showTab = (i, focus) => {
     tabs.forEach((b, k) => { b.setAttribute('aria-selected', k === i); b.tabIndex = k === i ? 0 : -1; });
-    const showDetails = i === TABS.length;
-    details.hidden = !showDetails;
-    panel.hidden = showDetails;
-    if (!showDetails) {
-      panel.setAttribute('aria-labelledby', tabs[i].id);
-      fill(panel, tabText[i]);
-    }
+    panel.setAttribute('aria-labelledby', tabs[i].id);
+    fill(panel, tabText[i]);
     if (focus) tabs[i].focus();
   };
   info.wiTabs = (list, labels = TABS) => { tabText = list; labels.forEach((label, i) => { tabs[i].textContent = label; }); showTab(0); };

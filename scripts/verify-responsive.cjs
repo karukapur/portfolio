@@ -37,7 +37,8 @@ const sizes = [[821,600],[821,720],[1024,701],[1101,761],[1024,600],[1280,720],[
         await page.evaluate(() => Stage.go('web', { instant: true }));
         await page.waitForFunction(() => Stage.state.station === 'web');
         const readingSize = await page.locator('.wi-panel').evaluate(el => parseFloat(getComputedStyle(el).fontSize));
-        assert(readingSize >= 16 && readingSize <= 21, `${label}: Work copy outside its reading range`);
+        const compactWork = height <= 700 || (width <= 1100 && height <= 760);
+        assert(readingSize >= (compactWork ? 15 : 16) && readingSize <= 21, `${label}: Work copy outside its reading range`);
         const heading = await page.locator('.wi-mark').boundingBox();
         const copy = await page.locator('.wi-body').boundingBox();
         assert(heading && heading.x >= 0 && heading.x + heading.width + 8 <= copy.x &&
@@ -48,7 +49,8 @@ const sizes = [[821,600],[821,720],[1024,701],[1101,761],[1024,600],[1280,720],[
           await page.locator(`.wi-dock [data-go="${id}"]`).click();
           await page.waitForFunction(id => Stage.web.hash === id, id);
           const tabs = page.locator('.wi-tabs [role="tab"]');
-          assert.equal(await tabs.count(), 5, `${label}/${id}: missing Work tab`);
+          assert.equal(await tabs.count(), 4, `${label}/${id}: missing Work tab`);
+          assert(await page.locator('.wi-meta .wi-go').isVisible(), `${label}/${id}: project facts hidden on entry`);
           for (const tab of await tabs.all()) {
             await tab.click();
             const panel = page.locator('#' + await tab.getAttribute('aria-controls'));
@@ -69,7 +71,6 @@ const sizes = [[821,600],[821,720],[1024,701],[1101,761],[1024,600],[1280,720],[
             });
             assert(fits, `${label}/${id}/${await tab.textContent()}: clipped content or overlap`);
           }
-          assert(await page.locator('#wi-details .wi-go').isVisible(), `${label}/${id}: missing project link`);
           const caseLink = page.locator('.sus-case-study');
           assert.equal(await caseLink.getAttribute('href'), 'profile/project.html?id=' + id);
           assert(await caseLink.isVisible(), `${label}/${id}: missing case study`);

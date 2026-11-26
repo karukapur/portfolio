@@ -55,8 +55,8 @@ Portfolio identity and personal content © 2026 Karan Kapur. Third-party compone
 
 Desktop Work uses a centered, two-column layout shared by the text and the 3D preview.
 The project title, tabs and body copy scale with the available viewport width and height.
-Project facts live in the keyboard-accessible Details tab. The browser suite checks every
-tab, including Details, against the header, preview and project dock.
+Project facts appear below the tab content. The browser suite checks each tab against
+the header, preview and project dock.
 
 Verified on 19 November 2026 in isolated headless Chromium: 16 viewport sizes, all six
 Work selections, and all ten case-study routes at 320px, 932px and 1440px widths.
