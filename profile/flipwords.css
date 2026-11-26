@@ -1,20 +1,16 @@
-/* Image and video projects share a presentation within the Work scene.
-   Work typography inherits the shared STTC sizes from index.html. */
+/* Image and video projects share a presentation within the Work scene. */
 html.flipwords-work .mb .mb-base,
 html.flipwords-work .mb .mb-back,
 html.flipwords-work .mb .mb-screen,
 html.flipwords-work .mb .mb-chin { visibility: hidden !important; pointer-events: none; }
 html.flipwords-work.stage-on .mb .mb-face { background: none; box-shadow: none; }
-html.stage-on body .web-info.fw-selected .wi-body > * { flex-shrink: 0; }
-html.stage-on body .web-info.fw-selected .wi-more { gap: 0; }
-html.stage-on body .web-info.fw-selected .wi-tabs { gap: calc(20px * var(--k,1)); }
 html.stage-on body .web-info.fw-selected .wi-tab[aria-selected="true"] { color: #24212e; }
 html.stage-on body .web-info.fw-selected .wi-tab[aria-selected="true"]::after { height: 2px; }
-html.stage-on body .web-info.fw-selected .wi-meta { margin-top: 28px; grid-template-columns: 86px 1fr; row-gap: 8px; }
 .fw-notes { pointer-events: auto; align-self: flex-start; color: inherit; font-size: clamp(13px, 1vw, 17px); text-underline-offset: 5px; margin-top: 24px; }
 .fw-notes[hidden], .fw-stage[hidden] { display: none; }
 .fw-stage { display: flex; align-items: center; justify-content: center; position: relative; min-width: 0; height: 640px; color: #292735; font-family: 'Funnel Sans', system-ui, sans-serif; }
 .mb-face > .fw-stage { position: absolute; box-sizing: border-box; left: 0; top: 50%; transform: translateY(-50%); width: 100%; height: 100%; max-height: calc(64dvh * var(--preview-scale, 1)); }
+.mb-face > .portrait-stage { height: calc(min(60dvh, 50vw) * var(--preview-scale, 1)); }
 .fw-mockup { display: block; width: 100%; height: 100%; object-fit: contain; }
 .fw-notes:focus-visible { outline: 3px solid #8b5dc9; outline-offset: 6px; }
 [data-project="flipwords"] .experience { padding: 0; background: var(--bg); border: 0; }

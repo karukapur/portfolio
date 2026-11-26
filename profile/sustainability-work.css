@@ -3,9 +3,7 @@ html.sustainability-work { --bg: #c4ef78; --nt: #c4ef78; --ink: #172015; --nt-in
 html.sustainability-work .site-header { background: var(--bg); color: var(--ink); border-bottom-color: var(--nt-line); }
 html.sustainability-work .site-header a:focus-visible { outline-color: var(--ink); }
 @media (prefers-reduced-motion: no-preference) { html.stage-on body { transition: background-color .65s ease; } }
-html.sustainability-work .web-info .wi-mark { color: #172015; }
-html.stage-on body .web-info.sustainability-selected .wi-body > * { flex-shrink: 0; }
-.sus-case-study { align-self: flex-start; margin-top: 28px; color: inherit; font: 500 calc(14px * var(--k, 1))/1.5 var(--f-en); text-decoration: none; pointer-events: auto; }
+.sus-case-study { align-self: flex-start; margin-top: 28px; color: inherit; text-decoration: none; pointer-events: auto; }
 .sus-case-study[hidden] { display: none; }
 .sus-case-study:hover { text-decoration: underline; text-underline-offset: 5px; }
 .sus-case-study:focus-visible { outline: 2px solid #638951; outline-offset: 5px; }

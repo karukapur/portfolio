@@ -498,39 +498,27 @@ html.stage-on .mb .mb-screen{z-index:1}
 /* Screen opacity follows --on when leaving Work. */
 html.stage-on .mb .mb-screen{opacity:var(--on,1)}
 
-/* Work spacing follows the preview scale; reading text keeps a minimum screen size. */
-html.stage-on body .web-info{--dn:calc(24px * var(--k,1));position:fixed;inset:0;width:auto;z-index:40;display:block;margin:0;padding:0;color:var(--nt-ink);pointer-events:none}
+html.stage-on body .web-info{position:fixed;inset:0;width:auto;z-index:40;display:block;margin:0;padding:0;color:var(--nt-ink);pointer-events:none}
 
-html.stage-on body .web-info .wi-body{position:absolute;left:calc(128px * var(--k,1));top:calc(var(--scr-t,101px) + calc(4px * var(--k,1)) + var(--dn));width:calc(352px * var(--k,1));display:flex;flex-direction:column;align-items:stretch;min-width:0}
-html.stage-on body .web-info .wi-name{margin:0 0 calc(16px * var(--k,1));font:500 calc(28px * var(--k,1))/1 var(--f-disp);letter-spacing:-.03em;color:var(--nt-ink)}
-html.stage-on body .web-info .wi-big{margin:0 0 calc(32px * var(--k,1));font:500 calc(18px * var(--k,1))/1.6 var(--f-ko);letter-spacing:-.02em;color:var(--nt-hi);word-break:keep-all;text-wrap:balance}
-html.stage-on body .web-info .wi-more{display:flex;flex-direction:column;gap:calc(16px * var(--k,1));width:100%}
-html.stage-on body .web-info .wi-tabs{display:flex;flex-wrap:wrap;gap:calc(20px * var(--k,1));margin-bottom:calc(18px * var(--k,1));box-shadow:inset 0 -1px 0 var(--nt-line);pointer-events:auto}
-html.stage-on body .web-info .wi-tab{all:unset;box-sizing:border-box;cursor:pointer;position:relative;padding:0 0 calc(12px * var(--k,1));font:500 clamp(14px,calc(14px * var(--k,1)),17px)/1.2 var(--f-en);letter-spacing:0;color:var(--nt-2);white-space:nowrap;transition:color .2s}
+html.stage-on body .web-info .wi-tab{all:unset;box-sizing:border-box;cursor:pointer;position:relative;font:500 1em/1.2 var(--f-en);letter-spacing:0;color:var(--nt-2);white-space:nowrap;transition:color .2s}
 
 html.stage-on body .web-info .wi-tab[aria-selected="true"]{color:var(--nt-ink)}
 html.stage-on body .web-info .wi-tab[aria-selected="true"]::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--nt-ink)}
 html.stage-on body .web-info .wi-tab:hover{color:var(--nt-ink)}
 html.stage-on body .web-info .wi-tab:focus{outline:none}
 html.stage-on body .web-info .wi-tab:focus-visible{outline:2px solid var(--nt-2);outline-offset:4px;border-radius:2px}
-/* Each tab uses its own content height rather than reserving space for hidden tabs. */
 html.stage-on body .web-info .wi-panel p{margin:0}
-html.stage-on body .web-info .wi-panel p+p{margin-top:calc(8px * var(--k,1))}
-html.stage-on body .web-info .wi-panel{height:auto;font:500 clamp(16px,calc(16px * var(--k,1)),20px)/1.65 var(--f-ko);letter-spacing:0;color:var(--nt-body);word-break:keep-all}
+html.stage-on body .web-info .wi-panel p+p{margin-top:.5em}
 
-html.stage-on body .web-info .wi-meta{margin:calc(32px * var(--k,1)) 0 0;padding-top:calc(16px * var(--k,1));border-top:1px solid var(--nt-line);display:grid;grid-template-columns:calc(72px * var(--k,1)) minmax(0,1fr);gap:calc(6px * var(--k,1)) calc(16px * var(--k,1));align-items:baseline}
-html.stage-on body .web-info .wi-meta>div{display:contents}
 html.stage-on body .web-info .wi-meta>[hidden]{display:none}
-html.stage-on body .web-info .wi-meta dt{font:500 calc(10px * var(--k,1))/1 var(--f-en);letter-spacing:.08em;text-transform:uppercase;color:var(--nt-3)}
-html.stage-on body .web-info .wi-meta dd{margin:0;font:500 calc(12px * var(--k,1))/1.5 var(--f-en);letter-spacing:0;color:var(--nt-ink)}
-html.stage-on body .web-info .wi-go{color:inherit;text-transform:none;letter-spacing:0;pointer-events:auto;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:calc(3px * var(--k,1));text-decoration-color:currentColor;transition:color .2s,text-decoration-color .2s}
+html.stage-on body .web-info .wi-go{color:inherit;text-transform:none;letter-spacing:0;pointer-events:auto;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.19em;text-decoration-color:currentColor;transition:color .2s,text-decoration-color .2s}
 html.stage-on body .web-info .wi-go:hover{color:var(--nt-ink);text-decoration-color:currentColor}
 html.stage-on body .web-info .wi-go:focus{outline:none}
 html.stage-on body .web-info .wi-go:focus-visible{outline:2px solid var(--nt-2);outline-offset:3px;border-radius:2px}
 @media (prefers-reduced-motion:reduce){html.stage-on body .web-info :is(.wi-tab,.wi-go){transition:none}}
 @media (max-width:820px){
 
-  html.stage-on body .web-info{--k:1;padding:var(--txt-top,60dvh) 20px 0}
+  html.stage-on body .web-info{padding:var(--txt-top,60dvh) 20px 0}
   html.stage-on body .web-info .wi-body{position:static;width:auto;height:auto}
   html.stage-on body .web-info .wi-body{margin-top:12px;gap:12px}
   html.stage-on body .web-info :is(.wi-meta,.wi-more,.wi-dock){display:none}
@@ -2845,23 +2833,22 @@ window.ticker = (() => {
   if (!lid.parentElement.classList.contains('mb-hinge')) { const hg = el('div', 'mb-hinge'); lid.before(hg); hg.appendChild(lid); }
 
   // 왼쪽 패널(10-29 로제 컨셉 v2 19판, 구현명세 2절 19판 단락): 카메라에 붙은 화면 층이라 무대 밖(body 바로 아래)에 둔다. 요소는 그대로 두고(scene-web이 쥐고 있다) 안쪽만 짠다.
-  // 머리 줄(Selected work) 아래 글 기둥 하나에 읽는 순서대로 이름 → 중심 문장 → 탭+본문 → 메타(선 아래 「머리글 | 값」 한 줄씩)를 위에서부터 쌓는다.
   // 작업 고르기는 트랙패드 위 독(.wi-dock)이 맡는다. 글은 web-live.js가 작업마다 채우고(setInfo), 탭은 여기서 그린다(info.wiTabs)
   const info = document.querySelector('.web-info');
   if (!info.querySelector('.wi-body')) {
     const row = (k, label, v = '') => `<div data-k="${k}"><dt>${label}</dt><dd>${v}</dd></div>`;
-    info.innerHTML = `<p class="tmark wi-mark" aria-hidden="true">Selected Work</p><div class="wi-body"><h2 class="wi-name"></h2><p class="wi-big" lang="en"></p>` +
-      `<div class="wi-more"><div class="wi-tabs" role="tablist" aria-label="About this work"></div><div class="wi-panel" id="wi-panel" role="tabpanel" lang="en"></div></div>` +
+    info.innerHTML = `<div class="wi-body"><p class="wi-section">Selected Work</p><h2 class="wi-name"></h2><p class="wi-big" lang="en"></p>` +
+      `<div class="wi-more"><div class="wi-tabs" role="tablist" aria-label="About this work"></div><div class="wi-panel" id="wi-panel" role="tabpanel" lang="en"></div><div id="wi-details" role="tabpanel" aria-labelledby="wi-tab-4" hidden>` +
       `<dl class="wi-meta">` + row('role', 'Role') + row('type', 'Type') + row('scope', 'Scope') + row('timeline', 'Timeline') +
-      row('site', 'Project', '<a class="wi-go" href="#" target="_blank" rel="noopener">Read project ↗</a>') + `</dl></div>`;
+      row('site', 'Project', '<a class="wi-go" href="#" target="_blank" rel="noopener">Read project ↗</a>') + `</dl></div></div></div>`;
   }
   // 탭: What · Why · Perspective · Looking back(일곱 작업 공통). 작업이 바뀌면 What으로 돌아간다. 좌우 화살표로 옮긴다
   const TABS = ['What', 'Why', 'Perspective', 'Looking back'];
   const tabList = info.querySelector('.wi-tabs'), panel = info.querySelector('.wi-panel');
   let tabText = [];
-  tabList.innerHTML = TABS.map((t, i) => `<button type="button" role="tab" class="wi-tab" id="wi-tab-${i}" aria-controls="wi-panel" aria-selected="false" tabindex="-1">${t}</button>`).join('');
+  const details = info.querySelector('#wi-details');
+  tabList.innerHTML = [...TABS, 'Details'].map((t, i) => `<button type="button" role="tab" class="wi-tab" id="wi-tab-${i}" aria-controls="${i === TABS.length ? details.id : panel.id}" aria-selected="false" tabindex="-1">${t}</button>`).join('');
   const tabs = [...tabList.children];
-  // 탭 본문은 문단 여럿(빈 줄로 나뉜 원고, 탭원고 3판)이다. 높이는 그 작업 네 칸 중 가장 긴 칸에 맞춰 두어 탭을 바꿔도 아래 메타가 들썩이지 않는다
   const fill = (box, text) => {
     box.replaceChildren(...String(text || '').split(/\n\s*\n/).map(t => {
       const p = el('p');
@@ -2881,10 +2868,16 @@ window.ticker = (() => {
   };
   const showTab = (i, focus) => {
     tabs.forEach((b, k) => { b.setAttribute('aria-selected', k === i); b.tabIndex = k === i ? 0 : -1; });
-    panel.setAttribute('aria-labelledby', tabs[i].id); fill(panel, tabText[i]);
+    const showDetails = i === TABS.length;
+    details.hidden = !showDetails;
+    panel.hidden = showDetails;
+    if (!showDetails) {
+      panel.setAttribute('aria-labelledby', tabs[i].id);
+      fill(panel, tabText[i]);
+    }
     if (focus) tabs[i].focus();
   };
-  info.wiTabs = (list, labels = TABS) => { tabText = list; tabs.forEach((b, i) => { b.textContent = labels[i]; }); showTab(0); };
+  info.wiTabs = (list, labels = TABS) => { tabText = list; labels.forEach((label, i) => { tabs[i].textContent = label; }); showTab(0); };
   tabList.addEventListener('click', e => { const b = e.target.closest('.wi-tab'); if (b) showTab(tabs.indexOf(b)); });
   tabList.addEventListener('keydown', e => {
     const b = e.target.closest('.wi-tab'); if (!b) return;
@@ -2926,23 +2919,6 @@ window.ticker = (() => {
     cols.forEach(c => { const own = c.dataset.id === sid, k = c.querySelector('.wd-k'); c.classList.toggle('on', own); k.setAttribute('aria-selected', own); k.tabIndex = own ? 0 : -1; });
   };
   addEventListener('web:select', e => markDock(e.detail ? e.detail.id : Stage.web.hash));
-
-  // 맥북 높이 맞춤(17·18판): 글 기둥 위끝을 맥북 화면 유리(.mb-screen) 위끝에 두고, 글자·간격은 k = 유리 높이 ÷ 474(1440×900의 유리 높이)를 곱한다.
-  // 유리는 맥북 정거장에 멈춰 있을 때 잰다. 재기 전(처음 다가오는 동안·창 크기를 바꾼 직후)은 두 화면 실측(1440×900, 1728×1117)에 맞춘 식으로 어림한다:
-  // 유리 세로 가운데 = 화면 높이의 0.3756, 유리 높이 = 화면 폭의 0.3298(scene-web 베젤 카메라가 화면 폭을 뷰포트 폭에 맞춘다)
-  const scrEl = mb.querySelector('.mb-screen');
-  let infoKey = '';
-  const setGlass = (t, h) => {
-    info.style.setProperty('--scr-t', t.toFixed(1) + 'px'); info.style.setProperty('--k', Math.max(.9, Math.min(1.25, h / 474)).toFixed(4));
-  };
-  const guessGlass = () => { const h = 0.3298 * innerWidth; setGlass(0.3756 * innerHeight - h / 2, h); };
-  guessGlass(); addEventListener('resize', () => { infoKey = ''; guessGlass(); });
-  Stage.ticker.add(() => {
-    const key = innerWidth + 'x' + innerHeight, s = Stage.state, WEB = Stage.config.stations.findIndex(x => x.name === 'web');
-    if (key === infoKey || !s.settled || Math.abs(s.p - WEB) > 0.002 || (Stage.web && Stage.web.useK > 0)) return;
-    const r = scrEl.getBoundingClientRect(); if (r.height < 40) return;
-    infoKey = key; setGlass(r.top, r.height);
-  });
 
   // 화면이 잠든다(맺음, 대표님 결정): 카메라가 물러나는 동안(마지막 정거장 앞 1 → 0.65) 켜져 있다가,
   // 실제 맥처럼 먼저 30%로 어둡게 내려앉고(0.65 → 0.52) 잠깐 머문 뒤(→ 0.42) 검게 꺼진다(→ 0.36). 그 뒤 명함이 앞면으로 넘어간다(scene-hero, 0.25 → 0.05).
@@ -3377,10 +3353,9 @@ window.ticker = (() => {
   const P = () => Stage.camera.P();
   const OPEN = 112, TH = OPEN - 90;                  // 덮개 112° 열림 = 수직에서 22° 뒤로 누움 → 22°에서 화면과 정면으로 마주 본다
   const G = { Wi: 0, Hi: 0, bz: 0, chin: 0, lidW: 0, lidH: 0, baseD: 0, cx: 0, zh: 0 };
-  const previewWidth = () => {
-    const compact = W.H <= 760 || W.Wd <= 1100;
-    return Math.min((compact ? 0.32 : 0.44) * W.Wd, (compact ? 0.60 : 0.72) * W.H);
-  };
+  // Copy and hardware share a centered spread, even on ultrawide monitors.
+  const workFrame = () => Math.min(0.88 * W.Wd, 1.88 * W.H);
+  const previewWidth = () => Math.min(0.40 * workFrame(), 0.72 * W.H);
 
   function measure(){
     // 화면(iframe) 크기 = 화면 속 정거장에서 뷰포트의 96%(375급은 92%)를 배율 1로 채우는 크기. 16:10
@@ -3396,6 +3371,7 @@ window.ticker = (() => {
     G.cx = Math.round(W.Wd / 2 + (W.mobile ? 0.85 : 0.53) * W.Wd + G.lidW / 2); G.zh = Math.round(0.9 * G.lidW);
     Object.assign(mb.style, { left: (G.cx - G.lidW / 2) + 'px', top: G.zh + 'px', width: G.lidW + 'px' });
     mb.style.setProperty('--wi', G.Wi + 'px'); mb.style.setProperty('--hi', G.Hi + 'px'); mb.style.setProperty('--bz', G.bz + 'px'); mb.style.setProperty('--chin', G.chin + 'px');
+    info.style.setProperty('--work-frame', workFrame() + 'px');
     // Convert the preview's viewport height limit to the 3D display's local scale.
     mb.style.setProperty('--preview-scale', W.mobile ? '1' : (G.Wi / previewWidth()).toFixed(5));
     mb.style.setProperty('--gap', Math.round(G.Wi * 0.06) + 'px');
@@ -3431,9 +3407,8 @@ window.ticker = (() => {
         const a = TH * Math.PI / 180, dl = mobDl();
         return { th: TH, Tx: s.Tx, Ty: s.Ty - dl * Math.cos(a), Tz: s.Tz - dl * Math.sin(a), d: P() };
       }
-      // 덮개 오른쪽 끝을 왼쪽 글 격자의 바깥 여백(8vw, 6-macbook.css .web-info)과 같은 거리에 둔다(10-21 대표님: 「맥북은 아주 살짝만 왼쪽으로, 왼쪽 글엔 여백」. 예전 고정 0.16W는 1728에서 덮개가 오른쪽 끝 약 110px)
-      const d = G.Wi * P() / previewWidth(), k = d / P(), xc = W.Wd * (1 - 0.08) - G.lidW / (2 * k);
-      return { th: TH, Tx: s.Tx - (xc - W.Wd / 2) * k, Ty: s.Ty + 0.12 * W.H * k, Tz: s.Tz + 0.03 * W.H * k, d };
+      const d = G.Wi * P() / previewWidth(), k = d / P(), xc = W.Wd / 2 + 0.27 * workFrame();
+      return { th: TH, Tx: s.Tx - (xc - W.Wd / 2) * k, Ty: s.Ty + 0.055 * W.H * k, Tz: s.Tz + 0.03 * W.H * k, d };
     },
     // Center the larger card above the links; the miniature avatar can sit alongside it.
     end: () => {

@@ -67,27 +67,18 @@ html.stage-on .mb .mb-face {
 html.stage-on .mb .mb-screen { border-radius: 8px; background: #e8e9f3; }
 html.stage-on .mb .mb-pane { background: var(--bg); }
 html.stage-on .mb .mb-back { display: block; background: #dcddeb; }
-/* Match the cards' purple lettering within the Work page's left margin. */
-html.stage-on body .web-info .wi-mark {
-  left: max(20px, env(safe-area-inset-left, 0px));
-  bottom: 20vh;
-  font-size: clamp(32px, min(6vw, 9vh), 100px);
-}
-@media (max-width: 820px) {
-  html.stage-on body .web-info .wi-mark { top: 20px; bottom: auto; left: 7vw; font-size: 28px; line-height: 1; transform: none; }
-}
 /* Project navigation stays in viewport space, independent of the scene scale. */
 html.stage-on body .web-info .wi-dock {
   position: absolute; left: 50%; bottom: max(24px, env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
   display: flex; gap: 4px; box-sizing: border-box; width: max-content; max-width: calc(100vw - 40px); padding: 8px;
   border: 1px solid rgba(36,35,49,.12); border-radius: 16px; background: linear-gradient(160deg,rgba(255,255,255,.94),rgba(242,243,248,.82) 46%,rgba(233,236,246,.88)); box-shadow: 0 4px 20px rgba(14,14,18,.08);
-  overflow-x: auto; scrollbar-width: thin; pointer-events: auto; touch-action: pan-x; overscroll-behavior-x: contain;
+  pointer-events: auto;
 }
 html.stage-on body .web-info .wd-c { flex: none; }
 html.stage-on body .web-info .wd-k {
   all: unset; box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 8px;
   height: 44px; padding: 0 16px; border: 1px solid transparent; border-radius: 8px; color: #61606f;
-  font: 500 13px/20px var(--f-en); letter-spacing: 0; white-space: nowrap; cursor: pointer;
+  font: 500 clamp(13px, min(1vw, 1.8vh), 24px)/1.2 var(--f-en); letter-spacing: 0; white-space: nowrap; cursor: pointer;
   transition: background-color .16s ease-out, border-color .16s ease-out, color .16s ease-out;
 }
 html.stage-on body .web-info .wd-k img { display: block; flex: none; width: 20px; height: 20px; object-fit: contain; pointer-events: none; }
@@ -310,3 +301,7 @@ html:is(.stage-on, .stage-preparing) .hero-offer { max-width: min(38vw, calc(50v
 .project-page :is(.overview, .chapters, .project-heading) > * { min-width: 0; }
 .project-page :is(p, dd, a) { overflow-wrap: anywhere; }
 .project-page header a, .project-page footer a { display: inline-flex; align-items: center; min-height: 44px; }
+
+@media (min-width: 821px) and (max-width: 1100px) {
+  html.stage-on body .web-info .wd-k { padding-inline: 8px; gap: 5px; }
+}

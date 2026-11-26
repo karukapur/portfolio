@@ -6,7 +6,7 @@ const os = require('node:os');
 const { chromium } = require('playwright');
 const base = process.env.PORTFOLIO_URL || 'http://localhost:4173';
 const output = process.env.PORTFOLIO_QA_OUTPUT || path.join(os.tmpdir(), 'portfolio-responsive-qa');
-const sizes = [[821,600],[821,720],[1024,701],[1101,761],[1024,600],[1280,720],[1366,768],[1440,900],[1920,1080],[2560,1440],[3440,1440],[3840,2160],[2560,720],[320,667],[360,740],[390,844],[430,932],[768,1024],[820,1180],[932,430]];
+const sizes = [[821,600],[821,720],[1024,701],[1101,761],[1024,600],[1280,720],[1366,768],[1440,900],[1490,712],[1920,920],[1920,1080],[2560,1440],[3440,1440],[3840,2160],[2560,720],[5120,1440],[1280,599],[320,667],[360,740],[390,844],[430,932],[768,1024],[820,1180],[932,430]];
 (async () => {
   fs.mkdirSync(output, { recursive: true });
   const browser = await chromium.launch({ headless: true, ...(process.env.PORTFOLIO_CHROMIUM ? { executablePath: process.env.PORTFOLIO_CHROMIUM } : {}) });
@@ -22,7 +22,7 @@ const sizes = [[821,600],[821,720],[1024,701],[1101,761],[1024,600],[1280,720],[
       await page.goto(base, { waitUntil: 'load' });
       await page.evaluate(() => document.fonts.ready);
       const scene = await page.evaluate(() => !!window.Stage?.enabled);
-      assert.equal(scene, !touch, `${width}x${height}: incorrect layout mode or missing animation dependencies`);
+      assert.equal(scene, !touch && height >= 600, `${width}x${height}: incorrect layout mode or missing animation dependencies`);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `${width}x${height}: horizontal overflow`);
       const label = `${width}x${height}`;
       await page.screenshot({ path: path.join(output, `${label}-hero.png`) });
@@ -35,24 +35,44 @@ const sizes = [[821,600],[821,720],[1024,701],[1101,761],[1024,600],[1280,720],[
         }
         await page.evaluate(() => Stage.go('web', { instant: true }));
         await page.waitForFunction(() => Stage.state.station === 'web');
+        const readingSize = await page.locator('.wi-panel').evaluate(el => parseFloat(getComputedStyle(el).fontSize));
+        assert(readingSize >= 16, `${label}: undersized Work copy`);
+        if (width >= 1920 && height >= 900) {
+          assert(readingSize >= 22, `${label}: Work copy did not scale up for the monitor`);
+        }
         const ids = await page.locator('.wi-dock [data-go]').evaluateAll(nodes => nodes.map(node => node.dataset.go));
         for (const id of ids) {
           await page.locator(`.wi-dock [data-go="${id}"]`).click();
           await page.waitForFunction(id => Stage.web.hash === id, id);
-          const bounds = await page.locator('.wi-body').boundingBox();
-          assert(bounds.y >= 64 && bounds.y + bounds.height <= height - 80, `${label}/${id}: description crosses fixed controls`);
-          assert(await page.locator('.wi-body a[href*="project.html"]').count() > 0, `${label}/${id}: missing case study`);
-          for (let tab = 0; tab < 4; tab++) {
-            await page.locator(`#wi-tab-${tab}`).click();
-            const fits = await page.locator('.wi-body').evaluate(el => {
-              const panel = el.querySelector('.wi-panel');
-              return el.scrollHeight <= el.clientHeight + 1 && panel.scrollHeight <= panel.clientHeight + 1;
+          const tabs = page.locator('.wi-tabs [role="tab"]');
+          assert.equal(await tabs.count(), 5, `${label}/${id}: missing Work tab`);
+          for (const tab of await tabs.all()) {
+            await tab.click();
+            const panel = page.locator('#' + await tab.getAttribute('aria-controls'));
+            assert(await panel.isVisible(), `${label}/${id}: selected tab panel hidden`);
+            const fits = await page.locator('.wi-body').evaluate(body => {
+              const rect = body.getBoundingClientRect();
+              const dock = document.querySelector('.wi-dock');
+              const header = document.querySelector('.site-header').getBoundingClientRect();
+              const preview = document.querySelector('.mb-screen').getBoundingClientRect();
+              return rect.top >= header.bottom && rect.bottom + 4 <= dock.getBoundingClientRect().top &&
+                rect.right <= preview.left && [body, ...body.querySelectorAll('*'), dock].every(el => {
+                  if (!el.clientWidth) return true;
+                  // An unclipped font can paint beyond its line box without needing a scroll area.
+                  const style = getComputedStyle(el);
+                  return (style.overflowY === 'visible' || el.scrollHeight <= el.clientHeight + 1) &&
+                    el.scrollWidth <= el.clientWidth + 1;
+                });
             });
-            assert(fits, `${label}/${id}/tab-${tab}: Work text requires internal scrolling or is clipped`);
-            const gap = await page.evaluate(() => document.querySelector('.mb-screen').getBoundingClientRect().left - document.querySelector('.wi-body').getBoundingClientRect().right);
-            assert(gap >= 0, `${label}/${id}/tab-${tab}: Work text overlaps the preview`);
+            assert(fits, `${label}/${id}/${await tab.textContent()}: clipped content or overlap`);
           }
-          await page.locator('#wi-tab-0').click();
+          assert(await page.locator('#wi-details .wi-go').isVisible(), `${label}/${id}: missing project link`);
+          const caseLink = page.locator('.sus-case-study');
+          assert.equal(await caseLink.getAttribute('href'), 'profile/project.html?id=' + id);
+          assert(await caseLink.isVisible(), `${label}/${id}: missing case study`);
+          await tabs.last().press('ArrowRight');
+          assert.equal(await tabs.first().getAttribute('aria-selected'), 'true');
+          await tabs.first().evaluate(el => el.blur());
           await page.screenshot({ path: path.join(output, `${label}-${id}.png`) });
         }
       } else {
